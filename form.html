@@ -1,9 +1,62 @@
 <!DOCTYPE html>
 <html>
-    <body>
-        <form method="post" action="http://localhost:8081/developers">
-            <input name="title">
-            <input type="submit">
-        </form>
-    </body>
+
+<body>
+    <form method="post" action="http://localhost:8081/developers">
+        <input name="title">
+        <input type="submit">
+    </form>
+
+    <form method="post" action="http://localhost:8081/jobOffers">
+        <input name="title" id="inpTitle">
+        <input name="username" id="inpName">
+        <input name="salary" id="inpSalary">
+        <input name="description" id="inpDescription">
+        <input type="submit">
+        <button type="button" id="btnDelete">Delete</button>
+    </form>
+
+    <ul id="jobOffers"></ul>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $.ajax({
+                url: "http://localhost:8081/jobOffers",
+            }).done(function (data) {
+
+                 data.forEach(jobOffer => {
+                    $('#jobOffers').append('<li>' + "[" + jobOffer._id + "] " + jobOffer.title + ': ' + jobOffer.username + ", " + jobOffer.salary + '</li>');
+                 });
+
+            });
+
+            $(document.forms[0]).submit(function(e){
+                e.preventDefault();
+
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8081/jobOffers",
+                    data: $(document.forms[0]).serialize(),
+                    success: function (data) {
+                        $('#jobOffers').append('<li>' + "[" + jobOffer._id + "] " + jobOffer.title + ': ' + jobOffer.username + ", " + jobOffer.salary + '</li>');
+                    }
+                });
+
+
+            });
+
+            $('#btnDelete').click(function(){
+                $.ajax({
+                    type: "DELETE",
+                    url: "http://localhost:8081/jobOffers/"+$('#inpTitle').val(),
+                    success: function (data) {
+                        $('li:contains("' + $('#inpTitle').val() + '")').remove();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
 </html>
