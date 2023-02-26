@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CodeMe; Create Job Offer</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <form method="post" action="http://localhost:8081/jobOffers">
+        <label>CodeMe; Registration</label>
+        <div class="form-group">
+            <input class="form-control" name="title" id="inpTitle" value="JobTitle" >
+            <input class="form-control" name="username" id="inpName" value="Username">
+            <input class="form-control" name="salary" id="inpSalary" value="Salary">
+            <input class="form-control" name="description" id="inpDescription" value="Description">
+            <input type="submit">
+            <button type="button" id="btnDelete">Delete</button>
+        </div>
+    </form>
+
+    <ul id="jobOffers"></ul>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $.ajax({
+                url: "http://localhost:8081/jobOffers",
+            }).done(function (data) {
+
+                 data.forEach(jobOffer => {
+                    $('#jobOffers').append('<li>' + "[" + jobOffer._id + "] " + jobOffer.title + ': ' + jobOffer.username + ", " + jobOffer.salary + '</li>');
+                 });
+
+            });
+
+            $(document.forms[0]).submit(function(e){
+                e.preventDefault();
+
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8081/jobOffers",
+                    data: $(document.forms[0]).serialize(),
+                    success: function (data) {
+                        $('#jobOffers').append('<li>' + "[" + jobOffer._id + "] " + jobOffer.title + ': ' + jobOffer.username + ", " + jobOffer.salary + '</li>');
+                    }
+                });
+
+
+            });
+
+            $('#btnDelete').click(function(){
+                $.ajax({
+                    type: "DELETE",
+                    url: "http://localhost:8081/jobOffers/"+$('#inpTitle').val(),
+                    success: function (data) {
+                        $('li:contains("' + $('#inpTitle').val() + '")').remove();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -1,7 +1,7 @@
 const jobOfferService = require('../services/jobOffer');
 
 const createJobOffer = async (req, res) => {
-    const newJobOffer = await jobOfferService.createJobOffer(req.body.title, 
+    const newJobOffer = await jobOfferService.createJobOffer(req.body.title,
                                                              req.body.username,
                                                              req.body.salary,
                                                              req.body.description);
@@ -29,12 +29,12 @@ const updateJobOffer = async (req, res) => {
         message: "title, name, salary are required",
       });
     }
-  
+
     const jobOffer = await jobOfferService.updateJobOffer(req.params.id, req.body.title);
     if (!jobOffer) {
       return res.status(404).json({ errors: ['jobOffer not found'] });
     }
-  
+
     res.json(jobOffer);
   };
 
@@ -43,7 +43,7 @@ const updateJobOffer = async (req, res) => {
     if (!jobOffer) {
       return res.status(404).json({ errors: ['jobOffer not found'] });
     }
-  
+
     res.send();
   };
 
