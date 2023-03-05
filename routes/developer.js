@@ -8,7 +8,7 @@ router.route('/')
     .post(DeveloperController.createDeveloper);
 
 router.route('/developerProfile')
-    .get(DeveloperProfileController.getDevelopers)
+    .get(DeveloperProfileController.getDeveloper)
     .post(DeveloperProfileController.createDeveloper);
 
 router.route('/:id')

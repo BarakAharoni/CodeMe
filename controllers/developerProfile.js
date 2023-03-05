@@ -12,12 +12,14 @@ const getDevelopers = async (req, res) => {
 };
 
 const getDeveloper = async (req, res) => {
-    const developer = await developerService.getDeveloperById(req.params.id);
+    const developer = await developerService.getDeveloperById(req.query.id);
     if (!developer) {
         return res.status(404).json({ errors: ['Developer not found'] });
+        //return res.status(404).json({ errors: [req.params] });
     }
 
-    res.json(developer);
+    //res.json(developer);
+    res.render("../views/developerProfile.ejs", { developer: developer });
 };
 
 const updateDeveloper = async (req, res) => {
