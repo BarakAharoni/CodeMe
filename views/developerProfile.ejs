@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>CodeMe; Our Developers</title>
+        <meta charset="utf-8">
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/developerProfile.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src="/developerProfile"></script>
+
+    </head>
+
+    <body>
+
+        <div class="card">
+
+            <img
+                src="data:developer/<%=developer.picture%>;base64,
+    <%=developer.picture%>"
+                style="width:70px">
+            <h1>
+                <%=developer.name%>
+            </h1>
+            <p class="title">CEO & Founder, Example</p>
+            <p>Harvard University</p>
+            <a href="#">
+                <i class="fa fa-dribbble"></i>
+            </a>
+            <a href="#">
+                <i class="fa fa-twitter"></i>
+            </a>
+            <a href="#">
+                <i class="fa fa-linkedin"></i>
+            </a>
+            <a href="#">
+                <i class="fa fa-facebook"></i>
+            </a>
+            <p>
+                <button>Contact</button>
+            </p>
+        </div>
+
+        <iframe
+            src="https://maps.google.com/maps?q=Caesarea%20Israel&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed"
+            width="800"
+            height="300"
+            allowfullscreen="allowfullscreen"></iframe>
+
+    </body>
+
+</html>

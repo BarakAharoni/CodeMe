@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <title>CodeMe; Our Developers</title>
+        <meta charset="utf-8">
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/developersOption.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <script
+            src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src="/developersOption.js"></script>
+    </head>
+
+    <body>
+
+        <div
+            class="jumbotron"
+            id="header"
+            onclick="event.stopPropagation(); removeEvent(header)">
+            <div class="container text-center">
+                <h1>CodeMe;</h1>
+                <p>Connect Between People to Code</p>
+            </div>
+        </div>
+
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button
+                        type="button"
+                        class="navbar-toggle"
+                        data-toggle="collapse"
+                        data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Logo</a>
+                </div>
+                <div
+                    class="collapse navbar-collapse"
+                    id="myNavbar"
+                    onclick="event.stopPropagation(); removeEvent(myNavbar)">
+                    <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="#">Home</a>
+                        </li>
+                        <li>
+                            <a href="#">Products</a>
+                        </li>
+                        <li>
+                            <a href="#">Deals</a>
+                        </li>
+                        <li>
+                            <a href="#">Stores</a>
+                        </li>
+                        <li>
+                            <a href="#">Contact</a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#">
+                                <span class="glyphicon glyphicon-user"></span>
+                                Your Account</a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="glyphicon glyphicon-shopping-cart"></span>
+                                Cart</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="text-center">
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary">Create New Developer</button>
+                <button type="button" class="btn btn-primary">Update Your Profile</button>
+                <button type="button" class="btn btn-primary">Remove Your Profile</button>
+            </div>
+        </div>
+
+        <br><br><br>
+
+        <div class="container">
+            <div class="row">
+                <%for (var i=0; i < developers.length; i++) {%>
+                    <div class="col-sm-4">
+                        <div class="panel panel-primary clickableDivs" id="<%=developers[i].id%>">
+                            <div class="panel-heading">
+                                <%=developers[i].name%>
+                            </div>
+                            <div class="panel-body"><img
+                                src="data:developers[i]/<%=developers[i].picture%>;base64,
+                  <%=developers[i].picture%>"
+                                class="img-responsive"
+                                style="width:50px; border-radius: 50%;"></div>
+                            <div class="panel-footer">
+                                <%=developers[i].langs%>
+                            </div>
+                        </div>
+                    </div>
+                <%}%>
+            </div>
+        </div><br><br>
+
+        <div id="map" onclick="event.stopPropagation(); removeEvent(map)"></div>
+
+        <footer class="container-fluid text-center">
+            <p>Online Store Copyright</p>
+            <form class="form-inline">Get deals:
+                <input type="email" class="form-control" size="50" placeholder="Email Address">
+                <button type="button" class="btn btn-danger">Sign Up</button>
+            </form>
+        </footer>
+
+        <script id='mapScript' async="async"></script>
+
+        <script>
+            var APIKEY = '<%= process.env.API_KEY %>';
+            var url = "https://maps.googleapis.com/maps/api/js?key=" + APIKEY + "&callback=" +
+                    "initMap&libraries=&v=weekly";
+            document
+                .getElementById('mapScript')
+                .src = url;
+        </script>
+    </body>
+
+</html>
