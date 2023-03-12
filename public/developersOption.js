@@ -7,7 +7,7 @@ const onClick = (e) => {
         console.log("You clicked element #" + t.id);
         devId = t.id;
         window.open(
-            "./developerProfile/?id=" + t.id,
+            "./developers/developerProfile/?id=" + t.id,
             "_blank",
             "toolbar=yes,scrollbars=yes,resizable=yes,top=200,left=200,width=800,height=800"
         );

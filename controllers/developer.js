@@ -7,7 +7,7 @@ const createDeveloper = async (req, res) => {
 
 const getDevelopers = async (req, res) => {
     const developers = await developerService.getDevelopers();
-    res.render("../views/developersOption.ejs", { developers: developers });
+    res.render("../views/developersOption.ejs", { developers: developers, username: req.session.username});
     //res.json(developer);
 };
 

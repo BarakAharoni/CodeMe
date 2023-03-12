@@ -65,7 +65,7 @@
                         <li>
                             <a href="#">
                                 <span class="glyphicon glyphicon-user"></span>
-                                Your Account</a>
+                                <%=username%></a>
                         </li>
                         <li>
                             <a href="#">
@@ -92,7 +92,7 @@
                     <div class="col-sm-4">
                         <div class="panel panel-primary clickableDivs" id="<%=developers[i].id%>">
                             <div class="panel-heading">
-                                <%=developers[i].name%>
+                                <%=developers[i]._id%>
                             </div>
                             <div class="panel-body"><img
                                 src="data:developers[i]/<%=developers[i].picture%>;base64,
