@@ -26,6 +26,9 @@ app.use(session({
     resave: false
 }))
 app.use("/", require("./routes/login"));
+app.get("/test", (req,res) => {
+    res.render("../views/test.ejs")
+});
 app.use("/developers", require("./routes/developer"))
 
 
