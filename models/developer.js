@@ -10,9 +10,9 @@ const Developer = new Schema({
         type: Array,
         required: true
     },
-    published: {
-        type: Date,
-        default: Date.now
+    city: {
+        type: String,
+        default: true
     },
 
     picture: {

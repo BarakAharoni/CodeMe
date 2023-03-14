@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>searchbyaddressHTML</title>
+        <meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+        <style type='text/css'>body{margin:0;padding:0;overflow:hidden;font-family:'Segoe UI',Helvetica,Arial,Sans-Serif}</style>
+    </head>
+    <body>
+        <div id='printoutPanel'></div>
+        
+        <div id='myMap' style='width: 100vw; height: 100vh;'></div>
+        <script type='text/javascript'>
+            function loadMapScenario() {
+                var map = new Microsoft.Maps.Map(document.getElementById('myMap'), {
+                    /* No need to set credentials if already passed in URL */
+                    center: new Microsoft.Maps.Location(47.624527, -122.355255),
+                    zoom: 8
+                });
+                Microsoft.Maps.loadModule('Microsoft.Maps.Search', function () {
+                    var searchManager = new Microsoft.Maps.Search.SearchManager(map);
+                    var requestOptions = {
+                        bounds: map.getBounds(),
+                        where: 'Seattle',
+                        callback: function (answer, userData) {
+                            map.setView({ bounds: answer.results[0].bestView });
+                            map.entities.push(new Microsoft.Maps.Pushpin(answer.results[0].location));
+                        }
+                    };
+                    searchManager.geocode(requestOptions);
+                });
+                
+            }
+        </script>
+        <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?key=AnjTX1pp0OKJ46aFhGP40yvfmbQZ06WZLb-iQzXRVJOryBTCLLzFZkc2s4iQvlGb&callback=loadMapScenario' async defer></script>
+    </body>
+</html>

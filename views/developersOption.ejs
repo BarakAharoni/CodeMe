@@ -11,15 +11,10 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
         <script
             src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-        <script src="/developersOption.js"></script>
     </head>
 
     <body>
-
-        <div
-            class="jumbotron"
-            id="header"
-            onclick="event.stopPropagation(); removeEvent(header)">
+        <div class="jumbotron" id="header">
             <div class="container text-center">
                 <h1>CodeMe;</h1>
                 <p>Connect Between People to Code</p>
@@ -40,10 +35,7 @@
                     </button>
                     <a class="navbar-brand" href="#">Logo</a>
                 </div>
-                <div
-                    class="collapse navbar-collapse"
-                    id="myNavbar"
-                    onclick="event.stopPropagation(); removeEvent(myNavbar)">
+                <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
                         <li class="active">
                             <a href="#">Home</a>
@@ -89,7 +81,7 @@
         <div class="container">
             <div class="row">
                 <%for (var i=0; i < developers.length; i++) {%>
-                    <div class="col-sm-4">
+                    <div class="col-sm-4 devs">
                         <div class="panel panel-primary clickableDivs" id="<%=developers[i].id%>">
                             <div class="panel-heading">
                                 <%=developers[i].name%>
@@ -108,7 +100,7 @@
             </div>
         </div><br><br>
 
-        <div id="map" onclick="event.stopPropagation(); removeEvent(map)"></div>
+        <div id="map"></div>
 
         <footer class="container-fluid text-center">
             <p>Online Store Copyright</p>
@@ -118,16 +110,103 @@
             </form>
         </footer>
 
-        <script id='mapScript' async="async"></script>
-
+        <script id='mapScript' async="async" defer="defer"></script>
         <script>
+
+            var infobox,
+                map;
             var APIKEY = '<%= process.env.API_KEY %>';
-            var url = "https://maps.googleapis.com/maps/api/js?key=" + APIKEY + "&callback=" +
-                    "initMap&libraries=&v=weekly";
+            var url = "https://www.bing.com/api/maps/mapcontrol?key=" + APIKEY + "&callback" +
+                    "=loadMapScenario";
             document
                 .getElementById('mapScript')
                 .src = url;
+
+            function loadMapScenario() {
+                map = new Microsoft
+                    .Maps
+                    .Map(document.getElementById('map'), {});
+                infobox = new Microsoft
+                    .Maps
+                    .Infobox(map.getCenter(), {visible: false});
+                infobox.setMap(map);
+
+                Microsoft
+                    .Maps
+                    .loadModule('Microsoft.Maps.Search', function () {
+                        var searchManager = new Microsoft
+                            .Maps
+                            .Search
+                            .SearchManager(map);
+
+                        "<% for (var i = 0; i < developers.length; i++) { %>"
+                        var requestOptions = {
+                            bounds: map.getBounds(),
+                            where: "<%=developers[i].city%>",
+                            callback: function (answer, userData) {
+                                map.setView({
+                                    bounds: answer
+                                        .results[0]
+                                        .bestView
+                                });
+
+                                var pin = new Microsoft
+                                    .Maps
+                                    .Pushpin(answer.results[0].location);
+                                pin.metadata = {
+                                    title: "<%=developers[i].city%>",
+                                    description: "<%=developers[i].id%>"
+                                };
+
+                                Microsoft
+                                    .Maps
+                                    .Events
+                                    .addHandler(pin, 'click', pushpinClick);
+
+                                Microsoft
+                                    .Maps
+                                    .Events
+                                    .addHandler(pin, 'mouseover', pushpinOver);
+
+                                
+
+                                map
+                                    .entities
+                                    .push(pin);
+
+                            }
+                        };
+                        searchManager.geocode(requestOptions);
+                        "<%}%>"
+                    });
+
+            }
+
+            function pushpinOver(e) {
+                //Make sure the infobox has metadata to display.
+                if (e.target.metadata) {
+                    //Set the infobox options with the metadata of the pushpin.
+                    infobox.setOptions({
+                        location: e
+                            .target
+                            .getLocation(),
+                        title: e.target.metadata.title,
+                        visible: true
+                    });
+                }
+            }
+
+            function pushpinClick(e) {
+                var id = e.target.metadata.description;
+                console.log(id);
+                console.log("You clicked element #" + e.target.metadata.description);
+                window.open(    "./developerProfile/?id=" + id,    "_blank",
+                "toolbar=yes,scrollbars=yes,resizable=yes,top=200,left=200,width=800,height=800"
+                );
+            }
         </script>
+
+        <script src="/developersOption.js"></script>
     </body>
 
 </html>

@@ -1,13 +1,11 @@
 const Developer = require('../models/developer');
 
-const createDeveloper = async (name, published, langs) => {
+const createDeveloper = async (name, city, langs) => {
     const developer = new Developer({
         name : name,
-        langs : langs
+        langs : langs,
+        city : city
     });
-
-    if (published)
-        developer.published = published;
 
     return await developer.save();
 };
