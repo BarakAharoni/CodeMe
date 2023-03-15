@@ -16,6 +16,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(express.json());
 app.use(express.static(__dirname + '/public'));
+app.use("/images",express.static(__dirname + '/images'));
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
 
@@ -26,9 +27,7 @@ app.use(session({
     resave: false
 }))
 app.use("/", require("./routes/login"));
-app.get("/test", (req,res) => {
-    res.render("../views/test.ejs")
-});
+//app.get("/test", (req,res) => {res.render("../views/test.ejs")});
 app.use("/developers", require("./routes/developer"))
 
 

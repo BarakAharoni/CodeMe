@@ -11,7 +11,7 @@ const getDevelopers = async (req, res) => {
         res.redirect('/login')
     }
     else{
-        res.render("../views/developersOption.ejs", { developers: developers, username: req.session.username});
+        res.render("../views/developersOption.ejs", { developers: developers, developerOwner: await developerService.getDeveloperById(req.session.username)});
     }
     //res.json(developer);
 };
@@ -54,5 +54,5 @@ const updateDeveloper = async (req, res) => {
     getDevelopers,
     getDeveloper,
     updateDeveloper,
-    deleteDeveloper
+    deleteDeveloper,
   };

@@ -1,11 +1,12 @@
 const Developer = require("../../models/developer");
 
-async function checkIfExistUser(username, password) {
-    const dev = await Developer.findOne({ _id: username, password });
+
+async function getDevByUsername(username) {
+    const dev = await Developer.findOne({ _id: username});
     return dev != null
 }
 
-async function addUser(username, password) {
+async function addDev(username, password) {
 
     const dev = new Developer({
         _id: username,
@@ -16,6 +17,6 @@ async function addUser(username, password) {
 }
 
 module.exports = {
-    checkIfExistUser,
-    addUser
+    getDevByUsername,
+    addDev
 }

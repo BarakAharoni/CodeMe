@@ -39,11 +39,10 @@ function logout(req, res) {
         res.redirect('/login');
     });
 }
-
 async function login(req, res) {
     const { username, password } = req.body
 
-    const result = await loginService.checkIfExistUser(username, password)
+    const result = await loginService.getDevByUsername(username, password)
     if (result) {
         req.session.username = username
         res.redirect('/')
@@ -57,7 +56,7 @@ async function signup(req, res) {
 
 
     try {
-        await loginService.addUser(username, password)
+        await loginService.addDev(username, password)
         req.session.username = username
         res.redirect('/')
     }
