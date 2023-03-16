@@ -15,9 +15,7 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 app.use(cors());
 app.use(express.static(__dirname + '/public'));
-
-
-
+app.use(express.static(__dirname + '/images'));
 
 app.use('/developers', developers);
 

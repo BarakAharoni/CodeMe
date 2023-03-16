@@ -72,6 +72,19 @@ $("#submit").click(function (e) {
         .getElementById("city")
         .value;
     if (validateForm(name, username, password, city, github, langs)) {
+        if ((picture == null || picture == "")) {
+            const imgElement = document.getElementById('defaultImg');
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = imgElement.naturalWidth;
+            canvas.height = imgElement.naturalHeight;
+            ctx.drawImage(imgElement, 0, 0);
+            const base64String = canvas
+                .toDataURL('image/png')
+                .split(',')[1];
+            picture = base64String;
+
+        }
         e.preventDefault();
         $.ajax({
             type: 'POST',

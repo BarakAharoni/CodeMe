@@ -10,15 +10,22 @@
             rel="stylesheet">
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+            <link rel="stylesheet" href="/developerRegister.css">
 
     </head>
     <body>
-        <section class="vh-100" style="background-color: #2779e2;">
+        <div class="jumbotron" id="header">
+            <div class="container text-center">
+                <h1>CodeMe;</h1>
+                <p>Connect Between People to Code</p>
+            </div>
+        </div>
+
+        <section class="vh-100" style="background-color: #eee;">
             <div class="container h-100">
                 <div class="row d-flex justify-content-center align-items-center h-100">
                     <div class="col-xl-9">
-
-                        <h1 class="text-white mb-4">Be One of Our Developers</h1>
+                        <h1 class="mb-4">Be One of Our Developers</h1>
 
                         <div class="card" style="border-radius: 15px;">
                             <div class="card-body">
@@ -42,12 +49,11 @@
                                     <div class="col-md-3 ps-5">
 
                                         <h6 class="mb-0">User Name</h6>
-
                                     </div>
                                     <div class="col-md-9 pe-5">
 
                                         <input type="text" class="form-control form-control-lg" id="username"/>
-
+                                        <label id="userLabel">Username is Already Taken!</label>
                                     </div>
                                 </div>
 
@@ -158,6 +164,7 @@
                                     <div class="col-md-9 pe-5">
 
                                         <input type="text" class="form-control form-control-lg" id="city"/>
+                        
 
                                     </div>
                                 </div>
@@ -190,8 +197,48 @@
                     </div>
                 </div>
             </div>
+            <img id="defaultImg" src='/basicDev.png'>
+
         </section>
+
         <script src="/developerRegister.js"></script>
+        <script>
+            var users = [];
+            var typingTimer;               
+            var doneTypingInterval = 5000;
+            var uniqUser = true;  
+            var usernameObj = document.getElementById("username");
+            var userLabel = document.getElementById("userLabel");
+            var $input = $('#username');
+            "<% for (var i = 0; i < developers.length; i++) { %>"
+                    users.push("<%=developers[i].username%>");
+            "<%}%>"
+            //on keyup, start the countdown
+            $input.on('keyup', function () {
+            uniqUser = true;
+            for(var i = 0; i < users.length; i++){
+                if(users[i] == usernameObj.value){
+                    usernameObj.style.borderColor = "#dc143c";
+                    usernameObj.style.borderWidth = "thick";
+                    userLabel.style.display = "inline";
+                    uniqUser = false;
+                    document.getElementById("submit").disabled = true;
+                }
+            }
+            if(uniqUser == true){
+                usernameObj.style.borderColor = "#ced4da";
+                usernameObj.style.borderWidth = "1px";
+                userLabel.style.display = "none";
+                document.getElementById("submit").disabled = false;
+            }
+            });
+
+            
+                
+          
+            
+            
+        </script>
     </body>
 
 </html>

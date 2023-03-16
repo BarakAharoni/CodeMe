@@ -34,6 +34,7 @@ document.getElementById('datatable-search-input').addEventListener('input', (e) 
     }
 });
 
+
 var url = "/developers/register";
 $("#createBtn").click(function(e) {
     e.preventDefault();
@@ -45,5 +46,6 @@ $("#createBtn").click(function(e) {
 
   }) 
 });
+
 
 

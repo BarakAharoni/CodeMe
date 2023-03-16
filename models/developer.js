@@ -28,7 +28,8 @@ const Developer = new Schema({
     },
     picture: {
         type: Buffer,
-        contentType: String
+        contentType: String,
+        required: true
     }
 });
 
