@@ -1,4 +1,5 @@
 var devId;
+
 const onClick = (e) => {
     var t = e.target;
     while (t && !t.id) 
