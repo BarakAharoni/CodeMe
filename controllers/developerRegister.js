@@ -22,10 +22,6 @@ var cities = [];
     });
 
 const developerService = require('../services/developer');
-const createDeveloper = async (req, res) => {
-    const newDeveloper = await developerService.createDeveloper(req.body.title);
-    res.json(newDeveloper);
-};
 
 const getForm = async (req, res) => {
 
@@ -35,6 +31,5 @@ const getForm = async (req, res) => {
 };
 
 module.exports = {
-    createDeveloper,
     getForm
 };

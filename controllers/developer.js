@@ -3,8 +3,6 @@ const developerService = require('../services/developer');
 const createDeveloper = async (req, res) => {
     const newDeveloper = await developerService.createDeveloper(req.body.name, req.body.username, req.body.password, req.body.city, req.body.github, req.body.langs , req.body.picture);
     res.json(newDeveloper);
-
-
 };
 
 const getDevelopers = async (req, res) => {
@@ -13,7 +11,7 @@ const getDevelopers = async (req, res) => {
         res.redirect('/login')
     }
     else{
-        res.render("../views/developersOption.ejs", { developers: developers, developerOwner: await developerService.getDeveloperById(req.session.username)});
+        res.render("../views/developersOption.ejs", { developers: developers, developerOwner: await developerService.getDeveloperByName(req.session.username)});
     }
     //res.json(developer);
 };

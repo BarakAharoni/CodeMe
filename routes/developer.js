@@ -12,12 +12,12 @@ router
 router
     .route('/developerProfile')
     .get(DeveloperProfileController.getDeveloper)
-    .post(DeveloperProfileController.createDeveloper);
+    .post(DeveloperController.createDeveloper);
 
     router
     .route('/register')
     .get(DeveloperRegisterController.getForm)
-    .post(DeveloperRegisterController.createDeveloper);
+    .post(DeveloperController.createDeveloper);
 
 router
     .route('/:id')

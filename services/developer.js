@@ -26,6 +26,10 @@ const getDeveloperById = async (id) => {
     return await Developer.findById(id);
 };
 
+const getDeveloperByName = async (name) => {
+    return await Developer.findOne({username: name});
+};
+
 const getDevelopers = async () => {
     return await Developer.find({});
 };
@@ -54,5 +58,6 @@ module.exports = {
     getDeveloperById,
     getDevelopers,
     updateDeveloper,
-    deleteDeveloper
+    deleteDeveloper,
+    getDeveloperByName
 }

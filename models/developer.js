@@ -4,7 +4,11 @@ const fs = require('fs');
 const defaultImg = fs.readFileSync('./images/basicDev.png');
 
 const Developer = new Schema({
-    _id : {
+    name : {
+        type: String,
+        required: true
+    },
+    username :{
         type: String,
         required: true
     },

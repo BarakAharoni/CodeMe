@@ -9,7 +9,6 @@ function isLoggedIn(req, res, next) {
     }
 
 }
-
 function getError(req){
     let currentUrl = req.url;
     let match = currentUrl.match(/error=([^&]*)/);
@@ -35,7 +34,7 @@ function renderHome(req,res) {
 }
 function loginForm(req, res) {res.render(`../views/login sighin.ejs`, { url: "login", error: getError(req)})}
 
-function signupForm(req, res) {res.render("../views/login sighin.ejs", { url:  "signup", error: getError(req)}) }
+function signupForm(req, res) {res.redirect('/developers/register')}
 
 function logout(req, res) {
     req.session.destroy(() => {
@@ -44,7 +43,6 @@ function logout(req, res) {
 }
 async function login(req, res) {
     const { username, password } = req.body
-
     const result = await loginService.getDevByUsername(username, password)
     if (result) {
         req.session.username = username
@@ -54,26 +52,12 @@ async function login(req, res) {
         res.redirect('/login?error=1')
 }
 
-async function signup(req, res) {
-    const { username, password } = req.body
-
-
-    try {
-        await loginService.addDev(username, password)
-        req.session.username = username
-        res.redirect('/')
-    }
-    catch (e) {
-        res.redirect('/signup?error=2')
-    }
-}
 
 module.exports = {
     login,
     loginForm,
-    signup,
-    signupForm,
     logout,
+    signupForm,
     renderHome,
     isLoggedIn
 }
