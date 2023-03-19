@@ -1,10 +1,13 @@
 const loginService = require("../services/login")
 
 function isLoggedIn(req, res, next) {
-    if (req.session.username != null)
+    if (req.session.username != null) {
         return next()
-    else
+    }
+    else{
         res.redirect('/login')
+    }
+
 }
 
 function getError(req){
@@ -18,7 +21,7 @@ function getError(req){
                 fail = "Your username or passward doesn`t correct"
                 break;
             case 2:
-                fail = "Error on create an account"
+                fail = "This username is already taken"
                 break;
             default:
                 fail = match[1]
