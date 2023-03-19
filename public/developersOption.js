@@ -1,4 +1,5 @@
 var devId;
+
 const onClick = (e) => {
     var t = e.target;
     while (t && !t.id) 
@@ -13,24 +14,39 @@ const onClick = (e) => {
         );
     }
 }
-window.addEventListener('click', onClick);
+var devs = document.getElementsByClassName("devs");
 
-// Initialize and add the map
-function initMap() {
-
-    // The location of Geeksforgeeks office
-    const gfg_office = {
-        lat: 28.50231,
-        lng: 77.40548
-    };
-
-    // Create the map, centered at gfg_office
-    const map = new google
-        .maps
-        .Map(document.getElementById("map"), {
-
-            // Set the zoom of the map
-            zoom: 17.56,
-            center: gfg_office
-        });
+for (var i = 0; i < devs.length; i++) {
+    devs[i].addEventListener('click', onClick);
 }
+
+
+var ids = $('.clickableDivs').map(function(_, x) { return x.id; }).get();
+
+document.getElementById('datatable-search-input').addEventListener('input', (e) => {
+    for(var i = 0; i < ids.length; i++){
+        let currDiv = document.getElementById(ids[i]);
+    if (currDiv.innerHTML.includes(e.target.value)) {
+        currDiv.style.display = "block";
+      }
+      else{
+        currDiv.style.display = "none";
+      }
+    }
+});
+
+
+var url = "/developers/register";
+$("#createBtn").click(function(e) {
+    e.preventDefault();
+    $.ajax({
+        type: 'GET',
+        url: url,
+        dataType: 'text',
+        success: window.location = url
+
+  }) 
+});
+
+
+

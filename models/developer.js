@@ -16,9 +16,13 @@ const Developer = new Schema({
         type: Array,
         default: []
     },
-    published: {
-        type: Date,
-        default: Date.now
+    city: {
+        type: String,
+        default: true
+    },
+    github: {
+        type: String,
+        required: true
     },
     picture: {
         type: Buffer,

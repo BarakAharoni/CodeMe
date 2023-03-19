@@ -1,13 +1,23 @@
 const Developer = require('../models/developer');
 
-const createDeveloper = async (name, published, langs) => {
+const createDeveloper = async (
+    name,
+    username,
+    password,
+    city,
+    github,
+    langs,
+    picture
+) => {
     const developer = new Developer({
-        name : name,
-        langs : langs
+        name: name,
+        username: username,
+        password: password,
+        langs: langs,
+        github: github,
+        city: city,
+        picture: picture
     });
-
-    if (published)
-        developer.published = published;
 
     return await developer.save();
 };
@@ -22,9 +32,9 @@ const getDevelopers = async () => {
 
 const updateDeveloper = async (id, title) => {
     const developer = await getDeveloperById(id);
-    if (!developer)
+    if (!developer) 
         return null;
-
+    
     developer.title = title;
     await developer.save();
     return developer;
@@ -32,9 +42,9 @@ const updateDeveloper = async (id, title) => {
 
 const deleteDeveloper = async (id) => {
     const developer = await getDeveloperById(id);
-    if (!developer)
+    if (!developer) 
         return null;
-
+    
     await developer.remove();
     return developer;
 };

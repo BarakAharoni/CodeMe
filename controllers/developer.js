@@ -1,8 +1,10 @@
 const developerService = require('../services/developer');
 
 const createDeveloper = async (req, res) => {
-    const newDeveloper = await developerService.createDeveloper(req.body.title);
+    const newDeveloper = await developerService.createDeveloper(req.body.name, req.body.username, req.body.password, req.body.city, req.body.github, req.body.langs , req.body.picture);
     res.json(newDeveloper);
+
+
 };
 
 const getDevelopers = async (req, res) => {
