@@ -32,7 +32,7 @@ function getError(req){
 function renderHome(req,res) {
     res.redirect('/developers');
 }
-function loginForm(req, res) {res.render(`../views/login sighin.ejs`, { url: "login", error: getError(req)})}
+function loginForm(req, res) {res.render(`../views/login.ejs`, { url: "login", error: getError(req)})}
 
 function signupForm(req, res) {res.redirect('/developers/register')}
 

@@ -26,12 +26,12 @@ var ids = $('.clickableDivs').map(function(_, x) { return x.id; }).get();
 document.getElementById('datatable-search-input').addEventListener('input', (e) => {
     for(var i = 0; i < ids.length; i++){
         let currDiv = document.getElementById(ids[i]);
-    if (currDiv.innerHTML.includes(e.target.value)) {
-        currDiv.style.display = "block";
-      }
-      else{
-        currDiv.style.display = "none";
-      }
+        if (currDiv.innerHTML.includes(e.target.value)) {
+            currDiv.style.display = "block";
+        }
+        else{
+            currDiv.style.display = "none";
+        }
     }
 });
 
@@ -46,6 +46,18 @@ $("#createBtn").click(function(e) {
         success: window.location = url
 
   }) 
+});
+
+url = "/developers/update?id=" + document.getElementsByClassName('idOfDev')[0].id;
+$("#updateBtn").click(function(e) {
+    e.preventDefault();
+    $.ajax({
+        type: 'GET',
+        url: url,
+        dataType: 'text',
+        success: window.location = url
+
+    })
 });
 
 

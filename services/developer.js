@@ -26,6 +26,10 @@ const getDeveloperById = async (id) => {
     return await Developer.findById(id);
 };
 
+const getNameDeveloperById = async (id) => {
+    return await (Developer.findById(id));
+};
+
 const getDeveloperByName = async (name) => {
     return await Developer.findOne({username: name});
 };
@@ -34,12 +38,18 @@ const getDevelopers = async () => {
     return await Developer.find({});
 };
 
-const updateDeveloper = async (id, title) => {
+const updateDeveloper = async (id, name, username, password, langs, city, github, picture) => {
     const developer = await getDeveloperById(id);
     if (!developer) 
         return null;
     
-    developer.title = title;
+    developer.name = name;
+    developer.username = username;
+    developer.password = password;
+    developer.langs = langs;
+    developer.city = city;
+    developer.github = github;
+    developer.picture = picture;
     await developer.save();
     return developer;
 };
@@ -59,5 +69,6 @@ module.exports = {
     getDevelopers,
     updateDeveloper,
     deleteDeveloper,
-    getDeveloperByName
+    getDeveloperByName,
+    getNameDeveloperById
 }

@@ -14,10 +14,15 @@ router
     .get(DeveloperProfileController.getDeveloper)
     .post(DeveloperController.createDeveloper);
 
-    router
+router
     .route('/register')
     .get(DeveloperRegisterController.getForm)
     .post(DeveloperController.createDeveloper);
+
+router
+    .route('/update')
+    .get(DeveloperController.updateDeveloperPage)
+    .post(DeveloperController.updateDeveloper);
 
 router
     .route('/:id')

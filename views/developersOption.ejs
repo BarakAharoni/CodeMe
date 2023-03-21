@@ -18,12 +18,19 @@
                 <p>Connect Between People to Code</p>
             </div>
         </div>
-
+        <div class="text-center idOfDev" id="<%=developerOwner._id%>">
+            <a>Hello <%=developerOwner.username%> &ensp;</a>
+            <img src="data:developerOwner/<%=developerOwner.picture%>;base64,
+                  <%=developerOwner.picture%>"
+                    class="img-responsive"
+                    style="width:  50px; height: 50px; object-fit: cover; border-radius: 50%;">
+        </div>
+        <br>
         <div class="text-center">
             <div class="btn-group">
                 <button type="button" class="btn btn-primary" id="createBtn">Create New Developer</button>
-                <button type="button" class="btn btn-primary">Update Your Profile</button>
-                <button type="button" class="btn btn-primary">Remove Your Profile</button>
+                <button type="button" class="btn btn-primary" id="updateBtn">Update Your Profile</button>
+                <button type="button" class="btn btn-primary" id="removeBtn">Remove Your Profile</button>
             </div>
         </div>
 

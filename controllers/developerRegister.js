@@ -30,6 +30,11 @@ const getForm = async (req, res) => {
     //res.json(developer);
 };
 
+const getAllCities = async () => {
+    return cities;
+}
+
 module.exports = {
-    getForm
+    getForm,
+    getAllCities
 };

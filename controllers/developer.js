@@ -1,4 +1,5 @@
 const developerService = require('../services/developer');
+const cities = require('../controllers/developerRegister');
 
 const createDeveloper = async (req, res) => {
     const newDeveloper = await developerService.createDeveloper(req.body.name, req.body.username, req.body.password, req.body.city, req.body.github, req.body.langs , req.body.picture);
@@ -31,13 +32,12 @@ const updateDeveloper = async (req, res) => {
         message: "title is required",
       });
     }
-  
-    const developer = await developerService.updateDeveloper(req.params.id, req.body.title);
+    const developer = await developerService.updateDeveloper(req.query.id, req.body.name, req.body.username ,req.body.password,  req.body.langs,  req.body.city,  req.body.github,  req.body.picture);
     if (!developer) {
       return res.status(404).json({ errors: ['Developer not found'] });
     }
-  
-    res.json(developer);
+
+    //res.json(developer); error
   };
 
   const deleteDeveloper = async (req, res) => {
@@ -49,10 +49,30 @@ const updateDeveloper = async (req, res) => {
     res.send();
   };
 
+const updateDeveloperPage = async (req, res) => {
+    try {
+        const developer = await developerService.getDeveloperById(req.query.id);
+        if (!developer || req.session.username === undefined) {
+            res.redirect('/developers')
+        }
+        else if(req.session.username !== developer.username){
+            res.redirect('/developers')
+        }
+        //res.json(developer);
+        else {
+            res.render("../views/developerUpdate.ejs", {dev: developer,developers: developerService.getDevelopers() ,cities: cities.getAllCities()});
+        }
+    }
+    catch (e) {
+        res.redirect('/developers')
+    }
+};
+
   module.exports = {
     createDeveloper,
     getDevelopers,
     getDeveloper,
     updateDeveloper,
     deleteDeveloper,
+    updateDeveloperPage,
   };
