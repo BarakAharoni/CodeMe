@@ -50,7 +50,9 @@ const updateDeveloper = async (req, res) => {
 
 const updateDeveloperPage = async (req, res) => {
     try {
+        const developers = await developerService.getDevelopers();
         const developer = await developerService.getDeveloperById(req.query.id);
+        const city = await cities.getAllCities();
         if (!developer || req.session.username === undefined) {
             res.redirect('/developers')
         }
@@ -59,7 +61,7 @@ const updateDeveloperPage = async (req, res) => {
         }
         //res.json(developer);
         else {
-            res.render("../views/developerUpdate.ejs", {dev: developer,developers: developerService.getDevelopers() ,cities: cities.getAllCities()});
+            res.render("../views/developerUpdate.ejs", {developers: developers, dev: developer ,cities: city});
         }
     }
     catch (e) {

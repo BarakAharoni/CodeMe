@@ -1,9 +1,5 @@
 var picture;
 
-
-
-
-
 $('#langs').on('change', function () {
     var allLangs = [];
     var $selectedOptions = $(this).find('option:selected');

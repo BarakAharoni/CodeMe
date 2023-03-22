@@ -206,13 +206,13 @@
         </section>
         <script src="/developerRegister.js"></script>
         <script>
-            var users = [];
-            var typingTimer;
-            var doneTypingInterval = 5000;
-            var uniqUser = true;
-            var usernameObj = document.getElementById("username");
-            var userLabel = document.getElementById("userLabel");
-            var $input = $('#username');
+            const users = [];
+            let typingTimer;
+            const doneTypingInterval = 5000;
+            let uniqUser = true;
+            const usernameObj = document.getElementById("username");
+            const userLabel = document.getElementById("userLabel");
+            const $input = $('#username');
             "<% for (var i = 0; i < developers.length; i++) { %>"
             users.push("<%=developers[i].username%>");
             "<%}%>"
@@ -220,7 +220,7 @@
             $input.on('keyup', function () {
                 uniqUser = true;
                 for (var i = 0; i < users.length; i++) {
-                    if (users[i] == usernameObj.value) {
+                    if (users[i] === usernameObj.value) {
                         usernameObj.style.borderColor = "#dc143c";
                         usernameObj.style.borderWidth = "thick";
                         userLabel.style.display = "inline";
