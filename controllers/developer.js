@@ -41,11 +41,10 @@ const updateDeveloper = async (req, res) => {
   };
 
   const deleteDeveloper = async (req, res) => {
-    const developer = await developerService.deleteDeveloper(req.params.id);
+    const developer = await developerService.deleteDeveloper(req.query.id);
     if (!developer) {
       return res.status(404).json({ errors: ['Developer not found'] });
     }
-  
     res.send();
   };
 

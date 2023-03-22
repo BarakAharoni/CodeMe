@@ -1,7 +1,7 @@
-var devId;
+let devId;
 
 const onClick = (e) => {
-    var t = e.target;
+    let t = e.target;
     while (t && !t.id) 
         t = t.parentNode;
     if (t) {
@@ -14,14 +14,16 @@ const onClick = (e) => {
         );
     }
 }
-var devs = document.getElementsByClassName("devs");
+const devs = document.getElementsByClassName("devs");
 
-for (var i = 0; i < devs.length; i++) {
+for (let i = 0; i < devs.length; i++) {
     devs[i].addEventListener('click', onClick);
 }
 
 
-var ids = $('.clickableDivs').map(function(_, x) { return x.id; }).get();
+const ids = $('.clickableDivs').map(function (_, x) {
+    return x.id;
+}).get();
 
 document.getElementById('datatable-search-input').addEventListener('input', (e) => {
     for(var i = 0; i < ids.length; i++){
@@ -36,7 +38,7 @@ document.getElementById('datatable-search-input').addEventListener('input', (e) 
 });
 
 
-var urlRegister = "/developers/register";
+const urlRegister = "/developers/register";
 $("#createBtn").click(function(e) {
     e.preventDefault();
     $.ajax({
@@ -48,7 +50,7 @@ $("#createBtn").click(function(e) {
   }) 
 });
 
-var urlUpdate = "/developers/update?id=" + document.getElementsByClassName('idOfDev')[0].id;
+const urlUpdate = "/developers/update?id=" + document.getElementsByClassName('idOfDev')[0].id;
 $("#updateBtn").click(function(e) {
     e.preventDefault();
     $.ajax({
@@ -57,6 +59,19 @@ $("#updateBtn").click(function(e) {
         dataType: 'text',
         success: window.location = urlUpdate
 
+    })
+});
+
+
+$("#removeBtn").click(function() {
+    $.ajax({
+        type: 'GET',
+        url: "/developers/delete?id=" + document.getElementsByClassName('idOfDev')[0].id,
+        dataType: 'text',
+        success: function() {
+            alert("Your profile has been successfully deleted")
+            window.location = "/logout"
+        }
     })
 });
 

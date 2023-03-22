@@ -30,7 +30,7 @@
             <div class="btn-group">
                 <button type="button" class="btn btn-primary" id="createBtn">Create New Developer</button>
                 <button type="button" class="btn btn-primary" id="updateBtn">Update Your Profile</button>
-                <button type="button" class="btn btn-primary" id="removeBtn">Remove Your Profile</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Remove Your Profile</button>
             </div>
         </div>
 
@@ -95,7 +95,46 @@
         <footer class="container-fluid text-center">
             <p>CodeMe;</p>
         </footer>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" >
+            Launch static backdrop modal
+        </button>
 
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Delete Profile</h1>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete your profile?
+                        <br>
+                        If you click on <span style="color:crimson;">I'm sure</span> down below all your information will delete presently
+                        without a way to go back
+                        <br>
+                        <br>
+                        Click <span style="color:crimson;">I'm sure</span> to continue
+                        <br>
+                        Click <span>Cancel</span> to go back
+                    </div>
+                    <div class="modal-footer">
+                        <div class="container text-center">
+                            <div class="row">
+                                <div class="col" style="text-align: left">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                </div>
+                                <div class="col" style="text-align: right">
+                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="removeBtn" style="color: crimson">I'm sure</button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
         <script id='mapScript' async="async" defer="defer"></script>
         <script>
 

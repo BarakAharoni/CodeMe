@@ -25,6 +25,11 @@ router
     .post(DeveloperController.updateDeveloper);
 
 router
+    .route('/delete')
+    .get(DeveloperController.deleteDeveloper)
+
+
+router
     .route('/:id')
     .get(DeveloperController.getDeveloper)
     .put(DeveloperController.updateDeveloper)
