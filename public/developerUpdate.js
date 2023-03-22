@@ -1,7 +1,7 @@
-var picture;
+let picture;
 $('#langs').on('change', function () {
-    var allLangs = [];
-    var $selectedOptions = $(this).find('option:selected');
+    const allLangs = [];
+    const $selectedOptions = $(this).find('option:selected');
     $selectedOptions.each(function () {
         allLangs.push($(this).text());
 
@@ -15,8 +15,8 @@ $("#resetPic").click(function () {
     document.getElementById("edit_img").src = "/images/basicDev.png";
 })
 
-var loadFile = function (event) {
-    var image = document.getElementById("edit_img");
+const loadFile = function (event) {
+    const image = document.getElementById("edit_img");
     image.src = URL.createObjectURL(event.target.files[0]);
     uploadImage(event);
 };
@@ -24,7 +24,7 @@ const uploadImage = async (event) => {
     var file = event
         .target
         .files[0];
-    var allBase64 = await convertBase64(file);
+    const allBase64 = await convertBase64(file);
     picture = (allBase64.split(",")).pop();
 };
 const convertBase64 = (file) => {
@@ -44,26 +44,27 @@ const convertBase64 = (file) => {
 
 
 function validateForm(name, username, password, city, github, langs) {
-    if ((name == null || name == "") || (username == null || username == "") || (password == null || password == "") || (city == null || city == "") || (github == null || github == "") || (langs == null || langs == "")) {
+    if ((name == null || name === "") || (username == null || username === "") || (password == null || password === "") || (city == null || city === "") || (github == null || github === "") || (langs == null || langs === "")) {
         alert("Please Fill In All Required Fields");
         return false;
     }
     return true;
 }
 
-var url = '/developers';
+const url = '/developers';
 
-$("#cancel").click(function (e) {
+$("#cancel").click(function () {
     window.location = url
 })
+
 $("#submit").click(function (e) {
-    var name = document
+    const name = document
         .getElementById("nameText")
         .innerHTML;
-    var username = document
+    const username = document
         .getElementById("usernameText")
         .innerHTML;
-    var password;
+    let password;
     if(!checkValidPassword((document.getElementById("passwordCurrent").value),document.getElementById("passwordNew").value)){
         alert("Invalid input on the password");
         return false;
@@ -74,17 +75,17 @@ $("#submit").click(function (e) {
     else{
         password = getCurrentPassword();
     }
-    var langs = document
+    const langs = document
         .getElementById("sumLangs")
         .value;
-    var github = document
+    const github = document
         .getElementById("githubText")
         .innerHTML;
-    var city = document
+    const city = document
         .getElementById("cityText")
         .innerHTML;
     if (validateForm(name, username, password, city, github, langs)) {
-        if ((picture == null || picture == "")) {
+        if ((picture == null || picture === "")) {
             const imgElement = document.getElementById('defaultImg');
             const canvas = document.createElement('canvas');
             const ctx = canvas.getContext('2d');

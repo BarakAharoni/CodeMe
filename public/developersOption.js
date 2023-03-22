@@ -1,5 +1,8 @@
-let devId;
 
+$("#logout").click(function () {window.location = "/logout"})
+
+
+let devId;
 const onClick = (e) => {
     let t = e.target;
     while (t && !t.id) 
@@ -26,7 +29,7 @@ const ids = $('.clickableDivs').map(function (_, x) {
 }).get();
 
 document.getElementById('datatable-search-input').addEventListener('input', (e) => {
-    for(var i = 0; i < ids.length; i++){
+    for(let i = 0; i < ids.length; i++){
         let currDiv = document.getElementById(ids[i]);
         if (currDiv.innerHTML.includes(e.target.value)) {
             currDiv.style.display = "block";
