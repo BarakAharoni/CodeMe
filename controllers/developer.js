@@ -36,8 +36,8 @@ const updateDeveloper = async (req, res) => {
     if (!developer) {
       return res.status(404).json({ errors: ['Developer not found'] });
     }
-
-    //res.json(developer); error
+    req.session.username = req.body.username;
+    res.json(developer);
   };
 
   const deleteDeveloper = async (req, res) => {

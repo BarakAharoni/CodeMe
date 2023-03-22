@@ -38,7 +38,7 @@
 
                             </div>
                             <div class="col-md-9 pe-5">
-                                <span class="span" id="nameSpan" style="font-size: x-large;"><strong><span class="text" id="nameText"> <%=dev.name%></span><span>&ensp;&ensp;</span></strong> <span class="icon" id="nameIcon"><i class="bi bi-pencil-fill"></i></span></span>
+                                <span class="span" id="nameSpan" style="font-size: x-large;"><strong><span class="text" id="nameText"><%=dev.name%></span><span>&ensp;&ensp;</span></strong> <span class="icon" id="nameIcon"><i class="bi bi-pencil-fill"></i></span></span>
                                 <input value="<%=dev.name%>" class="form-control form-control-lg input" id="nameInput"/>
 
                             </div>
@@ -52,7 +52,7 @@
                                 <h6 class="mb-0">User Name</h6>
                             </div>
                             <div class="col-md-9 pe-5">
-                                <span class="span" id="usernameSpan" style="font-size: x-large;"><strong><span class="text" id="usernameText"> <%=dev.username%></span><span>&ensp;&ensp;</span></strong> <span class="icon" id="usernameIcon"><i class="bi bi-pencil-fill"></i></span></span>
+                                <span class="span" id="usernameSpan" style="font-size: x-large;"><strong><span class="text" id="usernameText"><%=dev.username%></span><span>&ensp;&ensp;</span></strong> <span class="icon" id="usernameIcon"><i class="bi bi-pencil-fill"></i></span></span>
                                 <input value="<%=dev.username%>" class="form-control form-control-lg input" id="usernameInput"/>
                                 <label id="userLabel">Username is Already Taken!</label>
                             </div>
@@ -166,7 +166,7 @@
 
                             </div>
                             <div class="col-md-9 pe-5">
-                                <span class="span" id="githubSpan" style="font-size: x-large;"><strong><span class="text" id="githubText"> <%=dev.github%></span><span>&ensp;&ensp;</span></strong> <span class="icon" id="githubIcon"><i class="bi bi-pencil-fill"></i></span></span>
+                                <span class="span" id="githubSpan" style="font-size: x-large;"><strong><span class="text" id="githubText"><%=dev.github%></span><span>&ensp;&ensp;</span></strong> <span class="icon" id="githubIcon"><i class="bi bi-pencil-fill"></i></span></span>
                                 <input value="<%=dev.github%>" class="form-control form-control-lg input" id="githubInput"/>
 
                             </div>
@@ -188,7 +188,7 @@
                                     <option><%=cities[i].שם_ישוב%></option>
                                     <%}%>
                                 </datalist>
-                                <span class="span" id="citySpan" style="font-size: x-large;"><strong><span class="text" id="cityText"> <%=dev.city%></span><span>&ensp;&ensp;</span></strong> <span class="icon" id="cityIcon"><i class="bi bi-pencil-fill"></i></span></span>
+                                <span class="span" id="citySpan" style="font-size: x-large;"><strong><span class="text" id="cityText"><%=dev.city%></span><span>&ensp;&ensp;</span></strong> <span class="icon" id="cityIcon"><i class="bi bi-pencil-fill"></i></span></span>
                                 <input value="<%=dev.city%>" class="form-control form-control-lg input" name="automaker" list="cityList" id="cityInput"/>
 
                             </div>
@@ -215,6 +215,10 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-4">
+                                    <button type="button" class="btn btn-primary" id="resetPic">Reset Picture</button>
+                                </div>
+
 
 
                             </div>

@@ -15,6 +15,13 @@ $('#langs').on('change', function () {
 
 var input = document.getElementById("file");
 
+
+$("#resetPic").click(function () {
+    document.getElementById("edit_img").src = "/images/basicDev.png";
+})
+
+
+
 const convertBase64 = (file) => {
     return new Promise((resolve, reject) => {
         const fileReader = new FileReader();
@@ -43,9 +50,16 @@ input.addEventListener("change", (e) => {
 });
 
 function validateForm(name, username, password, city, github, langs) {
-    console.log(name + " " + username + " " + password + " " + city + " " + github + " " + langs + " ")
     if ((name == null || name == "") || (username == null || username == "") || (password == null || password == "") || (city == null || city == "") || (github == null || github == "") || (langs == null || langs == "")) {
         alert("Please Fill In All Required Fields");
+        return false;
+    }
+    if(github.includes(" ")){
+        alert("github can't have space in it");
+        return false;
+    }
+    if(username.includes(" ")){
+        alert("username can't have space in it");
         return false;
     }
     return true;
@@ -57,11 +71,9 @@ $("#submit").click(function (e) {
     var name = document
         .getElementById("nameText")
         .innerHTML;
-    name = name.substring(1);
     var username = document
         .getElementById("usernameText")
         .innerHTML;
-    username = username.substring(1);
     var password;
     if(!checkValidPassword((document.getElementById("passwordCurrent").value),document.getElementById("passwordNew").value)){
         alert("Invalid input on the password");
@@ -79,11 +91,9 @@ $("#submit").click(function (e) {
     var github = document
         .getElementById("githubText")
         .innerHTML;
-    github = github.substring(1);
     var city = document
         .getElementById("cityText")
         .innerHTML;
-    city = city.substring(1);
     if (validateForm(name, username, password, city, github, langs)) {
         if ((picture == null || picture == "")) {
             const imgElement = document.getElementById('defaultImg');
@@ -98,6 +108,7 @@ $("#submit").click(function (e) {
             picture = base64String;
 
         }
+
         e.preventDefault();
         $.ajax({
             type: 'POST',
@@ -109,7 +120,8 @@ $("#submit").click(function (e) {
                 langs: langs,
                 github: github,
                 city: city,
-                picture: picture
+                picture: picture,
+                title: "update profile" + name
             },
 
             success: function () {
@@ -118,6 +130,13 @@ $("#submit").click(function (e) {
             },
             error: function () {
                 alert("Something Went Worng...");
+                console.log("---------------------------")
+                console.log("name: " + name)
+                console.log("username: " + username)
+                console.log("password: " + password)
+                console.log("langs: " + langs)
+                console.log("github: " + github)
+                console.log("city: " + city)
             }
         })
     }

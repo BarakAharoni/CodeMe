@@ -38,20 +38,18 @@ const getDevelopers = async () => {
     return await Developer.find({});
 };
 
-const updateDeveloper = async (id, name, username, password, langs, city, github, picture) => {
+const updateDeveloper = async (id, name_new, username_new, password_new, langs_new, city_new, github_new, picture_new) => {
     const developer = await getDeveloperById(id);
     if (!developer) 
         return null;
-    
-    developer.name = name;
-    developer.username = username;
-    developer.password = password;
-    developer.langs = langs;
-    developer.city = city;
-    developer.github = github;
-    developer.picture = picture;
-    await developer.save();
-    return developer;
+    developer.name = name_new;
+    developer.username = username_new;
+    developer.password = password_new;
+    developer.langs = langs_new;
+    developer.city = city_new;
+    developer.github = github_new;
+    developer.picture = picture_new;
+    return await developer.save();
 };
 
 const deleteDeveloper = async (id) => {
