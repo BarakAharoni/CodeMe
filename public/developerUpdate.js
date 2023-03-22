@@ -54,14 +54,6 @@ function validateForm(name, username, password, city, github, langs) {
         alert("Please Fill In All Required Fields");
         return false;
     }
-    if(github.includes(" ")){
-        alert("github can't have space in it");
-        return false;
-    }
-    if(username.includes(" ")){
-        alert("username can't have space in it");
-        return false;
-    }
     return true;
 }
 

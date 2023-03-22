@@ -36,26 +36,26 @@ document.getElementById('datatable-search-input').addEventListener('input', (e) 
 });
 
 
-var url = "/developers/register";
+var urlRegister = "/developers/register";
 $("#createBtn").click(function(e) {
     e.preventDefault();
     $.ajax({
         type: 'GET',
-        url: url,
+        url: urlRegister,
         dataType: 'text',
-        success: window.location = url
+        success: window.location = urlRegister
 
   }) 
 });
 
-url = "/developers/update?id=" + document.getElementsByClassName('idOfDev')[0].id;
+var urlUpdate = "/developers/update?id=" + document.getElementsByClassName('idOfDev')[0].id;
 $("#updateBtn").click(function(e) {
     e.preventDefault();
     $.ajax({
         type: 'GET',
-        url: url,
+        url: urlUpdate,
         dataType: 'text',
-        success: window.location = url
+        success: window.location = urlUpdate
 
     })
 });
