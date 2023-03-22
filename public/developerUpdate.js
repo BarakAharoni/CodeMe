@@ -1,5 +1,4 @@
 var picture;
-
 $('#langs').on('change', function () {
     var allLangs = [];
     var $selectedOptions = $(this).find('option:selected');
@@ -12,16 +11,22 @@ $('#langs').on('change', function () {
         .getElementById("sumLangs")
         .value = allLangs;
 });
-
-var input = document.getElementById("file");
-
-
 $("#resetPic").click(function () {
     document.getElementById("edit_img").src = "/images/basicDev.png";
 })
 
-
-
+var loadFile = function (event) {
+    var image = document.getElementById("edit_img");
+    image.src = URL.createObjectURL(event.target.files[0]);
+    uploadImage(event);
+};
+const uploadImage = async (event) => {
+    var file = event
+        .target
+        .files[0];
+    var allBase64 = await convertBase64(file);
+    picture = (allBase64.split(",")).pop();
+};
 const convertBase64 = (file) => {
     return new Promise((resolve, reject) => {
         const fileReader = new FileReader();
@@ -37,17 +42,6 @@ const convertBase64 = (file) => {
     });
 };
 
-const uploadImage = async (event) => {
-    var file = event
-        .target
-        .files[0];
-    var allBase64 = await convertBase64(file);
-    picture = (allBase64.split(",")).pop();
-};
-
-input.addEventListener("change", (e) => {
-    uploadImage(e);
-});
 
 function validateForm(name, username, password, city, github, langs) {
     if ((name == null || name == "") || (username == null || username == "") || (password == null || password == "") || (city == null || city == "") || (github == null || github == "") || (langs == null || langs == "")) {
@@ -59,6 +53,9 @@ function validateForm(name, username, password, city, github, langs) {
 
 var url = '/developers';
 
+$("#cancel").click(function (e) {
+    window.location = url
+})
 $("#submit").click(function (e) {
     var name = document
         .getElementById("nameText")
