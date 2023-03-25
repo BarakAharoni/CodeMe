@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    </head>
+    <body>
+        <%for (let i = 0; i < comments.length; i++) {%>      
+          <div class="card m-5" style="font-size: 30px; border-color: gold">
+            <div class="card-body">
+                <p class="card-text"><%=comments[i].content%>
+                  <form id="form<%=comments[i]._id%>">
+                    <input type="text" value="<%=comments[i].content%>" name="content" id="edit<%=comments[i]._id%>" style="display:none; border-color:gold">
+                    <input type="text" value="<%=comments[i].rating%>" name="rating" style="display: none">
+                  </form>
+                  <span class="d-flex justify-content-end">
+                    <button class="border border-0 bg-transparent deleteButton" value="<%=comments[i]._id%>">
+                      <i class="bi bi-x-circle" style="font-size: 20px"></i>
+                    </button>
+                    <button class="border border-0 bg-transparent editButton" value="<%=comments[i]._id%>">
+                      <i class="bi bi-pencil" style="font-size: 20px"></i>
+                    </button>
+                  </span>
+                </p>
+                <p style="font-size: 20">
+                  <%for (let j = 0; j < comments[i].rating; j++) {%>
+                    <i class="bi bi-star" style="color: gold"></i>
+                  <%}%>
+                </p>
+            </div>
+            <p class="id" style="display:none"><%=comments[i]._id%></p>
+          </div>
+        <%}%>
+        <script src="comments.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    </body>
+</html>
