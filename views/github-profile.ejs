@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CodeMe; GitHub Profile</title>
+    <meta charset="utf-8">
+    <link
+        rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <!-- <script src="/github-profile"></script> -->
+</head>
+
+  <body>
+    <h1> GitHub Profile</h1>
+    <img src="<%= profile.avatar %>" alt="Avatar" style="width:250px">
+    <h2> UserName: <%= profile.username %></h2>
+    <h2> Name: <%= profile.name %></h2>
+    <p> Bio: <%= profile.bio %></p>
+    <p> Link: <%= profile.html_url %> </p>
+    <p> Location: <%= profile.location %></p>
+    <p> <%= profile.followers %> Followers | <%= profile.following %> Following</p>
+    <h3> Repositories:</h3>
+    <ul>
+      <% for(let i=0; i<profile.repositories.length; i++) { %>
+        <li> <%= profile.repositories[i].name %></li>
+        <li2> <%= profile.repositories[i].description %></li2>
+        <link href=<%= profile.repositories[i].html_url %> >
+      <% } %>
+    </ul>
+
+
+  </body>
+</html>
