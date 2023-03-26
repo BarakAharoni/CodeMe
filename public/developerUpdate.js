@@ -120,13 +120,6 @@ $("#submit").click(function (e) {
             },
             error: function () {
                 alert("Something Went Worng...");
-                console.log("---------------------------")
-                console.log("name: " + name)
-                console.log("username: " + username)
-                console.log("password: " + password)
-                console.log("langs: " + langs)
-                console.log("github: " + github)
-                console.log("city: " + city)
             }
         })
     }

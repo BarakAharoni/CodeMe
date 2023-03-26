@@ -30,7 +30,12 @@ function getError(req){
 }
 
 function renderHome(req,res) {
-    res.redirect('/developers');
+    if(req.session.adminUser === true){
+        res.redirect('/admins/developers');
+    }
+    else {
+        res.redirect('/developers');
+    }
 }
 function loginForm(req, res) {res.render(`../views/login.ejs`, { url: "login", error: getError(req)})}
 
@@ -42,10 +47,22 @@ function logout(req, res) {
     });
 }
 async function login(req, res) {
-    const { username, password } = req.body
-    const result = await loginService.getDevByUsername(username, password)
+    let { username, password } = req.body
+    let result;
+    let admin;
+    if(String(username).startsWith("admin-")){
+        username = String(username).substring(6);
+        result = await loginService.getAdminByUsername(username, password)
+        admin = true;
+    }
+    else{
+        result = await loginService.getDevByUsername(username, password)
+        admin = false;
+    }
+
     if (result) {
         req.session.username = username
+        req.session.adminUser = admin
         res.redirect('/')
     }
     else

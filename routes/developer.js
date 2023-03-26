@@ -14,6 +14,7 @@ router
     .get(DeveloperProfileController.getDeveloper)
     .post(DeveloperController.createDeveloper);
 
+
 router
     .route('/register')
     .get(DeveloperRegisterController.getForm)

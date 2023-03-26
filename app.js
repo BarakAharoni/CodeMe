@@ -31,6 +31,7 @@ app.use(session({
 app.use("/", require("./routes/login"));
 //app.get("/test", (req,res) => {res.render("../views/test.ejs")});
 app.use("/developers", require("./routes/developer"))
+app.use("/admins", require("./routes/admin"))
 
 
 app.listen(process.env.PORT);

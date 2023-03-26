@@ -23,11 +23,12 @@ const createDeveloper = async (
 };
 
 const getDeveloperById = async (id) => {
-    return await Developer.findById(id);
-};
-
-const getNameDeveloperById = async (id) => {
-    return await (Developer.findById(id));
+    try{
+        return await Developer.findById(id);
+    }
+    catch (e) {
+        return null;
+    }
 };
 
 const getDeveloperByName = async (name) => {
@@ -68,5 +69,4 @@ module.exports = {
     updateDeveloper,
     deleteDeveloper,
     getDeveloperByName,
-    getNameDeveloperById
 }

@@ -3,6 +3,7 @@ const cities = require('../controllers/developerRegister');
 
 const createDeveloper = async (req, res) => {
     const newDeveloper = await developerService.createDeveloper(req.body.name, req.body.username, req.body.password, req.body.city, req.body.github, req.body.langs , req.body.picture);
+    req.session.username = req.body.username;
     res.json(newDeveloper);
 };
 
@@ -18,10 +19,16 @@ const getDevelopers = async (req, res) => {
 };
 
 const getDeveloper = async (req, res) => {
-    const developer = await developerService.getDeveloperById(req.params.id);
-    if (!developer) {
+    try {
+        const developer = await developerService.getDeveloperById(req.params.id);
+        if (!developer) {
+            return res.status(404).json({ errors: ['Developer not found'] });
+        }
+    }
+    catch (e) {
         return res.status(404).json({ errors: ['Developer not found'] });
     }
+
 
     res.json(developer);
 };
