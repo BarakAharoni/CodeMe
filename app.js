@@ -19,5 +19,4 @@ app.use(express.static(__dirname + '/images'));
 
 app.use('/developers', developers);
 
-
 app.listen(process.env.PORT); 

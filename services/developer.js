@@ -1,4 +1,5 @@
 const Developer = require('../models/developer');
+const {GithubProfile} = require('../Models/github-profile');
 
 const createDeveloper = async (
     name,
@@ -49,10 +50,33 @@ const deleteDeveloper = async (id) => {
     return developer;
 };
 
+const git = async(id) => {
+    const dev = await Developer.findById(id);
+    var gitName = dev.github;
+    const response = await fetch(`https://api.github.com/users/${gitName}`);
+    const data = await response.json();
+    
+    let profile = new GithubProfile(gitName);
+    profile.name = data.name;
+    profile.bio = data.bio;
+    profile.location = data.location;
+    profile.avatar = data.avatar_url;
+    profile.followers = data.followers;
+    profile.following = data.following;
+    profile.html_url = data.html_url;
+    // Fetch repositories
+    const reposResponse = await fetch(`https://api.github.com/users/${profile.username}/repos`);
+    const reposData = await reposResponse.json();
+    profile.repositories = reposData;
+    return profile;
+};
+
+
 module.exports = {
     createDeveloper,
     getDeveloperById,
     getDevelopers,
     updateDeveloper,
-    deleteDeveloper
+    deleteDeveloper,
+    git
 }
