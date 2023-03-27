@@ -6,7 +6,8 @@ const developers = require('./routes/developer');
 const newLocal = require('custom-env');
 newLocal.env(process.env.NODE_ENV, './config');
 
-mongoose.connect(process.env.CONNECTION_STRING, 
+
+mongoose.connect(process.env.DB_CONNECTION_STRING,
                 {   useNewUrlParser: true, 
                     useUnifiedTopology: true });
 
@@ -15,8 +16,25 @@ app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 app.use(cors());
 app.use(express.static(__dirname + '/public'));
+
 app.use(express.static(__dirname + '/images'));
+app.set("view engine", "ejs");
+app.use(express.urlencoded({ extended: false }));
 
-app.use('/developers', developers);
+const session = require('express-session');
+app.use(session({
+    secret: 'saveLogin',
+    saveUninitialized: false,
+    resave: false
+}))
+app.use("/", require("./routes/login"));
+app.get("/test", (req,res) => {
+    res.render("../views/test.ejs")
+});
+app.use("/developers", require("./routes/developer"))
 
-app.listen(process.env.PORT); 
+
+app.listen(process.env.PORT);
+
+console.log("server run")
+
