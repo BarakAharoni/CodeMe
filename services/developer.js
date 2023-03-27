@@ -1,5 +1,6 @@
 const Developer = require('../models/developer');
 const {GithubProfile} = require('../Models/github-profile');
+var mongoose = require('mongoose');
 
 const createDeveloper = async (
     name,
@@ -24,7 +25,15 @@ const createDeveloper = async (
 };
 
 const getDeveloperById = async (id) => {
-    return await Developer.findById(id);
+
+    if(mongoose.Types.ObjectId.isValid(id)) {
+        return await Developer.findById(id);
+        } else {
+            return null;
+        }
+
+
+    
 };
 
 const getDevelopers = async () => {

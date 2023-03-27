@@ -9,12 +9,7 @@ const createDeveloper = async (req, res) => {
 
 const getDevelopers = async (req, res) => {
     const developers = await developerService.getDevelopers();
-    if (req.session.username === undefined){
-        res.redirect('/login')
-    }
-    else{
-        res.render("../views/developersOption.ejs", { developers: developers, username: req.session.username});
-    }
+    res.render("../views/developersOption.ejs", { developers: developers });
     //res.json(developer);
 };
 
