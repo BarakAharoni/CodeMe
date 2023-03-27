@@ -1,29 +1,35 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const fs = require('fs');
-const defaultImg = fs.readFileSync('./images/basicDev.png');
 
 const Developer = new Schema({
-    _id : {
+    name: {
+        type: String,
+        required: true
+    },
+    username: {
         type: String,
         required: true
     },
     password: {
         type: String,
-        required: true,
+        required: true
     },
     langs: {
         type: Array,
-        default: []
+        required: true
     },
-    published: {
-        type: Date,
-        default: Date.now
+    city: {
+        type: String,
+        default: true
+    },
+    github: {
+        type: String,
+        required: true
     },
     picture: {
         type: Buffer,
         contentType: String,
-        default: defaultImg.toString('base64')
+        required: true
     }
 });
 

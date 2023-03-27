@@ -1,17 +1,26 @@
 const express = require('express');
 var router = express.Router();
-const DeveloperController = require('../controllers/developer');
-const DeveloperProfileController = require('../controllers/developerProfile');
+const DeveloperController = require('../controllers/developer.js');
+const DeveloperProfileController = require('../controllers/developerProfile.js');
+const DeveloperRegisterController = require('../controllers/developerRegister.js');
 
-router.route('/')
+router
+    .route('/')
     .get(DeveloperController.getDevelopers)
     .post(DeveloperController.createDeveloper);
 
-router.route('/developerProfile')
+router
+    .route('/developerProfile')
     .get(DeveloperProfileController.getDeveloper)
     .post(DeveloperProfileController.createDeveloper);
 
-router.route('/:id')
+    router
+    .route('/register')
+    .get(DeveloperRegisterController.getForm)
+    .post(DeveloperRegisterController.createDeveloper);
+
+router
+    .route('/:id')
     .get(DeveloperController.getDeveloper)
     .put(DeveloperController.updateDeveloper)
     .delete(DeveloperController.deleteDeveloper);

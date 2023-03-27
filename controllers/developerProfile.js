@@ -8,18 +8,20 @@ const createDeveloper = async (req, res) => {
 const getDevelopers = async (req, res) => {
     const developers = await developerService.getDevelopers();
     res.render("../views/developerProfile.ejs", { developers: developers });
-    //res.json(developer);
 };
 
 const getDeveloper = async (req, res) => {
     const developer = await developerService.getDeveloperById(req.query.id);
     if (!developer) {
         return res.status(404).json({ errors: ['Developer not found'] });
-        //return res.status(404).json({ errors: [req.params] });
     }
 
-    //res.json(developer);
-    res.render("../views/developerProfile.ejs", { developer: developer });
+    //github Account
+    if (!req.query.id) {
+      return res.status(404).json({ errors: ['profile not entered'] });
+    }
+    const profile = developerService.git(req.query.id);
+    res.render("../views/developerProfile.ejs", { developer: developer, git: (await profile)});
 };
 
 const updateDeveloper = async (req, res) => {
