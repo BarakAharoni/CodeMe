@@ -25,7 +25,6 @@ const createDeveloper = async (
 };
 
 const getDeveloperById = async (id) => {
-
     if(mongoose.Types.ObjectId.isValid(id)) {
         return await Developer.findById(id);
         } else {
