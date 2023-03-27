@@ -11,10 +11,10 @@
         <%for (let i = 0; i < comments.length; i++) {%>      
           <div class="card m-5" style="font-size: 30px; border-color: gold">
             <div class="card-body">
-                <p class="card-text"><%=comments[i].content%>
+                <p class="card-text"><p id="p<%=comments[i]._id%>"><%=comments[i].content%></p><p id="card<%=comments[i]._id%>"></p>
                   <form id="form<%=comments[i]._id%>">
                     <input type="text" value="<%=comments[i].content%>" name="content" id="edit<%=comments[i]._id%>" style="display:none; border-color:gold">
-                    <input type="text" value="<%=comments[i].rating%>" name="rating" style="display: none">
+                    <input type="number" value="<%=comments[i].rating%>" name="rating" style="display: none">
                   </form>
                   <span class="d-flex justify-content-end">
                     <button class="border border-0 bg-transparent deleteButton" value="<%=comments[i]._id%>">
