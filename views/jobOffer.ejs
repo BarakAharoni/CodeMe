@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CodeMe; JobOffers</title>
+    <meta charset="utf-8">
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+        rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="/jobOffer.css">
+</head>
+<body>
+  <div class="jumbotron" id="header">
+      <div class="container text-center">
+          <h1>CodeMe;</h1>
+          <p>Connect Between People to Code</p>
+      </div>
+  </div>
+
+  <nav class="navbar navbar-expand-sm bg-light navbar-light">
+    <div class="container-fluid">
+
+        <ul class="navbar-nav">
+            <li class="navbar-brand" id="home" type="button">
+                <img src="/logo.jfif" id="logo">
+            </li>
+            <li class="nav-item nav-link" id="devs" type="button">
+                <!-- <a href="/developers" class="nav-link"> Our Developers </a> -->
+                Our Developers
+            </li>
+            <li class="nav-item nav-link" id="devsReg" type="button">
+                <!-- <a href="/developers/register" class="nav-link"> Be a Developer </a> -->
+                Be a Developer
+            </li>
+            <li class="nav-item nav-link" id="job" type="button">
+                Job Offers
+            </li>
+        </ul>
+        <form class="d-flex">
+            <input type="text" placeholder="Username" name="username">
+            <input type="password" placeholder="Password" name="psw">
+            <button type="submit" class="btn">Login</button>
+        </form>
+    </div>
+</nav>
+<br>
+<div>
+    <button type="button" class="btn" id="createBtn">Create Job Offer</button>
+    <button type="button" class="btn">Update Your Job Offer</button>
+    <button type="button" class="btn">Remove Your Job Offer</button>
+    <input
+                type="search"
+                class="form-control"
+                id="datatable-search-input"
+                placeholder="Search">
+</div>
+  
+  <br><br>
+
+  <section style="background-color: #eee;">
+      <div class="text-center container py-5">
+          <h4 class="mt-4 mb-5">
+              <strong>Job Offers</strong>
+          </h4>
+
+          <div class="row">
+            <%for (var i = 0; i < jobOffers.length; i++) {%>
+              <div class="col-lg-4 col-md-12 mb-4 jobs">
+                  <div class="card clickableDivs" id="<%=jobOffers[i].id%>">
+                      <h2 class="text-body"><%=jobOffers[i].title%></h2>
+                      <h5 class="text-body">Description: <%=jobOffers[i].description%></h5>
+                      </br>
+                      <h5 class="text-body">Name: <%=jobOffers[i].username%></h5>
+                      </br>
+                      <h5 class="text-body">Salary: <%=jobOffers[i].salary%> $</h5>
+                      </br>
+                      <h6 class="text-black-50">Publish at: <%=jobOffers[i].published%></h6>
+                      <button type="button" id="btnSendJobOffer" class="btn btn-outline-dark">Ask for job</button>
+                  </div>
+
+              </div>
+
+          <%}%>
+
+          </div>
+      </div>
+  </section>
+<br><br>
+
+<footer class="text-center text-lg-start bg-light text-muted">
+    <section class="">
+        <div class="container text-center text-md-start mt-5">
+
+            <div class="row mt-3">
+                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">
+                        <i class="fas fa-gem me-3"></i>CODEME;
+                    </h6>
+                    <p id="about">
+                        We are a platform designed to create a connection between code and people, thus
+                        making the most advanced technology accessible to everyone, from anywhere.
+                    </p>
+                </div>
+
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">
+                        Who We Are?
+                    </h6>
+
+                    <video width="320" height="240" controls="controls">
+                        <source src="/whoWeAre.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+
+                </div>
+
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+                    <p>
+                        The College of Management Academic Studies, Rishon LeZion</p>
+                    <p>
+                        info@example.com
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+        © CodeMe;
+    </div>
+</footer>
+
+  <script src="/jobOffer.js"></script>
+</body>
+</html>

@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const Comment = require("./comment");
 
 const Developer = new Schema({
     name: {
@@ -31,7 +30,7 @@ const Developer = new Schema({
         type: Buffer,
         contentType: String,
         required: true
-    },
+    }
 });
 
 module.exports = mongoose.model('Developer', Developer);

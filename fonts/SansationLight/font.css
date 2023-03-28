@@ -1,0 +1,11 @@
+@font-face {
+	font-family: 'SansationLight';
+	src: url('./SansationLight.eot');
+	src: local('SansationLight'), url('./SansationLight.woff') format('woff'), url('./SansationLight.ttf') format('truetype');
+}
+/* use this class to attach this font to any element i.e. <p class="fontsforweb_fontid_423">Text with this font applied</p> */
+.fontsforweb_fontid_423 {
+	font-family: 'SansationLight' !important;
+}
+
+/* Font downloaded from FontsForWeb.com */

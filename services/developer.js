@@ -18,7 +18,7 @@ const createDeveloper = async (
         langs: langs,
         github: github,
         city: city,
-        picture: picture,
+        picture: picture
     });
 
     return await developer.save();
