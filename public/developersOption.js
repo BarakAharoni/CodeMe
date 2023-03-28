@@ -29,6 +29,16 @@ $('#home').on('click',(function (e) {
     })
   }));
 
+  $('#job').on('click',(function (e) {
+    e.preventDefault();
+    $.ajax({
+        type: 'GET',
+        url: '/jobOffers',
+        dataType: 'text',
+        success: window.location = '/jobOffers'
+    })
+  }));
+
 
 
 const onClick = (e) => {
@@ -56,7 +66,7 @@ const onClick = (e) => {
 
     }
 }
-var devs = document.getElementsByClassName("devs");
+var devs = document.getElementsByClassName("clickableDivs");
 
 for (var i = 0; i < devs.length; i++) {
     devs[i].addEventListener('click', onClick);
@@ -99,7 +109,8 @@ $("#createBtn")
         const val = $(this).val();
         $.ajax
         ({
-            url: "/" + val,
+            url: "/comments/addcomment/" + val,
+
             method: "GET",
             success: function (data)
             {
@@ -110,5 +121,16 @@ $("#createBtn")
     
     $(".viewcomments").click(function ()
     {
-        window.location = "/comments/dev/" + $(this).val();
+        const val = $(this).val();
+        $.ajax
+        ({
+            url: "/comments/dev/" + val,
+            method: "GET",
+            success: function (data)
+            {
+                window.location = "/comments/dev/" + val;
+            }
+        })
+        
     });
+

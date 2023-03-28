@@ -29,4 +29,14 @@ $('#devsReg').on('click',(function (e) {
   })
 }));
 
+$('#job').on('click',(function (e) {
+  e.preventDefault();
+  $.ajax({
+      type: 'GET',
+      url: '/jobOffers',
+      dataType: 'text',
+      success: window.location = '/jobOffers'
+  })
+}));
+
 
