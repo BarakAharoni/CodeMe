@@ -110,6 +110,7 @@ $("#createBtn")
         $.ajax
         ({
             url: "/comments/addcomment/" + val,
+
             method: "GET",
             success: function (data)
             {
@@ -132,3 +133,4 @@ $("#createBtn")
         })
         
     });
+
