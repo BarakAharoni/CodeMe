@@ -6,3 +6,7 @@
 #defaultImg{
     display: none;
 }
+
+#titleReg{
+    text-shadow: 6px 6px 3px rgba(126, 127, 128, 1);
+}

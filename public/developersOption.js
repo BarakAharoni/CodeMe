@@ -1,9 +1,42 @@
+//navbar ajax
+$('#home').on('click',(function (e) {
+    e.preventDefault();
+    $.ajax({
+        type: 'GET',
+        url: '/',
+        dataType: 'text',
+        success: window.location = '/'
+    })
+  }));
+  
+  $('#devs').on('click',(function (e) {
+    e.preventDefault();
+    $.ajax({
+        type: 'GET',
+        url: '/developers',
+        dataType: 'text',
+        success: window.location = '/developers'
+    })
+  }));
+  
+  $('#devsReg').on('click',(function (e) {
+    e.preventDefault();
+    $.ajax({
+        type: 'GET',
+        url: '/developers/register',
+        dataType: 'text',
+        success: window.location = '/developers/register'
+    })
+  }));
+
+
+
 const onClick = (e) => {
     var t = e.target;
     while (t && !t.id) 
         t = t.parentNode;
     if (t) {
-        var urlDev = "./developerProfile/?id=" + t.id;
+        var urlDev = "/developers/developerProfile/?id=" + t.id;
         e.preventDefault();
         $.ajax({
             type: 'GET',
@@ -13,12 +46,12 @@ const onClick = (e) => {
                 window.open(
                     urlDev,
                     "_blank",
-                    "toolbar=yes,scrollbars=yes,resizable=yes,top=200,left=200,width=400,height=600"
+                    "toolbar=yes,scrollbars=yes,resizable=yes,top=200,left=200,width=600,height=600"
                 );
             },
-            // error: function () {
-            //     alert("Something Went Worng...");
-            // }
+            error: function () {
+                alert("Something Went Worng...");
+            }
         })
 
     }
@@ -50,7 +83,7 @@ document
 
 var url = "/developers/register";
 $("#createBtn")
-    .click(function (e) {
+.on('click',(function (e) {
         e.preventDefault();
         $.ajax({
             type: 'GET',
@@ -59,28 +92,4 @@ $("#createBtn")
             success: window.location = url
 
         })
-    });
-
-    $(".addcomment").click(function ()
-    {
-        const val = $(this).val();
-        $.ajax
-        ({
-            url: "/developers/" + val,
-            method: "GET",
-            success: function (data)
-            {
-                window.location = "/comments/addcomment/" + val;
-            }
-        })
-    });
-    
-    $(".viewcomments").click(function ()
-    {
-        window.location = "/comments/dev/" + $(this).val();
-    });
-    
-    $(".chat").click(function () 
-    {
-        window.location = "/chat/" + $(this).val();
-    });
+    }));
