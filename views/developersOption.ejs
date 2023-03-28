@@ -36,6 +36,9 @@
                     <li class="nav-item nav-link" id="job" type="button">
                         Job Offers
                     </li>
+                    <li class="nav-item nav-link" id="chat" type="button">
+                        GlobalChat
+                    </li>
                 </ul>
                 <form class="d-flex">
                     <input type="text" placeholder="Username" name="username">
@@ -90,11 +93,12 @@
                                 <a href="" class="text-reset">
                                     <p><%=developers[i].langs%></p>
                                 </a>
-                            </div>
-                            </div>
-                            <button type="button" class="btn btn-outline-dark addcomment" id="comment<%=developers[i]._id%>" value="<%=developers[i]._id%>">Add Comment</button>
+                                <button type="button" class="btn btn-outline-dark addcomment" id="comment<%=developers[i]._id%>" value="<%=developers[i]._id%>">Add Comment</button>
                             <button type="button" class="btn btn-outline-dark viewcomments" id="view<%=developers[i]._id%>" value="<%=developers[i]._id%>">View Comments</button>
                         
+                            </div>
+                            </div>
+                            
                     </div>
                 <%}%>
             </div>

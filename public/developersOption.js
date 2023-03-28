@@ -39,10 +39,21 @@ $('#home').on('click',(function (e) {
     })
   }));
 
+  $('#chat').on('click',(function (e) {
+    e.preventDefault();
+    $.ajax({
+        type: 'GET',
+        url: "/chat",
+        dataType: 'text',
+        success: window.location = "/chat"
+    })
+  }));
+
 
 
 const onClick = (e) => {
     var t = e.target;
+    if(!e.target.className.includes("btn")){
     while (t && !t.id) 
         t = t.parentNode;
     if (t) {
@@ -63,7 +74,7 @@ const onClick = (e) => {
                 alert("Something Went Worng...");
             }
         })
-
+    }
     }
 }
 var devs = document.getElementsByClassName("clickableDivs");
@@ -71,6 +82,7 @@ var devs = document.getElementsByClassName("clickableDivs");
 for (var i = 0; i < devs.length; i++) {
     devs[i].addEventListener('click', onClick);
 }
+//$(".btn").removeEventListener("click", onClick, true);
 
 var ids = $('.clickableDivs')
     .map(function (_, x) {
@@ -132,3 +144,5 @@ $("#createBtn")
         })
         
     });
+
+
