@@ -4,6 +4,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const developers = require('./routes/developer');
 const jobOffers = require('./routes/jobOffer');
+const comments = require("./routes/comment");
 const newLocal = require('custom-env');
 newLocal.env(process.env.NODE_ENV, './config');
 
@@ -17,8 +18,10 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 app.use(cors());
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/images'));
+app.set("view engine", "ejs");
 
 app.use('/developers', developers);
 app.use('/jobOffers', jobOffers);
+app.use("/comments", comments);
 
 app.listen(process.env.PORT);
