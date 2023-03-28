@@ -1,4 +1,5 @@
 const JobOffer = require('../models/jobOffer');
+var mongoose = require('mongoose');
 
 const createJobOffer = async (title, username, salary, description, published) => {
     const jobOffer = new JobOffer({
@@ -17,7 +18,12 @@ const createJobOffer = async (title, username, salary, description, published) =
 };
 
 const getJobOfferById = async (id) => {
-    return await JobOffer.findById(id);
+    if(mongoose.Types.ObjectId.isValid(id)) {
+        return await JobOffer.findById(id);
+        } else {
+            return null;
+        }
+    
 };
 
 const getJobOffers = async () => {

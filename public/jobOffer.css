@@ -1,7 +1,12 @@
+@font-face {
+  font-family: lightFont;
+  src: url("/SansationLight/SansationLight.woff");
+}
 
-.navbar {
 
-  border-radius: 0;
+#logo{
+  width:50px;
+  border-radius: 10%;
 }
 
 /* Remove the jumbotron's default bottom margin */
@@ -24,6 +29,27 @@ footer {
 .btn:hover {
   background-color: rgb(232, 232, 232);
   color: black;
+}
+
+p {
+  font-family: lightFont;
+}
+
+video {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: all 1s;
+}
+
+video:hover {
+  width: 640px;
+  height: 360px;
+  border-radius: 5%;
+}
+
+#about{
+  column-count: 2;
 }
 
 .publish-at {

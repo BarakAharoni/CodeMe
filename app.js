@@ -23,8 +23,8 @@ app.use(express.static(__dirname + '/fonts'));
 
 app.set("view engine", "ejs");
 
-app.use('/', developers);
 app.use('/jobOffers', jobOffers);
 app.use("/comments", comments);
+app.use('/', developers);
 
 app.listen(process.env.PORT);
