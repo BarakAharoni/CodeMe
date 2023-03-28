@@ -107,6 +107,16 @@ $('#home').on('click',(function (e) {
     })
   }));
 
+  $('#chat').on('click',(function (e) {
+    e.preventDefault();
+    $.ajax({
+        type: 'GET',
+        url: "/chat",
+        dataType: 'text',
+        success: window.location = "/chat"
+    })
+  }));
+
   
 
 const onClick = (e) => {
