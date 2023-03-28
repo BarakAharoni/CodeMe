@@ -16,9 +16,9 @@ const onClick = (e) => {
                     "toolbar=yes,scrollbars=yes,resizable=yes,top=200,left=200,width=400,height=600"
                 );
             },
-            error: function () {
-                alert("Something Went Worng...");
-            }
+            // error: function () {
+            //     alert("Something Went Worng...");
+            // }
         })
 
     }
@@ -59,4 +59,28 @@ $("#createBtn")
             success: window.location = url
 
         })
+    });
+
+    $(".addcomment").click(function ()
+    {
+        const val = $(this).val();
+        $.ajax
+        ({
+            url: "/developers/" + val,
+            method: "GET",
+            success: function (data)
+            {
+                window.location = "/comments/addcomment/" + val;
+            }
+        })
+    });
+    
+    $(".viewcomments").click(function ()
+    {
+        window.location = "/comments/dev/" + $(this).val();
+    });
+    
+    $(".chat").click(function () 
+    {
+        window.location = "/chat/" + $(this).val();
     });
