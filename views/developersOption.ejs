@@ -24,31 +24,37 @@
             <div class="container-fluid">
 
                 <ul class="navbar-nav">
-                    <li class="navbar-brand">
-                        <a href="/developers">
-                            <img src="/logo.jfif" id="logo">
-                        </a>
+                    <li class="navbar-brand" id="home" type="button">
+                        <img src="/logo.jfif" id="logo">
                     </li>
-                    <li class="nav-item">
-                        <button type="button" class="btn" id="createBtn">Create New Developer</button>
+                    <li class="nav-item nav-link" id="devs" type="button">
+                        <!-- <a href="/developers" class="nav-link"> Our Developers </a> -->
+                        Our Developers
                     </li>
-                    <li class="nav-item">
-                        <button type="button" class="btn">Update Your Profile</button>
-                    </li>
-                    <li class="nav-item">
-                        <button type="button" class="btn">Remove Your Profile</button>
+                    <li class="nav-item nav-link" id="devsReg" type="button">
+                        <!-- <a href="/developers/register" class="nav-link"> Be a Developer </a> -->
+                        Be a Developer
                     </li>
                 </ul>
                 <form class="d-flex">
-                    <input
+                    <input type="text" placeholder="Username" name="username">
+                    <input type="password" placeholder="Password" name="psw">
+                    <button type="submit" class="btn">Login</button>
+                </form>
+            </div>
+        </nav>
+        <br>
+        <div>
+            <button type="button" class="btn" id="createBtn">Create New Developer</button>
+            <button type="button" class="btn">Update Your Profile</button>
+            <button type="button" class="btn">Remove Your Profile</button>
+            <input
                         type="search"
                         class="form-control"
                         id="datatable-search-input"
                         placeholder="Search">
-                </form>
-            </div>
-        </nav>
-        
+        </div>
+        <br>
         <section style="background-color: #eee;">
             <div class="text-center container py-5">
                 <h4 class="mt-4 mb-5">
@@ -104,7 +110,7 @@
                         <h6 class="text-uppercase fw-bold mb-4">
                             <i class="fas fa-gem me-3"></i>CODEME;
                         </h6>
-                        <p>
+                        <p id="about">
                             We are a platform designed to create a connection between code and people, thus
                             making the most advanced technology accessible to everyone, from anywhere.
                         </p>
@@ -115,7 +121,7 @@
                             Who We Are?
                         </h6>
 
-                        <video width="320" height="240" controls>
+                        <video width="320" height="240" controls="controls">
                             <source src="/whoWeAre.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
@@ -123,7 +129,6 @@
                     </div>
 
                     <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                        <!-- Links -->
                         <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
                         <p>
                             The College of Management Academic Studies, Rishon LeZion</p>
@@ -131,14 +136,9 @@
                             info@example.com
                         </p>
                     </div>
-                    <!-- Grid column -->
                 </div>
-                <!-- Grid row -->
             </div>
         </section>
-        <!-- Section: Links -->
-
-        <!-- Copyright -->
         <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
             © CodeMe;
         </div>

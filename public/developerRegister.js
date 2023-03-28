@@ -1,6 +1,28 @@
 var picture;
 
+function showPass() {
+    var x = document.getElementById("password");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+  }
 
+$(".form-control:not('#password')").keypress(function (e) {
+    var txt = String.fromCharCode(e.which);
+    if (!txt.match(/[A-Za-z0-9&_\u0590-\u05FF ]/)) {
+        return false;
+    }
+  });
+
+  $("#password").keypress(function (e) {
+    var txt = String.fromCharCode(e.which);
+    if (!txt.match(/[A-Za-z0-9&!@#$%^&*()-=_+\u0590-\u05FF]/)) {
+        $("#password").val('');
+        return false;
+    }
+  });
 
 
 
@@ -105,7 +127,7 @@ $("#submit").click(function (e) {
 
             success: function () {
                 alert("Your registration is successful!");
-                window.location = url
+                window.location = "/"
             },
             error: function () {
                 alert("Something Went Worng...");

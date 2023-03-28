@@ -16,7 +16,8 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 app.use(cors());
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/images'));
+app.use(express.static(__dirname + '/fonts'));
 
-app.use('/developers', developers);
+app.use('/', developers);
 
 app.listen(process.env.PORT); 
