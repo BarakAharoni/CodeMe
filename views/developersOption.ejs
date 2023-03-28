@@ -85,6 +85,9 @@
                                 </a>
                                 <h6 class="mb-3">TBD</h6>
                             </div>
+                            <button type="button" class="btn btn-outline-dark addcomment" id="comment<%=developers[i]._id%>" value="<%=developers[i]._id%>">add comment</button>
+                            <button type="button" class="btn btn-outline-dark viewcomments" id="view<%=developers[i]._id%>" value="<%=developers[i]._id%>">view comments</button>
+                            <button type="button" class="btn btn-outline-dark chat" id="shared<%=developers[i]._id%>" value="<%=developers[i]._id%>">enter chat</button>
                         </div>
                     </div>
                 <%}%>
