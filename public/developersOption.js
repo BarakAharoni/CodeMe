@@ -93,3 +93,22 @@ $("#createBtn")
 
         })
     }));
+
+    $(".addcomment").click(function ()
+    {
+        const val = $(this).val();
+        $.ajax
+        ({
+            url: "/developers/" + val,
+            method: "GET",
+            success: function (data)
+            {
+                window.location = "/comments/addcomment/" + val;
+            }
+        })
+    });
+    
+    $(".viewcomments").click(function ()
+    {
+        window.location = "/comments/dev/" + $(this).val();
+    });
