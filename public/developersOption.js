@@ -120,15 +120,10 @@ $("#createBtn")
     
     $(".viewcomments").click(function ()
     {
-        const val = $(this).val();
-        $.ajax
-        ({
-            url: "/comments/dev/" + val,
-            method: "GET",
-            success: function (data)
-            {
-                window.location = "/comments/dev/" + val;
-            }
-        })
-        
+        window.location = "/comments/dev/" + $(this).val();
+    });
+
+    $("#chat").click(function () 
+    {
+        window.location = "/chat";
     });
