@@ -3,11 +3,12 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const developers = require('./routes/developer');
+const jobOffers = require('./routes/jobOffer');
 const newLocal = require('custom-env');
 newLocal.env(process.env.NODE_ENV, './config');
 
-mongoose.connect(process.env.CONNECTION_STRING, 
-                {   useNewUrlParser: true, 
+mongoose.connect(process.env.CONNECTION_STRING,
+                {   useNewUrlParser: true,
                     useUnifiedTopology: true });
 
 var app = express();
@@ -18,5 +19,6 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/images'));
 
 app.use('/developers', developers);
+app.use('/jobOffers', jobOffers);
 
-app.listen(process.env.PORT); 
+app.listen(process.env.PORT);

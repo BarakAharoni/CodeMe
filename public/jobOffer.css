@@ -1,0 +1,31 @@
+
+.navbar {
+
+  border-radius: 0;
+}
+
+/* Remove the jumbotron's default bottom margin */
+.jumbotron {
+  margin-bottom: 0;
+}
+
+/* Add a gray background color and some padding to the footer */
+footer {
+
+  padding: 25px;
+}
+
+.btn {
+  background-color: rgb(241, 241, 241);
+  border-color: white;
+  color: black;
+}
+
+.btn:hover {
+  background-color: rgb(232, 232, 232);
+  color: black;
+}
+
+.publish-at {
+  size: 10px;
+}
