@@ -99,7 +99,7 @@ $("#createBtn")
         const val = $(this).val();
         $.ajax
         ({
-            url: "/developers/" + val,
+            url: "/" + val,
             method: "GET",
             success: function (data)
             {
