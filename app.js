@@ -16,6 +16,7 @@ mongoose.connect(process.env.CONNECTION_STRING,
     {   useNewUrlParser: true,
         useUnifiedTopology: true });
 
+var app = express();
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 app.use(cors());

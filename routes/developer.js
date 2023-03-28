@@ -15,11 +15,11 @@ router
     .post(DeveloperController.createDeveloper);
 
 router
-    .route('/developerProfile')
+    .route('/developers/developerProfile')
     .get(DeveloperProfileController.getDeveloper)
 
     router
-    .route('/register')
+    .route('/developers/register')
     .get(DeveloperRegisterController.getForm)
     .post(DeveloperController.createDeveloper);
 

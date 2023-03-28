@@ -1,23 +1,15 @@
-
-#logout{
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: large;
-    color: darkslateblue;
-}
 @font-face {
     font-family: lightFont;
     src: url("/SansationLight/SansationLight.woff");
   }
 
-.navbar {
-    border-radius: 0;
-}
 
 #logo{
     width:50px;
     border-radius: 10%;
+}
+.navbar {
+    border-radius: 0;
 }
 
 /* Remove the jumbotron's default bottom margin */

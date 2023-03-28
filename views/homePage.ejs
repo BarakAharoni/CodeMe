@@ -127,7 +127,7 @@
 
 <!-- bar chart -->
     <script>
-        
+
         var margin = {
                 top: 30,
                 right: 30,
@@ -154,7 +154,7 @@
             .map(function (key) {
                 return {Country: key, Value: data[key]};
             });
-            
+
 
         var svg = d3
             .select("#barChart")
@@ -214,7 +214,7 @@
         var width = 450;
         height = 450;
         margin = 40;
-        
+
 
         var radius = Math.min(width, height) / 2 - margin;
 
@@ -232,7 +232,7 @@
                 data[dataJson[i]._id] = dataJson[i].count;
             }
 
-        
+
 
         var color = d3
             .scaleOrdinal()
