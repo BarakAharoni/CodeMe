@@ -46,8 +46,8 @@
 
           <div class="row">
             <%for (var i = 0; i < jobOffers.length; i++) {%>
-              <div class="col-lg-4 col-md-12 mb-4 devs">
-                  <div class="card clickableDivs">
+              <div class="col-lg-4 col-md-12 mb-4 jobs">
+                  <div class="card clickableDivs" id="<%=jobOffers[i].id%>>
                       <h2 class="text-body"><%=jobOffers[i].title%></h2>
                       <h5 class="text-body">Description: <%=jobOffers[i].description%></h5>
                       </br>
@@ -72,5 +72,6 @@
       <p>CodeMe;</p>
   </footer>
 
+  <script src="/jobOffer.js"></script>
 </body>
 </html>
