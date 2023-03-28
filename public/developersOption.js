@@ -18,7 +18,7 @@ $('#home').on('click',(function (e) {
         success: window.location = '/developers'
     })
   }));
-
+  
   $('#devsReg').on('click',(function (e) {
     e.preventDefault();
     $.ajax({
@@ -44,7 +44,6 @@ $('#home').on('click',(function (e) {
 $("#logout").click(function () {window.location = "/logout"})
 
 
-let devId;
 const onClick = (e) => {
     let t = e.target;
     while (t && !t.id) 
@@ -114,7 +113,6 @@ $("#createBtn")
         $.ajax
         ({
             url: "/comments/addcomment/" + val,
-
             method: "GET",
             success: function (data)
             {
