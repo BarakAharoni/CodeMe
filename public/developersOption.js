@@ -39,6 +39,16 @@ $('#home').on('click',(function (e) {
     })
   }));
 
+  $('#chat').on('click',(function (e) {
+    e.preventDefault();
+    $.ajax({
+        type: 'GET',
+        url: "/chat",
+        dataType: 'text',
+        success: window.location = "/chat"
+    })
+  }));
+
 
 
 const onClick = (e) => {
@@ -120,10 +130,17 @@ $("#createBtn")
     
     $(".viewcomments").click(function ()
     {
-        window.location = "/comments/dev/" + $(this).val();
+        const val = $(this).val();
+        $.ajax
+        ({
+            url: "/comments/dev/" + val,
+            method: "GET",
+            success: function (data)
+            {
+                window.location = "/comments/dev/" + val;
+            }
+        })
+        
     });
 
-    $("#chat").click(function () 
-    {
-        window.location = "/chat";
-    });
+
