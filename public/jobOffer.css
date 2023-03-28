@@ -3,10 +3,27 @@
   src: url("/SansationLight/SansationLight.woff");
 }
 
+#titleReg{
+  text-shadow: 6px 6px 3px rgba(126, 127, 128, 1);
+}
 
 #logo{
   width:50px;
   border-radius: 10%;
+}
+
+#salaryDiv {
+    position: relative;
+    background-color: #dedede;
+    display: inline;
+}
+
+#salaryDiv:before {
+    content: '$';
+    position: absolute;
+    top: 12px;
+    right: 40px;
+    z-index: 1;
 }
 
 /* Remove the jumbotron's default bottom margin */
