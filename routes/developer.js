@@ -25,6 +25,16 @@ router
     .post(DeveloperRegisterController.createDeveloper);
 
 router
+    .route('/update')
+    .get(DeveloperController.updateDeveloperPage)
+    .post(DeveloperController.updateDeveloper);
+
+router
+    .route('/delete')
+    .get(DeveloperController.deleteDeveloper)
+
+
+router
     .route('/:id')
     .get(DeveloperController.getDeveloper)
     .put(DeveloperController.updateDeveloper)

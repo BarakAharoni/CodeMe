@@ -8,7 +8,7 @@ $('#home').on('click',(function (e) {
         success: window.location = '/'
     })
   }));
-  
+
   $('#devs').on('click',(function (e) {
     e.preventDefault();
     $.ajax({
@@ -18,7 +18,7 @@ $('#home').on('click',(function (e) {
         success: window.location = '/developers'
     })
   }));
-  
+
   $('#devsReg').on('click',(function (e) {
     e.preventDefault();
     $.ajax({
@@ -41,8 +41,12 @@ $('#home').on('click',(function (e) {
 
 
 
+$("#logout").click(function () {window.location = "/logout"})
+
+
+let devId;
 const onClick = (e) => {
-    var t = e.target;
+    let t = e.target;
     while (t && !t.id) 
         t = t.parentNode;
     if (t) {
@@ -52,7 +56,7 @@ const onClick = (e) => {
             type: 'GET',
             url: urlDev,
             success: function () {
-                
+
                 window.open(
                     urlDev,
                     "_blank",
@@ -66,9 +70,9 @@ const onClick = (e) => {
 
     }
 }
-var devs = document.getElementsByClassName("clickableDivs");
+const devs = document.getElementsByClassName("devs");
 
-for (var i = 0; i < devs.length; i++) {
+for (let i = 0; i < devs.length; i++) {
     devs[i].addEventListener('click', onClick);
 }
 
@@ -91,15 +95,15 @@ document
         }
     });
 
-var url = "/developers/register";
+const urlRegister = "/developers/register";
 $("#createBtn")
 .on('click',(function (e) {
         e.preventDefault();
         $.ajax({
             type: 'GET',
-            url: url,
+            url: urlRegister,
             dataType: 'text',
-            success: window.location = url
+            success: window.location = urlRegister
 
         })
     }));
@@ -118,7 +122,7 @@ $("#createBtn")
             }
         })
     });
-    
+
     $(".viewcomments").click(function ()
     {
         const val = $(this).val();
@@ -131,6 +135,30 @@ $("#createBtn")
                 window.location = "/comments/dev/" + val;
             }
         })
-        
+
     });
+
+$("#removeBtn").click(function() {
+    $.ajax({
+        type: 'GET',
+        url: "/developers/delete?id=" + document.getElementsByClassName('idOfDev')[0].id,
+        dataType: 'text',
+        success: function() {
+            alert("Your profile has been successfully deleted")
+            window.location = "/logout"
+        }
+    })
+});
+
+const urlUpdate = "/developers/update?id=" + document.getElementsByClassName('idOfDev')[0].id;
+$("#updateBtn").click(function(e) {
+    e.preventDefault();
+    $.ajax({
+        type: 'GET',
+        url: urlUpdate,
+        dataType: 'text',
+        success: window.location = urlUpdate
+
+    })
+});
 

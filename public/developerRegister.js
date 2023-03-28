@@ -73,6 +73,10 @@ function validateForm(name, username, password, city, github, langs) {
         alert("Please Fill In All Required Fields");
         return false;
     }
+    if(String(username).startsWith("admin-")){
+        alert("Username can't start with 'admin-'");
+        return false;
+    }
     return true;
 }
 

@@ -1,12 +1,14 @@
 const loginService = require("../services/login")
 
 function isLoggedIn(req, res, next) {
-    if (req.session.username != null)
+    if (req.session.username != null) {
         return next()
-    else
+    }
+    else{
         res.redirect('/login')
-}
+    }
 
+}
 function getError(req){
     let currentUrl = req.url;
     let match = currentUrl.match(/error=([^&]*)/);
@@ -18,7 +20,7 @@ function getError(req){
                 fail = "Your username or passward doesn`t correct"
                 break;
             case 2:
-                fail = "Error on create an account"
+                fail = "This username is already taken"
                 break;
             default:
                 fail = match[1]
@@ -28,50 +30,51 @@ function getError(req){
 }
 
 function renderHome(req,res) {
-    res.redirect('/developers');
+    if(req.session.adminUser === true){
+        res.redirect('/admins/developers');
+    }
+    else {
+        res.redirect('/developers');
+    }
 }
-function loginForm(req, res) {res.render(`../views/login sighin.ejs`, { url: "login", error: getError(req)})}
+function loginForm(req, res) {res.render(`../views/login.ejs`, { url: "login", error: getError(req)})}
 
-function signupForm(req, res) {res.render("../views/login sighin.ejs", { url:  "signup", error: getError(req)}) }
+function signupForm(req, res) {res.redirect('/developers/register')}
 
 function logout(req, res) {
     req.session.destroy(() => {
         res.redirect('/login');
     });
 }
-
 async function login(req, res) {
-    const { username, password } = req.body
+    let { username, password } = req.body
+    let result;
+    let admin;
+    if(String(username).startsWith("admin-")){
+        username = String(username).substring(6);
+        result = await loginService.getAdminByUsername(username, password)
+        admin = true;
+    }
+    else{
+        result = await loginService.getDevByUsername(username, password)
+        admin = false;
+    }
 
-    const result = await loginService.checkIfExistUser(username, password)
     if (result) {
         req.session.username = username
+        req.session.adminUser = admin
         res.redirect('/')
     }
     else
         res.redirect('/login?error=1')
 }
 
-async function signup(req, res) {
-    const { username, password } = req.body
-
-
-    try {
-        await loginService.addUser(username, password)
-        req.session.username = username
-        res.redirect('/')
-    }
-    catch (e) {
-        res.redirect('/signup?error=2')
-    }
-}
 
 module.exports = {
     login,
     loginForm,
-    signup,
-    signupForm,
     logout,
+    signupForm,
     renderHome,
     isLoggedIn
 }

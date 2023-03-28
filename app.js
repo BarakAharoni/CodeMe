@@ -8,7 +8,8 @@ const comments = require("./routes/comment");
 const newLocal = require('custom-env');
 newLocal.env(process.env.NODE_ENV, './config');
 
-mongoose.connect(process.env.CONNECTION_STRING,
+
+mongoose.connect(process.env.DB_CONNECTION_STRING,
                 {   useNewUrlParser: true,
                     useUnifiedTopology: true });
 
@@ -19,9 +20,25 @@ var io = require('socket.io')(http);
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 app.use(cors());
+app.use(bodyParser.urlencoded({extended : true}));
+app.use(express.json());
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/images'));
 app.use(express.static(__dirname + '/fonts'));
+app.use("/images",express.static(__dirname + '/images'));
+app.set("view engine", "ejs");
+app.use(express.urlencoded({ extended: false }));
+
+const session = require('express-session');
+app.use(session({
+    secret: 'saveLogin',
+    saveUninitialized: false,
+    resave: false
+}))
+app.use("/", require("./routes/login"));
+//app.get("/test", (req,res) => {res.render("../views/test.ejs")});
+app.use("/developers", require("./routes/developer"))
+app.use("/admins", require("./routes/admin"))
 
 
 app.set("view engine", "ejs");
@@ -30,21 +47,21 @@ app.use('/jobOffers', jobOffers);
 app.use("/comments", comments);
 app.use('/', developers);
 
-app.get('/chat', (req, res) => 
+app.get('/chat', (req, res) =>
 {
     res.sendFile(__dirname + '/views/chat.html');
-}); 
- 
-io.on('connection', (socket) => 
+});
+
+io.on('connection', (socket) =>
 {
     socket.broadcast.emit('joined', '');
- 
-    socket.on('disconnect', () => 
+
+    socket.on('disconnect', () =>
     {
         socket.broadcast.emit('disconnected', '');
     });
 
-    socket.on('new message', (msg) => 
+    socket.on('new message', (msg) =>
     {
         io.emit('new message', msg);
     });

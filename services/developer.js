@@ -30,23 +30,27 @@ const getDeveloperById = async (id) => {
         } else {
             return null;
         }
-
-
-    
 };
+
+const getDeveloperByName = async (name) => {
+    return await Developer.findOne({username: name});
 
 const getDevelopers = async () => {
     return await Developer.find({});
 };
 
-const updateDeveloper = async (id, title) => {
+const updateDeveloper = async (id, name_new, username_new, password_new, langs_new, city_new, github_new, picture_new) => {
     const developer = await getDeveloperById(id);
     if (!developer) 
         return null;
-    
-    developer.title = title;
-    await developer.save();
-    return developer;
+    developer.name = name_new;
+    developer.username = username_new;
+    developer.password = password_new;
+    developer.langs = langs_new;
+    developer.city = city_new;
+    developer.github = github_new;
+    developer.picture = picture_new;
+    return await developer.save();
 };
 
 const deleteDeveloper = async (id) => {
@@ -63,7 +67,7 @@ const git = async(id) => {
     var gitName = dev.github;
     const response = await fetch(`https://api.github.com/users/${gitName}`);
     const data = await response.json();
-    
+
     let profile = new GithubProfile(gitName);
     profile.name = data.name;
     profile.bio = data.bio;
@@ -86,5 +90,6 @@ module.exports = {
     getDevelopers,
     updateDeveloper,
     deleteDeveloper,
-    git
+    git,
+    getDeveloperByName,
 }
