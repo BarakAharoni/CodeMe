@@ -83,6 +83,20 @@ const git = async(id) => {
     return profile;
 };
 
+const getCityByGroup  = async() => {
+    var cityGroup = await Developer.aggregate([
+        {
+            $group:
+            {
+                _id: "$city",
+                count: { $sum: 1 }
+
+            }
+        }
+    ]);
+
+    return cityGroup;
+}
 
 module.exports = {
     createDeveloper,
@@ -92,4 +106,5 @@ module.exports = {
     deleteDeveloper,
     git,
     getDeveloperByName,
+    getCityByGroup
 }

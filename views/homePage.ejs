@@ -120,6 +120,7 @@
 
 <!-- bar chart -->
     <script>
+        
         var margin = {
                 top: 30,
                 right: 30,
@@ -146,6 +147,7 @@
             .map(function (key) {
                 return {Country: key, Value: data[key]};
             });
+            
 
         var svg = d3
             .select("#barChart")
@@ -205,7 +207,7 @@
         var width = 450;
         height = 450;
         margin = 40;
-        var data = {};
+        
 
         var radius = Math.min(width, height) / 2 - margin;
 
@@ -217,13 +219,13 @@
             .append("g")
             .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-        "<% for (var i = 0; i < developers.length; i++) { %>"
-            if (data["<%=developers[i].city%>"] == undefined) {
-                data["<%=developers[i].city%>"] = 1;
-            } else { // exsists already
-                data["<%=developers[i].city%>"]++;
+        var dataJson = JSON.parse('<%-JSON.stringify(cityGroup)%>');
+        var data = {};
+            for(var i=0; i < dataJson.length; i++){
+                data[dataJson[i]._id] = dataJson[i].count;
             }
-        "<%}%>"
+
+        
 
         var color = d3
             .scaleOrdinal()

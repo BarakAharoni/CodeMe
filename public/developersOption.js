@@ -56,7 +56,8 @@ $("#logout").click(function () {window.location = "/logout"})
 
 const onClick = (e) => {
     let t = e.target;
-    while (t && !t.id) 
+    if(!e.target.className.includes("btn")){
+    while (t && !t.id)
         t = t.parentNode;
     if (t) {
         var urlDev = "/developers/developerProfile/?id=" + t.id;
@@ -76,7 +77,7 @@ const onClick = (e) => {
                 alert("Something Went Worng...");
             }
         })
-
+    }
     }
 }
 const devs = document.getElementsByClassName("devs");
@@ -84,6 +85,7 @@ const devs = document.getElementsByClassName("devs");
 for (let i = 0; i < devs.length; i++) {
     devs[i].addEventListener('click', onClick);
 }
+//$(".btn").removeEventListener("click", onClick, true);
 
 var ids = $('.clickableDivs')
     .map(function (_, x) {

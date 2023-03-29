@@ -11,7 +11,6 @@
     </head>
 
     <body>
-        <button type="button" class="btn btn-info" id="logout">Log Out</button>
         <div class="jumbotron" id="header">
             <div class="container text-center">
                 <h1>CodeMe;</h1>
@@ -57,17 +56,7 @@
                         id="datatable-search-input"
                         placeholder="Search">
         </div>
-        <div class="container">
-            <div class="row">
-                <%for (var i=0; i < developers.length; i++) {%>
-                    <div class="col-sm-4">
-                        <div class="panel panel-primary clickableDivs" id="<%=developers[i].id%>">
-                            <div class="panel-heading">
-                                <%=developers[i]._id%>
-                            </div>
-                            <div class="panel-body">
-        <br><br>
-
+        <br>
         <section style="background-color: #eee;">
             <div class="text-center container py-5">
                 <h4 class="mt-4 mb-5">
@@ -102,10 +91,10 @@
                                 <a href="" class="text-reset">
                                     <p><%=developers[i].langs%></p>
                                 </a>
-                            </div>
-                            </div>
-                            <button type="button" class="btn btn-outline-dark addcomment" id="comment<%=developers[i]._id%>" value="<%=developers[i]._id%>">Add Comment</button>
+                                <button type="button" class="btn btn-outline-dark addcomment" id="comment<%=developers[i]._id%>" value="<%=developers[i]._id%>">Add Comment</button>
                             <button type="button" class="btn btn-outline-dark viewcomments" id="view<%=developers[i]._id%>" value="<%=developers[i]._id%>">View Comments</button>
+                            </div>
+                            </div>
 
                     </div>
                 <%}%>
