@@ -27,7 +27,7 @@ $("#submit").click(function (e) {
         .innerHTML;
     salary = salary.slice(0,salary.length-1)
     let password;
-    if(!checkValidPassword((document.getElementById("passwordCurrent").value),document.getElementById("passwordNew").value)){
+    if(((document.getElementById("passwordNew").value) != "") && !checkValidPassword((document.getElementById("passwordCurrent").value),document.getElementById("passwordNew").value)){
         alert("Invalid input on the password");
         return false;
     }

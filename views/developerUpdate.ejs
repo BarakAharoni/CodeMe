@@ -26,7 +26,7 @@
     <div class="container h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-xl-9">
-                <h1 class="mb-4">Be One of Our Developers</h1>
+                <h1 class="mb-4" id="titleReg">Be One of Our Developers</h1>
 
                 <div class="card" style="border-radius: 15px;">
                     <div class="card-body">
@@ -257,9 +257,9 @@
     const userLabel = document.getElementById("userLabel");
     const $input = $('#usernameInput');
     "<% for (let i = 0; i < developers.length; i++) { %>"
-        <%if(developers[i].username !== dev.username) {%>
+        "<%if(developers[i].username !== dev.username) {%>"
             users.push("<%=developers[i].username%>");
-        <%}%>
+        "<%}%>"
     "<%}%>"
     //on keyup, start the countdown
     $input.on('keyup', function () {

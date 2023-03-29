@@ -109,7 +109,8 @@
               <div class="col-lg-4 col-md-12 mb-4 jobs">
                   <div class="card clickableDivs" id="<%=jobOffers[i].id%>">
                       <%if(type === "admin") {%>
-                        <div><button style="color:crimson" class="deleteAdmin" id="deleteAdmin-<%=jobOffers[i].id%>">Delete <i class="bi bi-trash"></i></button> <button style="color:#0cc40c" class="editAdmin" id="editAdmin-<%=jobOffers[i].id%>">Edit <i class="bi bi-pencil"></i></button></div>
+                        <div><button style="color:crimson" class="btn deleteAdmin" id="deleteAdmin-<%=jobOffers[i].id%>">Delete <i class="bi bi-trash"></i></button> 
+                            <button style="color:#0cc40c" class="btn editAdmin" id="editAdmin-<%=jobOffers[i].id%>">Edit <i class="bi bi-pencil"></i></button></div>
                       <%}%>
                       <h2 class="text-body"><%=jobOffers[i].title%></h2>
                       <h5 class="text-body">Description: <%=jobOffers[i].description%></h5>
@@ -241,5 +242,6 @@
     </script>
 
   <script src="/jobOffer.js"></script>
+  <script src="/jobOfferUpdate.js"></script>
 </body>
 </html>
