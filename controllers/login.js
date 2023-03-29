@@ -68,6 +68,9 @@ async function login(req, res) {
         req.session.type = type
         res.redirect('/')
     }
+    else{
+        return res.status(404).json({ errors: ['not found'] });
+    }
 }
 
 

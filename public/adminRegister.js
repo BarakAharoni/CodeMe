@@ -67,7 +67,6 @@ $("#submit").click(function (e) {
                 password: password,
                 picture: picture
             },
-
             success: function () {
                 alert("Your registration is successful!");
                 window.location = "/admins/developers"

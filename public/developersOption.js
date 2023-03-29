@@ -97,9 +97,6 @@ $("#logout").click(function () {window.location = "/logout"})
 
 const onClick = (e) => {
     let t = e.target;
-    if(String(t.id).includes("view") || String(t.id).includes("comment") || String(t.id).includes("deleteAdmin") || String(t.id).includes("editAdmin")){
-        return;
-    }
     if(!e.target.className.includes("btn")){
         while (t && !t.id) {
             if(String(t.id).includes("view") || String(t.id).includes("comment") || String(t.id).includes("deleteAdmin") || String(t.id).includes("editAdmin")){
@@ -219,7 +216,7 @@ $("#updateBtn").click(function(e) {
     })
 });
 
-$('#login').on('click',function (e) {
+$('#login').click(function (e) {
     const username = $('#username')[0].value
     const password = $('#psw')[0].value
     e.preventDefault();
@@ -235,7 +232,9 @@ $('#login').on('click',function (e) {
         success: function () {
             window.location = '/developers'
         },
-        
+        error: function(){
+            alert("The username or password is incorret.");
+        }
     })
 })
 
