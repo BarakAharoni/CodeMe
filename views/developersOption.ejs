@@ -92,7 +92,8 @@
             <div class="col-lg-4 col-md-12 mb-4 devs">
                 <div class="card clickableDivs" id="<%=developers[i].id%>">
                     <%if(type === "admin") {%>
-                        <div><button style="color:crimson" class="deleteAdmin" id="deleteAdmin-<%=developers[i].id%>">Delete <i class="bi bi-trash"></i></button> <button style="color:#0cc40c" class="editAdmin" id="editAdmin-<%=developers[i].id%>">Edit <i class="bi bi-pencil"></i></button></div>
+                        <div><button style="color:crimson" class="btn deleteAdmin" id="deleteAdmin-<%=developers[i].id%>">Delete <i class="bi bi-trash"></i></button> 
+                            <button style="color:#0cc40c" class="btn editAdmin" id="editAdmin-<%=developers[i].id%>">Edit <i class="bi bi-pencil"></i></button></div>
                     <%}%>
                     <div
                             class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"

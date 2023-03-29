@@ -73,7 +73,7 @@ $("#submit").click(function (e) {
         .getElementById("usernameText")
         .innerHTML;
     let password;
-    if(!checkValidPassword((document.getElementById("passwordCurrent").value),document.getElementById("passwordNew").value)){
+    if(((document.getElementById("passwordNew").value) != "") && !checkValidPassword((document.getElementById("passwordCurrent").value),document.getElementById("passwordNew").value)){
         alert("Invalid input on the password");
         return false;
     }

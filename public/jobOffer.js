@@ -203,6 +203,9 @@ $('#login').on('click',function (e) {
         success: function () {
             window.location = '/developers'
         },
+        error: function(){
+            alert("The username or password is incorret.");
+        }
     })
 })
 

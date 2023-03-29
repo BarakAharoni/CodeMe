@@ -30,10 +30,13 @@ $(document).ready(function ()
         event.preventDefault();
         $.ajax
         ({
-            url: "http://localhost:6969/comments",
+            url: "/comments",
             type: "POST",
             data: $("#add").serialize(),
-            success: function (data) { $(document.body).html(data); }
+            success: function (data) { 
+                alert("Thank You! Your comment has been successfully added!");
+                window.location = "/developers/developers" ;
+            }
         });
     });
 });
