@@ -65,11 +65,20 @@
         <button type="button" class="btn" id="updateBtn">Update Your Profile</button>
         <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Remove Your Profile</button>
     <%}%>
-    <input
-            type="search"
-            class="form-control"
-            id="datatable-search-input"
-            placeholder="Search">
+    <div>
+        <select class="select" id="filter">
+            <option value="">No Filter</option>
+            <option value="city">City</option>
+            <option value="langs">Programming Languages</option>
+            <option value="name">Name</option>
+        </select>
+
+        <input
+                type="search"
+                class="form-control"
+                id="datatable-search-input"
+                placeholder="Search">
+    </div>
 </div>
 <br>
 <section style="background-color: #eee;">
@@ -195,95 +204,155 @@
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>
 </div>
-<script id='mapScript' async="async" defer="defer"></script>
-<script>
-    var infobox,
-        map;
-    var APIKEY = '<%= process.env.API_KEY %>';
-    var url = "https://www.bing.com/api/maps/mapcontrol?key=" + APIKEY + "&callback" +
-        "=loadMapScenario";
-    document
-        .getElementById('mapScript')
-        .src = url;
-    function loadMapScenario() {
-        map = new Microsoft
-            .Maps
-            .Map(document.getElementById('map'), {});
-        infobox = new Microsoft
-            .Maps
-            .Infobox(map.getCenter(), {visible: false});
-        infobox.setMap(map);
-        Microsoft
-            .Maps
-            .loadModule('Microsoft.Maps.Search', function () {
-                var searchManager = new Microsoft
-                    .Maps
-                    .Search
-                    .SearchManager(map);
-                "<% for (var i = 0; i < developers.length; i++) { %>"
-                var requestOptions = {
-                    bounds: map.getBounds(),
-                    where: "<%=developers[i].city%>",
-                    callback: function (answer, userData) {
-                        map.setView({
-                            bounds: answer
-                                .results[0]
-                                .bestView
-                        });
-                        var pin = new Microsoft
-                            .Maps
-                            .Pushpin(answer.results[0].location);
-                        pin.metadata = {
-                            title: "<%=developers[i].city%>",
-                            description: "<%=developers[i].id%>"
-                        };
-                        Microsoft
-                            .Maps
-                            .Events
-                            .addHandler(pin, 'click', pushpinClick);
-                        Microsoft
-                            .Maps
-                            .Events
-                            .addHandler(pin, 'mouseover', pushpinOver);
-                        map
-                            .entities
-                            .push(pin);
-                    }
-                };
-                searchManager.geocode(requestOptions);
-                "<%}%>"
-            });
-    }
-    function pushpinOver(e) {
-        //Make sure the infobox has metadata to display.
-        if (e.target.metadata) {
-            //Set the infobox options with the metadata of the pushpin.
-            infobox.setOptions({
-                location: e
-                    .target
-                    .getLocation(),
-                title: e.target.metadata.title,
-                visible: true
-            });
+    <script id='mapScript' async="async" defer="defer"></script>
+    <script>
+
+        var infobox,
+            map;
+        var APIKEY = '<%= process.env.API_KEY %>';
+        var url = "https://www.bing.com/api/maps/mapcontrol?key=" + APIKEY + "&callback" +
+                "=loadMapScenario";
+        document
+            .getElementById('mapScript')
+            .src = url;
+
+        function loadMapScenario() {
+            map = new Microsoft
+                .Maps
+                .Map(document.getElementById('map'), {});
+            infobox = new Microsoft
+                .Maps
+                .Infobox(map.getCenter(), {visible: false});
+            infobox.setMap(map);
+
+            Microsoft
+                .Maps
+                .loadModule('Microsoft.Maps.Search', function () {
+                    var searchManager = new Microsoft
+                        .Maps
+                        .Search
+                        .SearchManager(map);
+
+                    "<% for (var i = 0; i < developers.length; i++) { %>"
+                    var requestOptions = {
+                        bounds: map.getBounds(),
+                        where: "<%=developers[i].city%>",
+                        callback: function (answer, userData) {
+                            map.setView({
+                                bounds: answer
+                                    .results[0]
+                                    .bestView
+                            });
+
+                            var pin = new Microsoft
+                                .Maps
+                                .Pushpin(answer.results[0].location);
+                            pin.metadata = {
+                                title: "<%=developers[i].city%>",
+                                description: "<%=developers[i].id%>"
+                            };
+
+                            Microsoft
+                                .Maps
+                                .Events
+                                .addHandler(pin, 'click', pushpinClick);
+
+                            Microsoft
+                                .Maps
+                                .Events
+                                .addHandler(pin, 'mouseover', pushpinOver);
+
+                            map
+                                .entities
+                                .push(pin);
+
+                        }
+                    };
+                    searchManager.geocode(requestOptions);
+                    "<%}%>"
+                });
+
         }
-    }
-    function pushpinClick(e) {
-        var id = e.target.metadata.description;
-        console.log(id);
-        console.log("You clicked element #" + e.target.metadata.description);
-        window.open(
-            "/developers/developerProfile/?id=" + id,
-            "_blank",
-            "toolbar=yes,scrollbars=yes,resizable=yes,top=200,left=200,width=800,height=800"
-        );
-    }
-</script>
+
+        function pushpinOver(e) {
+            //Make sure the infobox has metadata to display.
+            if (e.target.metadata) {
+                //Set the infobox options with the metadata of the pushpin.
+                infobox.setOptions({
+                    location: e
+                        .target
+                        .getLocation(),
+                    title: e.target.metadata.title,
+                    visible: true
+                });
+            }
+        }
+
+        function pushpinClick(e) {
+            var id = e.target.metadata.description;
+            console.log(id);
+            console.log("You clicked element #" + e.target.metadata.description);
+            window.open(
+                "/developers/developerProfile/?id=" + id,
+                "_blank",
+                "toolbar=yes,scrollbars=yes,resizable=yes,top=200,left=200,width=800,height=800"
+            );
+        }
+    </script>
+
+<script>
+    var ids = $('.clickableDivs').map(function (_, x) {
+        return x.id;
+    }).get();
+
+    document
+    .getElementById('datatable-search-input')
+    .addEventListener('input', (e) => {
+        let filter = document.getElementById("filter").value;
+        let param = e.target.value;
+        if ((filter == null || filter == "") || (param == null || param == "") ) {
+            for(var i = 0; i < ids.length; i++){
+                document.getElementById(ids[i]).style.display = "block";
+            }
+            return;
+        }
+        let curCity = "";
+        let curName = "";
+        let curLang = "";
+        let currDiv = null;
+        "<% for (var j = 0; j < developers.length; j++) { %>"
+            currDiv = document.getElementById(ids["<%=j%>"]);
+            curCity = "<%=developers[j].city%>";
+            curName = "<%=developers[j].name%>";
+            curLang = "<%=developers[j].langs%>";
+
+            if (filter == "city") {
+                if (curCity.includes(param)) {
+                    currDiv.style.display = "block";
+                } else {
+                    currDiv.style.display = "none";
+                }
+            } else if (filter == "name") {
+                if (curName.includes(param)) {
+                    currDiv.style.display = "block";
+                } else {
+                    currDiv.style.display = "none";
+                }
+
+            } else if (filter == "langs") {
+                if (curLang.includes(param)) {
+                    currDiv.style.display = "block";
+                } else {
+                    currDiv.style.display = "none";
+                }
+            }
+        "<% } %>"
+    });
+    </script>
 
 <script src="/developersOption.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
