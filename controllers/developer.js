@@ -82,7 +82,6 @@ const chat = async (req, res) => {
   //res.json(developer);
 };
 
-
   module.exports = {
     createDeveloper,
     getDevelopers,

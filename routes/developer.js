@@ -1,5 +1,5 @@
 const express = require('express');
-var router = express.Router();
+let router = express.Router();
 const homePageController = require('../controllers/homePage.js');
 const DeveloperController = require('../controllers/developer.js');
 const DeveloperProfileController = require('../controllers/developerProfile.js');

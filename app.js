@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 const developers = require('./routes/developer');
 const jobOffers = require('./routes/jobOffer');
 const comments = require("./routes/comment");
@@ -15,10 +15,12 @@ var io = require('socket.io')(http);
 mongoose.connect(process.env.CONNECTION_STRING,
     {   useNewUrlParser: true,
         useUnifiedTopology: true });
- 
+
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 app.use(cors());
+app.use(bodyParser.urlencoded({extended : true}));
+app.use(express.json());
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/images'));
 app.use(express.static(__dirname + '/fonts'));
@@ -39,10 +41,10 @@ app.use("/admins", require("./routes/admin"))
 app.use('/jobOffers', jobOffers);
 app.use("/comments", comments); 
 app.use("/", require("./routes/login"));
- 
+
 io.on('connection', (socket) => {
   socket.broadcast.emit('joined', '');
- 
+
   socket.on('disconnect', () => {
     socket.broadcast.emit('disconnected', '');
   });
