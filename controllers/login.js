@@ -30,12 +30,7 @@ function getError(req){
 }
 
 function renderHome(req,res) {
-    if(req.session.type === "admin"){
-        res.redirect('/admins/developers');
-    }
-    else {
-        res.redirect('/developers');
-    }
+    res.redirect('/developers');
 }
 function loginForm(req, res) {res.render(`../views/login.ejs`, { url: "login", error: getError(req)})}
 

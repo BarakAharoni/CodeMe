@@ -92,7 +92,7 @@ $("#submit").click(function (e) {
     const city = document
         .getElementById("cityText")
         .innerHTML;
-    const type = getType();
+    const type = getTypeOfUser();
     if (validateForm(name, username, password, city, github, langs)) {
         if ((picture == null || picture === "")) {
             const imgElement = document.getElementById('defaultImg');

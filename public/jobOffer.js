@@ -83,7 +83,7 @@ $('#home').on('click',(function (e) {
         type: 'GET',
         url: '/developers',
         dataType: 'text',
-        success: window.location = '/developers'
+        success: window.location = '/developers/developers'
     })
   }));
 

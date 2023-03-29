@@ -37,7 +37,7 @@ $("#submit").click(function (e) {
     else{
         password = getCurrentPassword();
     }
-    const type = getType();
+    const type = getTypeOfUser();
     if (validateForm(title, username, description, salary, password)) {
         e.preventDefault();
         $.ajax({
