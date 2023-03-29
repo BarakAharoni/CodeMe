@@ -34,7 +34,12 @@ const getForm = async (req, res) => {
     //res.json(developer);
 };
 
+const getAllCities = async (req,res) => {
+    return cities;
+}
+
 module.exports = {
     createDeveloper,
-    getForm
+    getForm,
+    getAllCities
 };

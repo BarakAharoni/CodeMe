@@ -1,5 +1,5 @@
 const express = require('express');
-var router = express.Router();
+let router = express.Router();
 const homePageController = require('../controllers/homePage.js');
 const DeveloperController = require('../controllers/developer.js');
 const DeveloperProfileController = require('../controllers/developerProfile.js');
@@ -15,34 +15,28 @@ router
     .post(DeveloperController.createDeveloper);
 
 router
-    .route('/developers/developerProfile')
+    .route('/developerProfile')
     .get(DeveloperProfileController.getDeveloper)
-    .post(DeveloperProfileController.createDeveloper);
 
     router
-    .route('/developers/register')
+    .route('/register')
     .get(DeveloperRegisterController.getForm)
-    .post(DeveloperRegisterController.createDeveloper);
+    .post(DeveloperController.createDeveloper);
 
-    router
-    .route('/admin/register')
-    .get(DeveloperRegisterController.getForm)
-    .post(DeveloperRegisterController.createDeveloper);
+router
+    .route('/update')
+    .get(DeveloperController.updateDeveloperPage)
+    .post(DeveloperController.updateDeveloper);
+
+router
+    .route('/delete')
+    .get(DeveloperController.deleteDeveloper)
+
 
 router
     .route('/:id')
     .get(DeveloperController.getDeveloper)
     .put(DeveloperController.updateDeveloper)
     .delete(DeveloperController.deleteDeveloper);
-
-    
-const loginController = require("../login/controllers/login");
-    
-router.get("/signup", loginController.signupForm);
-router.post("/signup", loginController.signup);
-router.get("/login", loginController.loginForm);
-router.post("/login", loginController.login);
-router.get('/logout', loginController.logout);
-router.get('/', loginController.isLoggedIn, loginController.renderHome);
 
 module.exports = router;

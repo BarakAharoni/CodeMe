@@ -14,7 +14,7 @@ $(document).ready(function ()
     const btn5f = () => { btn4f(); $("#starButton5").css("color", "black") };
 
     $("#starButton1").hover(btn1i, btn1f);
-    $("#starButton2").hover(btn2i, btn2f);
+    $("#starButton2").hover(btn2i, btn2f); 
     $("#starButton3").hover(btn3i, btn3f);
     $("#starButton4").hover(btn4i, btn4f);
     $("#starButton5").hover(btn5i, btn5f);
@@ -25,13 +25,13 @@ $(document).ready(function ()
     $("#starButton4").click(function () { $("#value").attr("value", "4"); });
     $("#starButton5").click(function () { $("#value").attr("value", "5"); });
 
-    $("#add").submit(function (event)
-    {
+    $("#add").submit(function (event) 
+    { 
         event.preventDefault();
         $.ajax
-        ({
-            url: "http://localhost:6969/comments",
-            type: "POST",
+        ({ 
+            url: "http://localhost:6969/comments", 
+            type: "POST", 
             data: $("#add").serialize(),
             success: function (data) { $(document.body).html(data); }
         });

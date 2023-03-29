@@ -4,12 +4,9 @@
     <title>CodeMe; JobOffers</title>
     <meta charset="utf-8">
     <link rel="icon" href="/icon.jpg">
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-        rel="stylesheet">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    <script
-        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="/jobOffer.css">
 </head>
 <body>
@@ -41,30 +38,48 @@
             <li class="nav-item nav-link" id="chat" type="button">
                 GlobalChat
             </li>
-            <li class="nav-item nav-link" id="newAdmin" type="button">
-                Create New Admin
-            </li>
+            <%if(type === "admin") {%>
+                <li class="nav-item nav-link" id="newAdmin" type="button">
+                    Create New Admin
+                </li>
+            <%}%>
         </ul>
         <form class="d-flex">
-            <input type="text" placeholder="Username" name="username">
-            <input type="password" placeholder="Password" name="psw">
-            <button type="submit" class="btn">Login</button>
-            <button type="submit" class="btn" id="logout">Logout</button>
+            <%if(user === null || user === undefined) {%>
+                <input type="text" placeholder="Username" id="username">
+                <input type="password" placeholder="Password" id="psw">
+                <button type="submit" class="btn" id="login">Login</button>
+            <%} else {%>
+                <span class="idOfUser" id="<%=user._id%>">hello <%=user.username%></span>
+                <button type="submit" class="btn" id="logout">Logout</button>
+            <%}%>
         </form>
     </div>
 </nav>
 <br>
 <div>
     <button type="button" class="btn" id="createBtn">Create Job Offer</button>
-    <button type="button" class="btn">Update Your Job Offer</button>
-    <button type="button" class="btn">Remove Your Job Offer</button>
-    <input
-                type="search"
-                class="form-control"
-                id="datatable-search-input"
-                placeholder="Search">
+    <%if(user !== null && user !== undefined && type === "job") {%>
+        <button type="button" class="btn" id="updateJob">Update Your Job Offer</button>
+        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Remove Your Job Offer</button>
+    <%}%>
+    <div>
+        <select class="select" id="filter">
+            <option value="">No Filter</option>
+            <option value="title">Title</option>
+            <option value="username">UserName</option>
+            <option value="salary">Salary</option>
+            <option value="description">Description</option>
+        </select>
+
+        <input
+            type="search"
+            class="form-control"
+            id="datatable-search-input"
+            placeholder="Search">
+    </div>
 </div>
-  
+
   <br><br>
 
   <section style="background-color: #eee;">
@@ -77,6 +92,9 @@
             <%for (var i = 0; i < jobOffers.length; i++) {%>
               <div class="col-lg-4 col-md-12 mb-4 jobs">
                   <div class="card clickableDivs" id="<%=jobOffers[i].id%>">
+                      <%if(type === "admin") {%>
+                        <div><button style="color:crimson" class="deleteAdmin" id="deleteAdmin-<%=jobOffers[i].id%>">Delete <i class="bi bi-trash"></i></button> <button style="color:#0cc40c" class="editAdmin" id="editAdmin-<%=jobOffers[i].id%>">Edit <i class="bi bi-pencil"></i></button></div>
+                      <%}%>
                       <h2 class="text-body"><%=jobOffers[i].title%></h2>
                       <h5 class="text-body">Description: <%=jobOffers[i].description%></h5>
                       </br>
@@ -129,7 +147,7 @@
                     <p>
                         The College of Management Academic Studies, Rishon LeZion</p>
                     <p>
-                        info@example.com
+                        contact@codeme.com
                     </p>
                 </div>
             </div>
@@ -139,6 +157,97 @@
         © CodeMe;
     </div>
 </footer>
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Delete Profile</h1>
+              </div>
+              <div class="modal-body">
+                  Are you sure you want to delete your job offer?
+                  <br>
+                  If you click on <span style="color:crimson;">I'm sure</span> down below all your information will delete presently
+                  without a way to go back
+                  <br>
+                  <br>
+                  Click <span style="color:crimson;">I'm sure</span> to continue
+                  <br>
+                  Click <span>Cancel</span> to go back
+              </div>
+              <div class="modal-footer">
+                  <div class="container text-center">
+                      <div class="row">
+                          <div class="col" style="text-align: left">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                          </div>
+                          <div class="col" style="text-align: right">
+                              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="removeBtn" style="color: crimson">I'm sure</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+
+<script>
+    var ids = $('.clickableDivs').map(function (_, x) {
+        return x.id;
+    }).get();
+
+    document
+    .getElementById('datatable-search-input')
+    .addEventListener('input', (e) => {
+        let filter = document.getElementById("filter").value;
+        let param = e.target.value;
+        if ((filter == null || filter == "") || (param == null || param == "") ) {
+            for(var i = 0; i < ids.length; i++){
+                document.getElementById(ids[i]).style.display = "block";
+            }
+            return;
+        }
+        let curTitle = "";
+        let curUsername = "";
+        let curSalary = "";
+        let curDescription = "";
+        let currDiv = null;
+        "<% for (var j = 0; j < jobOffers.length; j++) { %>"
+            currDiv = document.getElementById(ids["<%=j%>"]);
+            curTitle = "<%=jobOffers[j].title%>";
+            curUsername = "<%=jobOffers[j].username%>";
+            curSalary = "<%=jobOffers[j].salary%>";
+            curDescription = "<%=jobOffers[j].description%>";
+
+            if (filter == "title") {
+                if (curTitle.includes(param)) {
+                    currDiv.style.display = "block";
+                } else {
+                    currDiv.style.display = "none";
+                }
+            } else if (filter == "username") {
+                if (curUsername.includes(param)) {
+                    currDiv.style.display = "block";
+                } else {
+                    currDiv.style.display = "none";
+                }
+
+            } else if (filter == "salary") {
+                if (curSalary.includes(param)) {
+                    currDiv.style.display = "block";
+                } else {
+                    currDiv.style.display = "none";
+                }
+            } else if (filter == "description") {
+                if (curDescription.includes(param)) {
+                    currDiv.style.display = "block";
+                } else {
+                    currDiv.style.display = "none";
+                }
+            }
+        "<% } %>"
+    });
+    </script>
 
   <script src="/jobOffer.js"></script>
 </body>

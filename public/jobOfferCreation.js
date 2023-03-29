@@ -1,20 +1,30 @@
 
-function validateForm(title, username, description, salary) {
-    if ((title == null || title == "") || (username == null || username == "") || (description == null || description == "") || (salary == null || salary == "")) {
+function validateForm(title, username, description, salary, password) {
+    if ((title == null || title == "") || (username == null || username == "") || (password == null || password == "") || (description == null || description == "") || (salary == null || salary == "")) {
         alert("Please Fill In All Required Fields");
         return false;
     }
     return true;
 }
 
-var url = "/jobOffers/";
-$("#submit").click(function (e) {
-    var title = document.getElementById("inpTitle").value;
-    var username = document.getElementById("username").value;
-    var description = document.getElementById("inpDescription").value;
-    var salary = document.getElementById("inpSalary").value;
+function showPass() {
+    const x = document.getElementById("inpPassword");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+}
 
-    if (validateForm(title, username, description, salary)) {
+let url = "/jobOffers/";
+$("#submit").click(function (e) {
+    let title = document.getElementById("inpTitle").value;
+    let username = document.getElementById("username").value;
+    let description = document.getElementById("inpDescription").value;
+    let salary = document.getElementById("inpSalary").value;
+    let password = document.getElementById("inpPassword").value;
+
+    if (validateForm(title, username, description, salary, password)) {
         e.preventDefault();
         $.ajax({
             type: 'POST',
@@ -23,7 +33,8 @@ $("#submit").click(function (e) {
                 title: title,
                 username: username,
                 description: description,
-                salary: salary
+                salary: salary,
+                password: password
             },
 
             success: function () {

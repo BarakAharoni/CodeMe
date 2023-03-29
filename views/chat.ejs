@@ -27,20 +27,30 @@
         <script>
             $(function () {
                 var socket = io();
+                " <%if(dev === null || dev === undefined) {%>"
+                var username = "Guest";
+                "<%} else {%>"
+                var username = "<%=dev.username%>";
+                "<%}%>"
+
                 $('#send').click(function () {
-                    socket.emit('new message', $('#message').val());
-                    $('#message').val('');
-                });
-                socket.on('new message', function (msg) {
-                    $('#messages').append("message: " + msg + '<br />');
-                });
-                socket.on('joined', function (msg) {
-                    $('#messages').append('A new user joined<br />');
-                });
-                socket.on('disconnected', function (msg) {
-                    $('#messages').append('A user disconnected<br />');
-                });
-            });
+    var message = $('#message').val();
+    socket.emit('new message', {username: username, message: message});
+    $('#message').val('');
+  });
+
+  socket.on('new message', function (data) {
+    $('#messages').append(data.username + ': ' + data.message + '<br>');
+  });
+
+  socket.on('joined', function () {
+    $('#messages').append('A new user joined<br>');
+  });
+
+  socket.on('disconnected', function () {
+    $('#messages').append('A user disconnected<br>');
+  });
+});
         </script>
     </body>
 </html>

@@ -40,15 +40,18 @@
                     <li class="nav-item nav-link" id="chat" type="button">
                         GlobalChat
                     </li>
-                    <li class="nav-item nav-link" id="newAdmin" type="button">
-                        Create New Admin
-                    </li>
+                    <%if(type === "admin") {%>
+                        <li class="nav-item nav-link" id="newAdmin" type="button">
+                            Create New Admin
+                        </li>
+                    <%}%>
                 </ul>
                 <form class="d-flex">
-                    <input type="text" placeholder="Username" name="username">
-                    <input type="password" placeholder="Password" name="psw">
-                    <button type="submit" class="btn">Login</button>
-                    <button type="submit" class="btn" id="logout">Logout</button>
+                    <%if(user !== null && user !== undefined) {%>
+                        <span id="<%=user._id%>">hello <%=user.username%></span>
+                        <button type="submit" class="btn" id="logout">Logout</button>
+                    <%}%>
+
                 </form>
             </div>
         </nav>
@@ -107,7 +110,7 @@
                             <p>
                                 The College of Management Academic Studies, Rishon LeZion</p>
                             <p>
-                                info@example.com
+                                contact@codeme.com
                             </p>
                         </div>
                     </div>
@@ -124,7 +127,7 @@
 
 <!-- bar chart -->
     <script>
-        
+
         var margin = {
                 top: 30,
                 right: 30,
@@ -151,7 +154,7 @@
             .map(function (key) {
                 return {Country: key, Value: data[key]};
             });
-            
+
 
         var svg = d3
             .select("#barChart")
@@ -211,7 +214,7 @@
         var width = 450;
         height = 450;
         margin = 40;
-        
+
 
         var radius = Math.min(width, height) / 2 - margin;
 
@@ -229,7 +232,7 @@
                 data[dataJson[i]._id] = dataJson[i].count;
             }
 
-        
+
 
         var color = d3
             .scaleOrdinal()

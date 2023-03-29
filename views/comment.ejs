@@ -15,10 +15,26 @@
             <p>Connect Between People to Code</p>
         </div>
     </div>
+
+    <div>
+      <select class="select" id="filter">
+          <option value="">No Filter</option>
+          <option value="rating">Rating</option>
+          <option value="content">Content</option>
+          <option value="date">Date</option>
+      </select>
+
+      <input
+          type="search"
+          class="form-control"
+          id="datatable-search-input"
+          placeholder="Search">
+  </div>
+
     <h2 class="m-5">comments for <%=dev.name%></h2>
-        <%for (let i = 0; i < comments.length; i++) {%>      
+        <%for (let i = 0; i < comments.length; i++) {%>
           <div class="card m-5" style="font-size: 30px; border-color: black">
-            <div class="card-body">
+            <div class="card-body clickableDivs" id="<%=comments[i].id%>">
                 <p class="card-text"><p id="p<%=comments[i]._id%>"><%=comments[i].content%></p><p id="card<%=comments[i]._id%>"></p>
                   <form id="form<%=comments[i]._id%>">
                     <input type="number" value="<%=comments[i].rating%>" name="rating" style="display: none">
@@ -29,10 +45,61 @@
                     <i class="bi bi-star" style="color: gold"></i>
                   <%}%>
                 </p>
+                <p class="text-black-50">Publish at: <%=comments[i].date%></p>
             </div>
             <p class="id" style="display:none"><%=comments[i]._id%></p>
           </div>
         <%}%>
+
+        <script>
+          var ids = $('.clickableDivs').map(function (_, x) {
+              return x.id;
+          }).get();
+
+          document
+          .getElementById('datatable-search-input')
+          .addEventListener('input', (e) => {
+              let filter = document.getElementById("filter").value;
+              let param = e.target.value;
+              if ((filter == null || filter == "") || (param == null || param == "") ) {
+                  for(var i = 0; i < ids.length; i++){
+                      document.getElementById(ids[i]).style.display = "block";
+                  }
+                  return;
+              }
+              let curRating = "";
+              let curContent = "";
+              let curDate = "";
+              let currDiv = null;
+              "<% for (var j = 0; j < comments.length; j++) { %>"
+                  currDiv = document.getElementById(ids["<%=j%>"]);
+                  curRating = "<%=comments[j].rating%>";
+                  curContent = "<%=comments[j].content%>";
+                  curDate = "<%=comments[j].date%>";
+
+                  if (filter == "rating") {
+                      if (curRating.includes(param)) {
+                          currDiv.style.display = "block";
+                      } else {
+                          currDiv.style.display = "none";
+                      }
+                  } else if (filter == "content") {
+                      if (curContent.includes(param)) {
+                          currDiv.style.display = "block";
+                      } else {
+                          currDiv.style.display = "none";
+                      }
+
+                  } else if (filter == "date") {
+                      if (curDate.includes(param)) {
+                          currDiv.style.display = "block";
+                      } else {
+                          currDiv.style.display = "none";
+                      }
+                  }
+              "<% } %>"
+      });
+      </script>
         <script src="/comments.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     </body>
