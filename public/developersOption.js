@@ -105,6 +105,7 @@ const onClick = (e) => {
             t = t.parentNode;
         }
         if (t) {
+            if(String(t.id).includes("deleteAdmin") || String(t.id).includes("editAdmin")) {return;}
             var urlDev = "/developers/developerProfile/?id=" + t.id;
             e.preventDefault();
             $.ajax({
@@ -119,7 +120,7 @@ const onClick = (e) => {
                     );
                 },
                 error: function () {
-                    alert("Something Went Worng... " + t.id);
+                    alert("Something Went Worng... ");
                 }
             })
         }
