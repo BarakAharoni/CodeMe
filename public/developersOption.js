@@ -8,7 +8,7 @@ $('#home').on('click',(function (e) {
         success: window.location = '/'
     })
   }));
-  
+
   $('#devs').on('click',(function (e) {
     e.preventDefault();
     $.ajax({
@@ -18,7 +18,7 @@ $('#home').on('click',(function (e) {
         success: window.location = '/developers'
     })
   }));
-  
+
   $('#devsReg').on('click',(function (e) {
     e.preventDefault();
     $.ajax({
@@ -74,7 +74,7 @@ $('#home').on('click',(function (e) {
 const onClick = (e) => {
     var t = e.target;
     if(!e.target.className.includes("btn")){
-    while (t && !t.id) 
+    while (t && !t.id)
         t = t.parentNode;
     if (t) {
         var urlDev = "/developers/developerProfile/?id=" + t.id;
@@ -83,7 +83,7 @@ const onClick = (e) => {
             type: 'GET',
             url: urlDev,
             success: function () {
-                
+
                 window.open(
                     urlDev,
                     "_blank",
@@ -104,24 +104,23 @@ for (var i = 0; i < devs.length; i++) {
 }
 //$(".btn").removeEventListener("click", onClick, true);
 
-var ids = $('.clickableDivs')
-    .map(function (_, x) {
-        return x.id;
-    })
-    .get();
-
-document
-    .getElementById('datatable-search-input')
-    .addEventListener('input', (e) => {
-        for (var i = 0; i < ids.length; i++) {
-            let currDiv = document.getElementById(ids[i]);
-            if (currDiv.innerHTML.includes(e.target.value)) {
-                currDiv.style.display = "block";
-            } else {
-                currDiv.style.display = "none";
-            }
-        }
-    });
+// var ids = $('.clickableDivs')
+//     .map(function (_, x) {
+//         return x.id;
+//     })
+//     .get();
+// document
+//     .getElementById('datatable-search-input')
+//     .addEventListener('input', (e) => {
+//         for (var i = 0; i < ids.length; i++) {
+//             let currDiv = document.getElementById(ids[i]);
+//             if (currDiv.innerHTML.includes(e.target.value)) {
+//                 currDiv.style.display = "block";
+//             } else {
+//                 currDiv.style.display = "none";
+//             }
+//         }
+//     });
 
 var url = "/developers/register";
 $("#createBtn")
@@ -149,7 +148,7 @@ $("#createBtn")
             }
         })
     });
-    
+
     $(".viewcomments").click(function ()
     {
         const val = $(this).val();
@@ -162,7 +161,7 @@ $("#createBtn")
                 window.location = "/comments/dev/" + val;
             }
         })
-        
+
     });
 
 

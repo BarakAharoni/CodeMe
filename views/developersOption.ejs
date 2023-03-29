@@ -56,11 +56,20 @@
             <button type="button" class="btn" id="createBtn">Create New Developer</button>
             <button type="button" class="btn">Update Your Profile</button>
             <button type="button" class="btn">Remove Your Profile</button>
-            <input
-                        type="search"
-                        class="form-control"
-                        id="datatable-search-input"
-                        placeholder="Search">
+            <div>
+                <select class="select" id="filter">
+                    <option value="">No Filter</option>
+                    <option value="city">City</option>
+                    <option value="langs">Programming Languages</option>
+                    <option value="name">Name</option>
+                </select>
+
+                <input
+                    type="search"
+                    class="form-control"
+                    id="datatable-search-input"
+                    placeholder="Search">
+            </div>
         </div>
         <br>
         <section style="background-color: #eee;">
@@ -99,10 +108,10 @@
                                 </a>
                                 <button type="button" class="btn btn-outline-dark addcomment" id="comment<%=developers[i]._id%>" value="<%=developers[i]._id%>">Add Comment</button>
                             <button type="button" class="btn btn-outline-dark viewcomments" id="view<%=developers[i]._id%>" value="<%=developers[i]._id%>">View Comments</button>
-                        
+
                             </div>
                             </div>
-                            
+
                     </div>
                 <%}%>
             </div>
@@ -249,6 +258,56 @@
                 "toolbar=yes,scrollbars=yes,resizable=yes,top=200,left=200,width=800,height=800"
             );
         }
+    </script>
+
+<script>
+    var ids = $('.clickableDivs').map(function (_, x) {
+        return x.id;
+    }).get();
+
+    document
+    .getElementById('datatable-search-input')
+    .addEventListener('input', (e) => {
+        let filter = document.getElementById("filter").value;
+        let param = e.target.value;
+        if ((filter == null || filter == "") || (param == null || param == "") ) {
+            for(var i = 0; i < ids.length; i++){
+                document.getElementById(ids[i]).style.display = "block";
+            }
+            return;
+        }
+        let curCity = "";
+        let curName = "";
+        let curLang = "";
+        let currDiv = null;
+        "<% for (var j = 0; j < developers.length; j++) { %>"
+            currDiv = document.getElementById(ids["<%=j%>"]);
+            curCity = "<%=developers[j].city%>";
+            curName = "<%=developers[j].name%>";
+            curLang = "<%=developers[j].langs%>";
+
+            if (filter == "city") {
+                if (curCity.includes(param)) {
+                    currDiv.style.display = "block";
+                } else {
+                    currDiv.style.display = "none";
+                }
+            } else if (filter == "name") {
+                if (curName.includes(param)) {
+                    currDiv.style.display = "block";
+                } else {
+                    currDiv.style.display = "none";
+                }
+
+            } else if (filter == "langs") {
+                if (curLang.includes(param)) {
+                    currDiv.style.display = "block";
+                } else {
+                    currDiv.style.display = "none";
+                }
+            }
+        "<% } %>"
+    });
     </script>
 
     <script src="/developersOption.js"></script>
