@@ -101,27 +101,31 @@ const onClick = (e) => {
         return;
     }
     if(!e.target.className.includes("btn")){
-    while (t && !t.id)
-        t = t.parentNode;
-    if (t) {
-        var urlDev = "/developers/developerProfile/?id=" + t.id;
-        e.preventDefault();
-        $.ajax({
-            type: 'GET',
-            url: urlDev,
-            success: function () {
-
-                window.open(
-                    urlDev,
-                    "_blank",
-                    "toolbar=yes,scrollbars=yes,resizable=yes,top=200,left=200,width=600,height=600"
-                );
-            },
-            error: function () {
-                alert("Something Went Worng...");
+        while (t && !t.id) {
+            if(String(t.id).includes("view") || String(t.id).includes("comment") || String(t.id).includes("deleteAdmin") || String(t.id).includes("editAdmin")){
+                return;
             }
-        })
-    }
+            t = t.parentNode;
+        }
+        if (t) {
+            var urlDev = "/developers/developerProfile/?id=" + t.id;
+            e.preventDefault();
+            $.ajax({
+                type: 'GET',
+                url: urlDev,
+                success: function () {
+
+                    window.open(
+                        urlDev,
+                        "_blank",
+                        "toolbar=yes,scrollbars=yes,resizable=yes,top=200,left=200,width=600,height=600"
+                    );
+                },
+                error: function () {
+                    alert("Something Went Worng... " + t.id);
+                }
+            })
+        }
     }
 }
 const devs = document.getElementsByClassName("devs");
@@ -252,13 +256,14 @@ deleteAdmin.each(function () {$(this).on('click',function () {
 
 const editAdmin = $(".editAdmin");
 editAdmin.each(function () {$(this).on('click',function () {
-    let id = String($(this).attr('id')).substring(10)
+    let id1 = String($(this).attr('id'))
+    id1 = id1.replace("editAdmin-","")
     $.ajax({
         type: 'GET',
-        url: "/developers/update?id=" + id,
+        url: "/developers/update?id=" + id1,
         dataType: 'text',
         success: function() {
-            window.location = "/developers/update?id=" + id;
+            window.location = "/developers/update?id=" + id1;
         }
     })
 })

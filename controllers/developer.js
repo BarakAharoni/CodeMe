@@ -60,11 +60,9 @@ const updateDeveloperPage = async (req, res) => {
         const developer = await developerService.getDeveloperById(req.query.id);
         const city = await cities.getAllCities();
         if (!developer || req.session.username === undefined) {
-            console.log("not valid name " + req.query.id)
             res.redirect('/developers')
         }
         else if(req.session.username !== developer.username && req.session.type !== "admin"){
-            console.log("not match")
             res.redirect('/developers')
         }
         //res.json(developer);
