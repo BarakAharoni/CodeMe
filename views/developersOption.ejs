@@ -65,20 +65,31 @@
         <button type="button" class="btn" id="updateBtn">Update Your Profile</button>
         <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Remove Your Profile</button>
     <%}%>
-    <div>
-        <select class="select" id="filter">
-            <option value="">No Filter</option>
-            <option value="city">City</option>
-            <option value="langs">Programming Languages</option>
-            <option value="name">Name</option>
-        </select>
-
-        <input
-                type="search"
-                class="form-control"
-                id="datatable-search-input"
-                placeholder="Search">
+    </br>
+    </br>
+    <label>Search</lable>
+    <div class="input-group">
+          <input
+            type="search"
+            class="form-control"
+            id="city-search-input"
+            placeholder="City"
+          >
+          <input
+            type="search"
+            class="form-control"
+            id="langs-search-input"
+            placeholder="Programming Languages"
+          >
+          <input
+            type="search"
+            class="form-control"
+            id="name-search-input"
+            placeholder="Name"
+          >
+        <button type="button" class="btn" onclick="SetFilter()">Filter</button>
     </div>
+
 </div>
 <br>
 <section style="background-color: #eee;">
@@ -92,7 +103,7 @@
             <div class="col-lg-4 col-md-12 mb-4 devs">
                 <div class="card clickableDivs" id="<%=developers[i].id%>">
                     <%if(type === "admin") {%>
-                        <div><button style="color:crimson" class="btn deleteAdmin" id="deleteAdmin-<%=developers[i].id%>">Delete <i class="bi bi-trash"></i></button> 
+                        <div><button style="color:crimson" class="btn deleteAdmin" id="deleteAdmin-<%=developers[i].id%>">Delete <i class="bi bi-trash"></i></button>
                             <button style="color:#0cc40c" class="btn editAdmin" id="editAdmin-<%=developers[i].id%>">Edit <i class="bi bi-pencil"></i></button></div>
                     <%}%>
                     <div
@@ -305,53 +316,34 @@
     </script>
 
 <script>
-    var ids = $('.clickableDivs').map(function (_, x) {
-        return x.id;
-    }).get();
+    function SetFilter() {
+      var search_params = {
+        city: $("#city-search-input").val(),
+        langs: $("#langs-search-input").val(),
+        name: $("#name-search-input").val(),
+      };
 
-    document
-    .getElementById('datatable-search-input')
-    .addEventListener('input', (e) => {
-        let filter = document.getElementById("filter").value;
-        let param = e.target.value;
-        if ((filter == null || filter == "") || (param == null || param == "") ) {
-            for(var i = 0; i < ids.length; i++){
-                document.getElementById(ids[i]).style.display = "block";
-            }
-            return;
+      var ids = $('.clickableDivs').map(function (_, x) {
+            return x.id;
+        }).get();
+
+      "<% for (var j = 0; j < developers.length; j++) { %>"
+        var currDiv = document.getElementById(ids["<%=j%>"]); // using j to create the id of the div
+        var curCity = "<%=developers[j].city%>";
+        var curName = "<%=developers[j].name%>";
+        var curLang = "<%=developers[j].langs%>";
+
+        if (
+          (!search_params.city || curCity.includes(search_params.city)) &&
+          (!search_params.langs || curLang.includes(search_params.langs)) &&
+          (!search_params.name || curName.includes(search_params.name))
+        ) {
+          currDiv.style.display = "block";
+        } else {
+          currDiv.style.display = "none";
         }
-        let curCity = "";
-        let curName = "";
-        let curLang = "";
-        let currDiv = null;
-        "<% for (var j = 0; j < developers.length; j++) { %>"
-            currDiv = document.getElementById(ids["<%=j%>"]);
-            curCity = "<%=developers[j].city%>";
-            curName = "<%=developers[j].name%>";
-            curLang = "<%=developers[j].langs%>";
-
-            if (filter == "city") {
-                if (curCity.includes(param)) {
-                    currDiv.style.display = "block";
-                } else {
-                    currDiv.style.display = "none";
-                }
-            } else if (filter == "name") {
-                if (curName.includes(param)) {
-                    currDiv.style.display = "block";
-                } else {
-                    currDiv.style.display = "none";
-                }
-
-            } else if (filter == "langs") {
-                if (curLang.includes(param)) {
-                    currDiv.style.display = "block";
-                } else {
-                    currDiv.style.display = "none";
-                }
-            }
-        "<% } %>"
-    });
+      "<% } %>"
+    }
     </script>
 
 <script src="/developersOption.js"></script>

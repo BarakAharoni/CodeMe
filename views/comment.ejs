@@ -17,18 +17,30 @@
     </div>
 
     <div>
-      <select class="select" id="filter">
-          <option value="">No Filter</option>
-          <option value="rating">Rating</option>
-          <option value="content">Content</option>
-          <option value="date">Date</option>
-      </select>
-
-      <input
+    </br>
+    </br>
+  <label>Search</lable>
+  <div class="input-group">
+        <input
           type="search"
           class="form-control"
-          id="datatable-search-input"
-          placeholder="Search">
+          id="rating-search-input"
+          placeholder="Rating"
+        >
+        <input
+          type="search"
+          class="form-control"
+          id="content-search-input"
+          placeholder="Content"
+        >
+        <input
+          type="search"
+          class="form-control"
+          id="date-search-input"
+          placeholder="Date"
+        >
+      <button type="button" class="btn btn-outline-dark" onclick="SetFilter()">Filter</button>
+  </div>
   </div>
 
     <h2 class="m-5">comments for <%=dev.name%></h2>
@@ -52,54 +64,35 @@
         <%}%>
 
         <script>
-          var ids = $('.clickableDivs').map(function (_, x) {
-              return x.id;
-          }).get();
+          function SetFilter() {
+            var search_params = {
+              rating: $("#rating-search-input").val(),
+              content: $("#content-search-input").val(),
+              date: $("#date-search-input").val(),
+            };
 
-          document
-          .getElementById('datatable-search-input')
-          .addEventListener('input', (e) => {
-              let filter = document.getElementById("filter").value;
-              let param = e.target.value;
-              if ((filter == null || filter == "") || (param == null || param == "") ) {
-                  for(var i = 0; i < ids.length; i++){
-                      document.getElementById(ids[i]).style.display = "block";
-                  }
-                  return;
+            var ids = $('.clickableDivs').map(function (_, x) {
+                  return x.id;
+              }).get();
+
+            "<% for (var j = 0; j < comments.length; j++) { %>"
+              var currDiv = document.getElementById(ids["<%=j%>"]); // using j to create the id of the div
+              var curRating = "<%=comments[j].rating%>";
+              var curContent = "<%=comments[j].content%>";
+              var curDate = "<%=comments[j].date%>";
+
+              if (
+                (!search_params.rating || curRating.includes(search_params.rating)) &&
+                (!search_params.content || curContent.includes(search_params.content)) &&
+                (!search_params.date || curDate.includes(search_params.date))
+              ) {
+                currDiv.style.display = "block";
+              } else {
+                currDiv.style.display = "none";
               }
-              let curRating = "";
-              let curContent = "";
-              let curDate = "";
-              let currDiv = null;
-              "<% for (var j = 0; j < comments.length; j++) { %>"
-                  currDiv = document.getElementById(ids["<%=j%>"]);
-                  curRating = "<%=comments[j].rating%>";
-                  curContent = "<%=comments[j].content%>";
-                  curDate = "<%=comments[j].date%>";
-
-                  if (filter == "rating") {
-                      if (curRating.includes(param)) {
-                          currDiv.style.display = "block";
-                      } else {
-                          currDiv.style.display = "none";
-                      }
-                  } else if (filter == "content") {
-                      if (curContent.includes(param)) {
-                          currDiv.style.display = "block";
-                      } else {
-                          currDiv.style.display = "none";
-                      }
-
-                  } else if (filter == "date") {
-                      if (curDate.includes(param)) {
-                          currDiv.style.display = "block";
-                      } else {
-                          currDiv.style.display = "none";
-                      }
-                  }
-              "<% } %>"
-      });
-      </script>
+            "<% } %>"
+          }
+          </script>
         <script src="/comments.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
     </body>

@@ -63,21 +63,37 @@
         <button type="button" class="btn" id="updateJob">Update Your Job Offer</button>
         <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Remove Your Job Offer</button>
     <%}%>
-    <div>
-        <select class="select" id="filter">
-            <option value="">No Filter</option>
-            <option value="title">Title</option>
-            <option value="username">UserName</option>
-            <option value="salary">Salary</option>
-            <option value="description">Description</option>
-        </select>
 
+    </br>
+    </br>
+    <label>Search</lable>
+    <div class="input-group">
         <input
             type="search"
             class="form-control"
-            id="datatable-search-input"
-            placeholder="Search">
-    </div>
+            id="title-search-input"
+            placeholder="Title">
+
+            <input
+            type="search"
+            class="form-control"
+            id="username-search-input"
+            placeholder="Username">
+
+            <input
+            type="search"
+            class="form-control"
+            id="salary-search-input"
+            placeholder="Salary">
+
+            <input
+            type="search"
+            class="form-control"
+            id="description-search-input"
+            placeholder="Description">
+
+            <button type="button" class="btn" onclick="SetFilter()" id="filterBtn">Filter</button>
+        </div>
 </div>
 
   <br><br>
@@ -103,7 +119,6 @@
                       <h5 class="text-body">Salary: <%=jobOffers[i].salary%> $</h5>
                       </br>
                       <h6 class="text-black-50">Publish at: <%=jobOffers[i].published%></h6>
-                      <button type="button" id="btnSendJobOffer" class="btn btn-outline-dark">Ask for job</button>
                   </div>
 
               </div>
@@ -191,62 +206,38 @@
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
 
-<script>
-    var ids = $('.clickableDivs').map(function (_, x) {
-        return x.id;
-    }).get();
+  <script>
+    function SetFilter() {
+      var search_params = {
+        title: $("#title-search-input").val(),
+        username: $("#username-search-input").val(),
+        salary: $("#salary-search-input").val(),
+        description: $("#description-search-input").val(),
+      };
 
-    document
-    .getElementById('datatable-search-input')
-    .addEventListener('input', (e) => {
-        let filter = document.getElementById("filter").value;
-        let param = e.target.value;
-        if ((filter == null || filter == "") || (param == null || param == "") ) {
-            for(var i = 0; i < ids.length; i++){
-                document.getElementById(ids[i]).style.display = "block";
-            }
-            return;
+      var ids = $('.clickableDivs').map(function (_, x) {
+            return x.id;
+        }).get();
+
+      "<% for (var j = 0; j < jobOffers.length; j++) { %>"
+        var currDiv = document.getElementById(ids["<%=j%>"]); // using j to create the id of the div
+        var curTitle = "<%=jobOffers[j].title%>";
+        var curUsername = "<%=jobOffers[j].username%>";
+        var curSalary = "<%=jobOffers[j].salary%>";
+        var curDescription = "<%=jobOffers[j].description%>";
+
+        if (
+          (!search_params.title || curTitle.includes(search_params.title)) &&
+          (!search_params.username || curUsername.includes(search_params.username)) &&
+          (!search_params.salary || curSalary.includes(search_params.salary)) &&
+          (!search_params.description || curDescription.includes(search_params.description))
+        ) {
+          currDiv.style.display = "block";
+        } else {
+          currDiv.style.display = "none";
         }
-        let curTitle = "";
-        let curUsername = "";
-        let curSalary = "";
-        let curDescription = "";
-        let currDiv = null;
-        "<% for (var j = 0; j < jobOffers.length; j++) { %>"
-            currDiv = document.getElementById(ids["<%=j%>"]);
-            curTitle = "<%=jobOffers[j].title%>";
-            curUsername = "<%=jobOffers[j].username%>";
-            curSalary = "<%=jobOffers[j].salary%>";
-            curDescription = "<%=jobOffers[j].description%>";
-
-            if (filter == "title") {
-                if (curTitle.includes(param)) {
-                    currDiv.style.display = "block";
-                } else {
-                    currDiv.style.display = "none";
-                }
-            } else if (filter == "username") {
-                if (curUsername.includes(param)) {
-                    currDiv.style.display = "block";
-                } else {
-                    currDiv.style.display = "none";
-                }
-
-            } else if (filter == "salary") {
-                if (curSalary.includes(param)) {
-                    currDiv.style.display = "block";
-                } else {
-                    currDiv.style.display = "none";
-                }
-            } else if (filter == "description") {
-                if (curDescription.includes(param)) {
-                    currDiv.style.display = "block";
-                } else {
-                    currDiv.style.display = "none";
-                }
-            }
-        "<% } %>"
-    });
+      "<% } %>"
+    }
     </script>
 
   <script src="/jobOffer.js"></script>
