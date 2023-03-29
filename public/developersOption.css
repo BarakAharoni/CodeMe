@@ -8,6 +8,9 @@
     width:50px;
     border-radius: 10%;
 }
+.navbar {
+    border-radius: 0;
+}
 
 /* Remove the jumbotron's default bottom margin */
 .jumbotron {

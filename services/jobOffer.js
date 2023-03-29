@@ -1,11 +1,12 @@
 const JobOffer = require('../models/jobOffer');
 var mongoose = require('mongoose');
 
-const createJobOffer = async (title, username, salary, description, published) => {
+const createJobOffer = async (title, username,password, salary, description, published) => {
     const jobOffer = new JobOffer({
         title : title,
         username : username,
-        salary : salary
+        salary : salary,
+        password: password
     });
 
     if (description)
@@ -23,19 +24,31 @@ const getJobOfferById = async (id) => {
         } else {
             return null;
         }
-    
+};
+
+const getJobOfferByUsername = async (name) => {
+    try {
+        return await JobOffer.findOne({username: name});
+    }
+    catch (e) {
+        return null;
+    }
 };
 
 const getJobOffers = async () => {
     return await JobOffer.find({});
 };
 
-const updateJobOffer = async (id, title) => {
+const updateJobOffer = async (id, title, username, password, salary, description) => {
     const jobOffer = await getJobOfferById(id);
     if (!jobOffer)
         return null;
 
     jobOffer.title = title;
+    jobOffer.username = username;
+    jobOffer.password = password;
+    jobOffer.salary = salary;
+    jobOffer.description = description;
     await jobOffer.save();
     return jobOffer;
 };
@@ -45,8 +58,7 @@ const deleteJobOffer = async (id) => {
     if (!jobOffer)
         return null;
 
-    await jobOffer.remove();
-    return jobOffer;
+    return await JobOffer.deleteOne(jobOffer);
 };
 
 module.exports = {
@@ -54,5 +66,6 @@ module.exports = {
     getJobOfferById,
     getJobOffers,
     updateJobOffer,
-    deleteJobOffer
+    deleteJobOffer,
+    getJobOfferByUsername
 }

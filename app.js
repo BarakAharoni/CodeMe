@@ -21,13 +21,24 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 app.use(cors());
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/images'));
+app.use(express.static(__dirname + '/fonts'));
 app.set("view engine", "ejs");
+app.use(express.urlencoded({ extended: false }));
 
+const session = require('express-session');
+app.use(session({
+    secret: 'saveLogin',
+    saveUninitialized: false,
+    resave: false
+}));
+
+app.use("/developers", require("./routes/developer"))
+app.use("/admins", require("./routes/admin"))
 app.get('/chat', (req, res) => { res.sendFile(__dirname + '/views/chat.html'); });
 
 app.use('/jobOffers', jobOffers);
 app.use("/comments", comments); 
-app.use('/', developers);
+app.use("/", require("./routes/login"));
  
 io.on('connection', (socket) => 
 {

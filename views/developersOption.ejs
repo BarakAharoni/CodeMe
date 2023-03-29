@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <title>CodeMe; Our Developers</title>
-        <meta charset="utf-8">
-        <link rel="icon" href="/icon.jpg">
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-            rel="stylesheet">
-        <link rel="stylesheet" href="/developersOption.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-    </head>
+<head>
+    <title>CodeMe; Our Developers</title>
+    <meta charset="utf-8">
+    <link rel="icon" href="/icon.jpg">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/developersOption.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+</head>
 
     <body>
         <div class="jumbotron" id="header">
@@ -20,136 +19,195 @@
             </div>
         </div>
 
-        <nav class="navbar navbar-expand-sm bg-light navbar-light">
-            <div class="container-fluid">
+<nav class="navbar navbar-expand-sm bg-light navbar-light">
+    <div class="container-fluid">
 
-                <ul class="navbar-nav">
-                    <li class="navbar-brand" id="home" type="button">
-                        <img src="/logo.jfif" id="logo">
-                    </li>
-                    <li class="nav-item nav-link" id="devs" type="button">
-                        Our Developers
-                    </li>
-                    <li class="nav-item nav-link" id="devsReg" type="button">
-                        Be a Developer
-                    </li>
-                    <li class="nav-item nav-link" id="job" type="button">
-                        Job Offers
-                    </li>
-                    <li class="nav-item nav-link" id="chat" type="button">
-                        GlobalChat
-                    </li>
-                </ul>
-                <form class="d-flex">
-                    <input type="text" placeholder="Username" name="username">
-                    <input type="password" placeholder="Password" name="psw">
-                    <button type="submit" class="btn">Login</button>
-                </form>
-            </div>
-        </nav>
-        <br>
-        <div>
-            <button type="button" class="btn" id="createBtn">Create New Developer</button>
-            <button type="button" class="btn">Update Your Profile</button>
-            <button type="button" class="btn">Remove Your Profile</button>
-            <input
-                        type="search"
-                        class="form-control"
-                        id="datatable-search-input"
-                        placeholder="Search">
-        </div>
-        <br>
-        <section style="background-color: #eee;">
-            <div class="text-center container py-5">
-                <h4 class="mt-4 mb-5">
-                    <strong>Our Developers</strong>
-                </h4>
+        <ul class="navbar-nav">
+            <li class="navbar-brand" id="home" type="button">
+                <img src="/logo.jfif" id="logo">
+            </li>
+            <li class="nav-item nav-link" id="devs" type="button">
+                Our Developers
+            </li>
+            <li class="nav-item nav-link" id="devsReg" type="button">
+                Be a Developer
+            </li>
+            <li class="nav-item nav-link" id="job" type="button">
+                Job Offers
+            </li>
+            <li class="nav-item nav-link" id="chat" type="button">
+                GlobalChat
+            </li>
+            <%if(type === "admin") {%>
+                <li class="nav-item nav-link" id="newAdmin" type="button">
+                    Create New Admin
+                </li>
+            <%}%>
+        </ul>
+        <form class="d-flex">
+            <%if(dev === null || dev === undefined) {%>
+                <input type="text" placeholder="Username" id="username">
+                <input type="password" placeholder="Password" id="psw">
+                <button type="submit" class="btn" id="login">Login</button>
+                <span class="idOfDev" id=" "></span>
+            <%} else {%>
+                <span class="idOfDev" id="<%=dev._id%>">hello <%=dev.username%></span>
+                <button type="submit" class="btn" id="logout">Logout</button>
+            <%}%>
 
-                <div class="row">
-                    <%for (var i=0; i < developers.length; i++) {%>
-                        <div class="col-lg-4 col-md-12 mb-4 devs">
-                            <div class="card clickableDivs" id="<%=developers[i].id%>">
-                                <div
-                                    class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
-                                    data-mdb-ripple-color="light">
-                                    <img
-                                        src="data:developers[i]/<%=developers[i].picture%>;base64,
+        </form>
+    </div>
+</nav>
+<br>
+<div>
+    <button type="button" class="btn" id="createBtn">Create New Developer</button>
+    <%if(dev !== null && dev !== undefined && type === "dev") {%>
+        <button type="button" class="btn" id="updateBtn">Update Your Profile</button>
+        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Remove Your Profile</button>
+    <%}%>
+    <div>
+        <select class="select" id="filter">
+            <option value="">No Filter</option>
+            <option value="city">City</option>
+            <option value="langs">Programming Languages</option>
+            <option value="name">Name</option>
+        </select>
+
+        <input
+                type="search"
+                class="form-control"
+                id="datatable-search-input"
+                placeholder="Search">
+    </div>
+</div>
+<br>
+<section style="background-color: #eee;">
+    <div class="text-center container py-5">
+        <h4 class="mt-4 mb-5">
+            <strong>Our Developers</strong>
+        </h4>
+
+        <div class="row" id="allDevs">
+            <%for (var i=0; i < developers.length; i++) {%>
+            <div class="col-lg-4 col-md-12 mb-4 devs">
+                <div class="card clickableDivs" id="<%=developers[i].id%>">
+                    <%if(type === "admin") {%>
+                        <div><button style="color:crimson" class="deleteAdmin" id="deleteAdmin-<%=developers[i].id%>">Delete <i class="bi bi-trash"></i></button> <button style="color:#0cc40c" class="editAdmin" id="editAdmin-<%=developers[i].id%>">Edit <i class="bi bi-pencil"></i></button></div>
+                    <%}%>
+                    <div
+                            class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
+                            data-mdb-ripple-color="light">
+                        <img
+                                src="data:developers[i]/<%=developers[i].picture%>;base64,
                   <%=developers[i].picture%>"
-                                        class="img-responsive"
-                                        style="width:  80px; height: 80px;
+                                class="img-responsive"
+                                style="width:  80px; height: 80px;
                                 object-fit: cover; border-radius: 50%;">
-                                    <div class="mask">
-                                        <div class="d-flex justify-content-start align-items-end h-100"></div>
-                                    </div>
-                                    <div class="hover-overlay">
-                                        <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="card-body">
-                                <a href="" class="text-reset">
-                                    <h5 class="card-title mb-3"><%=developers[i].name%></h5>
-                                </a>
-                                <a href="" class="text-reset">
-                                    <p><%=developers[i].langs%></p>
-                                </a>
-                            </div>
-                            </div>
-                            <button type="button" class="btn btn-outline-dark addcomment" id="comment<%=developers[i]._id%>" value="<%=developers[i]._id%>">Add Comment</button>
-                            <button type="button" class="btn btn-outline-dark viewcomments" id="view<%=developers[i]._id%>" value="<%=developers[i]._id%>">View Comments</button>
-                        
+                        <div class="mask">
+                            <div class="d-flex justify-content-start align-items-end h-100"></div>
+                        </div>
+                        <div class="hover-overlay">
+                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                        </div>
+                        </a>
                     </div>
-                <%}%>
+                    <div class="card-body">
+                        <a href="" class="text-reset">
+                            <h5 class="card-title mb-3"><%=developers[i].name%></h5>
+                        </a>
+                        <a href="" class="text-reset">
+                            <p><%=developers[i].langs%></p>
+                        </a>
+                    <%if(dev !== null){%>
+                        <button type="button" class="btn btn-outline-dark addcomment" id="comment<%=developers[i]._id%>" value="<%=developers[i]._id%>">Add Comment</button>
+                    <%}%>
+                    <button type="button" class="btn btn-outline-dark viewcomments" id="view<%=developers[i]._id%>" value="<%=developers[i]._id%>">View Comments</button>
+                </div>
+                </div>
+
+            </div>
+            <%}%>
+        </div>
+    </div>
+</section>
+<br><br>
+
+<div id="map"></div>
+
+<footer class="text-center text-lg-start bg-light text-muted">
+    <section class="">
+        <div class="container text-center text-md-start mt-5">
+
+            <div class="row mt-3">
+                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">
+                        <i class="fas fa-gem me-3"></i>CODEME;
+                    </h6>
+                    <p id="about">
+                        We are a platform designed to create a connection between code and people, thus
+                        making the most advanced technology accessible to everyone, from anywhere.
+                    </p>
+                </div>
+
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">
+                        Who We Are?
+                    </h6>
+
+                    <video width="320" height="240" controls="controls">
+                        <source src="/whoWeAre.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+
+                </div>
+
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
+                    <p>
+                        The College of Management Academic Studies, Rishon LeZion</p>
+                    <p>
+                        info@example.com
+                    </p>
+                </div>
             </div>
         </div>
     </section>
-    <br><br>
-
-    <div id="map"></div>
-
-    <footer class="text-center text-lg-start bg-light text-muted">
-        <section class="">
-            <div class="container text-center text-md-start mt-5">
-
-                <div class="row mt-3">
-                    <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                        <h6 class="text-uppercase fw-bold mb-4">
-                            <i class="fas fa-gem me-3"></i>CODEME;
-                        </h6>
-                        <p id="about">
-                            We are a platform designed to create a connection between code and people, thus
-                            making the most advanced technology accessible to everyone, from anywhere.
-                        </p>
-                    </div>
-
-                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                        <h6 class="text-uppercase fw-bold mb-4">
-                            Who We Are?
-                        </h6>
-
-                        <video width="320" height="240" controls="controls">
-                            <source src="/whoWeAre.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-
-                    </div>
-
-                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                        <h6 class="text-uppercase fw-bold mb-4">Contact</h6>
-                        <p>
-                            The College of Management Academic Studies, Rishon LeZion</p>
-                        <p>
-                            info@example.com
-                        </p>
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+        © CodeMe;
+    </div>
+</footer>
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Delete Profile</h1>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete your profile?
+                <br>
+                If you click on <span style="color:crimson;">I'm sure</span> down below all your information will delete presently
+                without a way to go back
+                <br>
+                <br>
+                Click <span style="color:crimson;">I'm sure</span> to continue
+                <br>
+                Click <span>Cancel</span> to go back
+            </div>
+            <div class="modal-footer">
+                <div class="container text-center">
+                    <div class="row">
+                        <div class="col" style="text-align: left">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                        <div class="col" style="text-align: right">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="removeBtn" style="color: crimson">I'm sure</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </section>
-        <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
-            © CodeMe;
         </div>
-    </footer>
-
+    </div>
+</div>
     <script id='mapScript' async="async" defer="defer"></script>
     <script>
 
@@ -246,7 +304,58 @@
         }
     </script>
 
-    <script src="/developersOption.js"></script>
+<script>
+    var ids = $('.clickableDivs').map(function (_, x) {
+        return x.id;
+    }).get();
+
+    document
+    .getElementById('datatable-search-input')
+    .addEventListener('input', (e) => {
+        let filter = document.getElementById("filter").value;
+        let param = e.target.value;
+        if ((filter == null || filter == "") || (param == null || param == "") ) {
+            for(var i = 0; i < ids.length; i++){
+                document.getElementById(ids[i]).style.display = "block";
+            }
+            return;
+        }
+        let curCity = "";
+        let curName = "";
+        let curLang = "";
+        let currDiv = null;
+        "<% for (var j = 0; j < developers.length; j++) { %>"
+            currDiv = document.getElementById(ids["<%=j%>"]);
+            curCity = "<%=developers[j].city%>";
+            curName = "<%=developers[j].name%>";
+            curLang = "<%=developers[j].langs%>";
+
+            if (filter == "city") {
+                if (curCity.includes(param)) {
+                    currDiv.style.display = "block";
+                } else {
+                    currDiv.style.display = "none";
+                }
+            } else if (filter == "name") {
+                if (curName.includes(param)) {
+                    currDiv.style.display = "block";
+                } else {
+                    currDiv.style.display = "none";
+                }
+
+            } else if (filter == "langs") {
+                if (curLang.includes(param)) {
+                    currDiv.style.display = "block";
+                } else {
+                    currDiv.style.display = "none";
+                }
+            }
+        "<% } %>"
+    });
+    </script>
+
+<script src="/developersOption.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
 </body>
 
 </html>

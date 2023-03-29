@@ -15,14 +15,23 @@ router
     .post(DeveloperController.createDeveloper);
 
 router
-    .route('/developers/developerProfile')
+    .route('/developerProfile')
     .get(DeveloperProfileController.getDeveloper)
-    .post(DeveloperProfileController.createDeveloper);
 
     router
-    .route('/developers/register')
+    .route('/register')
     .get(DeveloperRegisterController.getForm)
-    .post(DeveloperRegisterController.createDeveloper);
+    .post(DeveloperController.createDeveloper);
+
+router
+    .route('/update')
+    .get(DeveloperController.updateDeveloperPage)
+    .post(DeveloperController.updateDeveloper);
+
+router
+    .route('/delete')
+    .get(DeveloperController.deleteDeveloper)
+
 
 router
     .route('/:id')
