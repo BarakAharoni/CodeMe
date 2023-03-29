@@ -49,3 +49,23 @@ $('#chat').on('click',(function (e) {
   })
 }));
 
+$('#newAdmin').on('click',(function (e) {
+  e.preventDefault();
+  $.ajax({
+      type: 'GET',
+      url: "/admin/register",
+      dataType: 'text',
+      success: window.location = "/admin/register"
+  })
+}));
+
+$('#logout').on('click',(function (e) {
+  e.preventDefault();
+  $.ajax({
+      type: 'GET',
+      url: "/logout",
+      dataType: 'text',
+      success: window.location = "/logout"
+  })
+}));
+
