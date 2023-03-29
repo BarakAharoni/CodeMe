@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+    <head></head>
+    <body>
+    <form action="/<%=url%>" method="post">
+        <input name="username">
+        <input name="password" type="password">
+        <input type="submit">
+    </form>
+        <div style = "color: red"> <%=error%> </div>
+	    <% if (url === "login") { %>
+	        <a href="/signup">Register</a>
+	    <%} else { %>
+            Already a member? <a href="/login">sign in</a>
+	    <% } %>
+  </body>
+</html>

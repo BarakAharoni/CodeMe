@@ -1,6 +1,6 @@
 const jobOfferService = require('../services/jobOffer');
 const createJobOffer = async (req, res) => {
-    const newJobOffer = await jobOfferService.createJobOffer(req.body.title);
+    const newJobOffer = await jobOfferService.createDeveloper(req.body.title);
     res.json(newJobOffer);
 };
 

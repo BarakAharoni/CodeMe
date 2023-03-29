@@ -77,6 +77,12 @@ const updateDeveloperPage = async (req, res) => {
     }
 };
 
+const chat = async (req, res) => {
+  res.render("../views/chat.ejs", {dev: await users.getUserByUsername(req.session.username, req.session.type)});
+  //res.json(developer);
+};
+
+
   module.exports = {
     createDeveloper,
     getDevelopers,
@@ -84,4 +90,5 @@ const updateDeveloperPage = async (req, res) => {
     updateDeveloper,
     deleteDeveloper,
     updateDeveloperPage,
+    chat
   };

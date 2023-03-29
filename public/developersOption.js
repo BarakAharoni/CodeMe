@@ -231,6 +231,7 @@ $('#login').on('click',function (e) {
         success: function () {
             window.location = '/developers'
         },
+        
     })
 })
 
@@ -262,6 +263,3 @@ editAdmin.each(function () {$(this).on('click',function () {
     })
 })
 })
-
-
-

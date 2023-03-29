@@ -5,7 +5,6 @@ const getUserByUsername = async (name, type) => {
     let user;
     try {
         user = await admin.findOne({username: name});
-
         if(!user && type === "dev"){
             user = await dev.findOne({username: name});
         }

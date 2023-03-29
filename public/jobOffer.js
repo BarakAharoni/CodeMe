@@ -267,3 +267,6 @@ $('#logout').on('click',(function (e) {
         success: window.location = "/logout"
     })
 }));
+
+
+

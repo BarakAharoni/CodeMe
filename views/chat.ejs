@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="/icon.jpg">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    </head>
+    <body style="background-color: #eee;">
+        <div class="jumbotron pb-1" id="header" style="background-color: white;">
+            <div class="container text-center">
+                <h1>CodeMe;</h1>
+                <p>Connect Between People to Code</p>
+            </div>
+        </div>
+        <div class="container text-center mt-5">
+            <input autocomplete="off" placeholder="Enter message" style="width: 70%; height: 40px" id="message">
+            <button type="button" class="btn btn-outline-dark" id="send">send</button>
+        </div>
+
+        <div class="mx-5" id="messages" style="font-size: 30px;"></div>
+
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=" crossorigin="anonymous"></script>
+        <script>
+            $(function () {
+                var socket = io();
+                " <%if(dev === null || dev === undefined) {%>"
+                var username = "Guest";
+                "<%} else {%>"
+                var username = "<%=dev.username%>";
+                "<%}%>"
+
+                $('#send').click(function () {
+    var message = $('#message').val();
+    socket.emit('new message', {username: username, message: message});
+    $('#message').val('');
+  });
+
+  socket.on('new message', function (data) {
+    $('#messages').append(data.username + ': ' + data.message + '<br>');
+  });
+
+  socket.on('joined', function () {
+    $('#messages').append('A new user joined<br>');
+  });
+
+  socket.on('disconnected', function () {
+    $('#messages').append('A user disconnected<br>');
+  });
+});
+        </script>
+    </body>
+</html>
