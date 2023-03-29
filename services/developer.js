@@ -54,7 +54,9 @@ const updateDeveloper = async (id, name_new, username_new, password_new, langs_n
     developer.langs = langs_new;
     developer.city = city_new;
     developer.github = github_new;
-    developer.picture = picture_new;
+    if(picture_new !== undefined && picture_new !== null && picture_new !== '') {
+        developer.picture = picture_new;
+    }
     return await developer.save();
 };
 
