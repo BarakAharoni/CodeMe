@@ -2,9 +2,9 @@ $('#newAdmin').on('click',(function (e) {
     e.preventDefault();
     $.ajax({
         type: 'GET',
-        url: "/admin/register",
+        url: "/admins/register",
         dataType: 'text',
-        success: window.location = "/admin/register"
+        success: window.location = "/admins/register"
     })
 }));
 
@@ -74,9 +74,9 @@ $('#home').on('click',(function (e) {
     e.preventDefault();
     $.ajax({
         type: 'GET',
-        url: "/admin/register",
+        url: "/admins/register",
         dataType: 'text',
-        success: window.location = "/admin/register"
+        success: window.location = "/admins/register"
     })
   }));
 

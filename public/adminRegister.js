@@ -69,7 +69,7 @@ $("#submit").click(function (e) {
             },
             success: function () {
                 alert("Your registration is successful!");
-                window.location = "/admins/developers"
+                window.location = "/"
             },
             error: function () {
                 alert("Something Went Worng...");

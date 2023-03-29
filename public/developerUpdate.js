@@ -12,7 +12,7 @@ $('#langs').on('change', function () {
         .value = allLangs;
 });
 $("#resetPic").click(function () {
-    document.getElementById("edit_img").src = "/images/basicDev.png";
+    document.getElementById("edit_img").src = "/basicDev.png";
 })
 
 const loadFile = function (event) {
