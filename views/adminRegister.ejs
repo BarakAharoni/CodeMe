@@ -97,7 +97,7 @@
     const userLabel = document.getElementById("userLabel");
     const $input = $('#username');
     "<% for (var i = 0; i < admins.length; i++) { %>"
-    users.push("<%=admins[i]._id%>");
+    users.push("<%=admins[i].username%>");
     "<%}%>"
     //on keyup, start the countdown
     $input.on('keyup', function () {
