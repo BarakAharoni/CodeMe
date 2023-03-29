@@ -4,7 +4,7 @@ const fs = require('fs');
 const defaultImg = fs.readFileSync('./images/adminPic.png');
 
 const Admin = new Schema({
-    _id :{ //username
+    username :{ //username
         type: String,
         required: true
     },

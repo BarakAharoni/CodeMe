@@ -8,13 +8,13 @@ const deleteDeveloper = async (req, res) => {
 const getPageHome = async (req, res) => {
     const developers = await developerService.getDevelopers();
     if (req.session.username === undefined){
-        res.redirect('/login')
+        res.redirect('/')
     }
-    else if(req.session.adminUser === true){
+    else if(req.session.type === "admin"){
         res.render("../views/adminDevOption.ejs", { developers: developers, admin: await adminService.getAdminByUsername(req.session.username)});
     }
     else{
-        res.redirect('/login')
+        res.redirect('/')
     }
 };
 
@@ -28,7 +28,7 @@ const getFormRegister = async (req, res) => {
 const createAdmin = async (req,res) => {
     const newAdmin = await adminService.createAdmin( req.body.username, req.body.password, req.body.picture);
     req.session.username = req.body.username;
-    req.session.adminUser = true;
+    req.session.type = "admin";
     res.json(newAdmin);
 }
 

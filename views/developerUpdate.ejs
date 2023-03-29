@@ -70,7 +70,11 @@
                                 <span class="span" id="passwordSpan" style="font-size: x-large;"><strong><span class="text" id="passwordText"> Edit</span><span>&ensp;&ensp;</span></strong> <span class="icon" id="passwordIcon"><i class="bi bi-pencil-fill"></i></span></span>
                                 <div id="passwordDiv">
                                     <label for="fname">Current password:</label>
-                                    <input type="password" class="form-control form-control-lg" id="passwordCurrent"/>
+                                    <%if(type === "admin") {%>
+                                        <input type="text" class="form-control form-control-lg" id="passwordCurrent" value="<%=dev.password%>"/>
+                                    <%} else {%>
+                                        <input type="password" class="form-control form-control-lg" id="passwordCurrent"/>
+                                    <%}%>
                                     <label for="fname">New password:</label>
                                     <input type="password" class="form-control form-control-lg" id="passwordNew"/>
                                     <br>
@@ -242,6 +246,9 @@
 </section>
 <script src="/developerUpdate.js"></script>
 <script>
+    function getType(){
+        return "<%=type%>";
+    }
     const users = [];
     let typingTimer;
     const doneTypingInterval = 5000;
@@ -341,6 +348,7 @@
         passwordDiv.hide();
         document.getElementById("passwordCurrent").value = "";
         document.getElementById("passwordNew").value = "";
+        passwordError.hide();
         passwordError.hide();
     })
     passwordUpdate.click(function (){

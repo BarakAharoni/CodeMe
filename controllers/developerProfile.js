@@ -17,8 +17,8 @@ const getDeveloper = async (req, res) => {
     if (!req.query.id) {
       return res.status(404).json({ errors: ['profile not entered'] });
     }
-    const profile = developerService.git(req.query.id);
-    res.render("../views/developerProfile.ejs", { developer: developer, git: (await profile)});
+    const profile = await developerService.git(req.query.id);
+    res.render("../views/developerProfile.ejs", { developer: developer, git: profile, gitValid: profile !== null});
 };
 
 const updateDeveloper = async (req, res) => {

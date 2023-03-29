@@ -7,7 +7,7 @@ const createAdmin = async (
     picture
 ) => {
     const admin = new Admin({
-        _id: username,
+        username: username,
         password: password,
         picture: picture
     });
@@ -19,14 +19,14 @@ const getAdmins = async () => {
     return await Admin.find({});
 };
 const getAdminByUsername = async (username) => {
-    return await Admin.findById({_id: username});
+    return await Admin.findOne({username: username});
 };
 
 const updateAdmin = async (username_old,username_new, password_new, picture_new) => {
     const admin = await getAdminByUsername(username_old);
     if (!admin)
         return null;
-    admin._id = username_new;
+    admin.username = username_new;
     admin.password = password_new;
     admin.picture = picture_new;
     return await admin.save();

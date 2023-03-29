@@ -1,4 +1,4 @@
-var jobId;
+let jobId;
 
 //navbar ajax
 $('#home').on('click',(function (e) {
@@ -17,7 +17,7 @@ $('#home').on('click',(function (e) {
         type: 'GET',
         url: '/developers',
         dataType: 'text',
-        success: window.location = '/developers'
+        success: window.location = '/developers/developers'
     })
   }));
   
@@ -40,6 +40,19 @@ $('#home').on('click',(function (e) {
         success: window.location = '/jobOffers'
     })
   }));
+
+  if($('.idOfUser')[0] !== undefined) {
+      const updateUrl = '/jobOffers/update?id=' + $('.idOfUser')[0].id
+      $('#updateJob').on('click',function (e) {
+          e.preventDefault();
+          $.ajax({
+              type: 'GET',
+              url: updateUrl,
+              dataType: 'text',
+              success: window.location = updateUrl
+          })
+      })
+  }
 
   $('#chat').on('click',(function (e) {
     e.preventDefault();
@@ -102,4 +115,83 @@ $("#createBtn").click(function(e) {
 });
 
 
+$('#login').on('click',function (e) {
+    const username = $('#username')[0].value
+    const password = $('#psw')[0].value
+    e.preventDefault();
+    $.ajax({
+        type: 'POST',
+        url: '/login',
+        dataType: 'text',
+        data: {
+            username: username,
+            password: password,
+            type: "jobOffer"
+        },
+        success: function () {
+            window.location = '/developers'
+        },
+    })
+})
 
+$("#removeBtn").click(function() {
+    $.ajax({
+        type: 'GET',
+        url: "/jobOffers/delete?id=" + document.getElementsByClassName('idOfUser')[0].id,
+        dataType: 'text',
+        success: function() {
+            alert("Your profile has been successfully deleted")
+            window.location = "/logout"
+        }
+    })
+});
+
+const deleteAdmin = $(".deleteAdmin");
+deleteAdmin.each(function () {$(this).on('click',function () {
+    let id = String($(this).attr('id')).substring(12)
+    $.ajax({
+        type: 'GET',
+        url: "/jobOffers/delete?id=" + id,
+        dataType: 'text',
+        success: function() {
+            alert("profile has been successfully deleted")
+            window.location = "/developers"
+        }
+    })
+})
+})
+
+const editAdmin = $(".editAdmin");
+editAdmin.each(function () {$(this).on('click',function () {
+    let id = String($(this).attr('id')).substring(10)
+    $.ajax({
+        type: 'GET',
+        url: "/jobOffers/update?id=" + id,
+        dataType: 'text',
+        success: function() {
+            window.location = "/jobOffers/update?id=" + id;
+        }
+    })
+})
+})
+
+
+$('#newAdmin').on('click',(function (e) {
+    e.preventDefault();
+    $.ajax({
+        type: 'GET',
+        url: "/admin/register",
+        dataType: 'text',
+        success: window.location = "/admin/register"
+    })
+}));
+
+$('#logout').on('click',(function (e) {
+    e.preventDefault();
+    $.ajax({
+        type: 'GET',
+        url: "/logout",
+        dataType: 'text',
+        success: window.location = "/logout"
+    })
+}));

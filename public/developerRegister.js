@@ -80,7 +80,7 @@ function validateForm(name, username, password, city, github, langs) {
     return true;
 }
 
-var url = "/developers/";
+var url = "/developers/developers";
 
 $("#submit").click(function (e) {
     var name = document

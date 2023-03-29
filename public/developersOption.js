@@ -1,3 +1,24 @@
+$('#newAdmin').on('click',(function (e) {
+    e.preventDefault();
+    $.ajax({
+        type: 'GET',
+        url: "/admin/register",
+        dataType: 'text',
+        success: window.location = "/admin/register"
+    })
+}));
+
+$('#logout').on('click',(function (e) {
+    e.preventDefault();
+    $.ajax({
+        type: 'GET',
+        url: "/logout",
+        dataType: 'text',
+        success: window.location = "/logout"
+    })
+}));
+
+
 //navbar ajax
 $('#home').on('click',(function (e) {
     e.preventDefault();
@@ -15,7 +36,7 @@ $('#home').on('click',(function (e) {
         type: 'GET',
         url: '/developers',
         dataType: 'text',
-        success: window.location = '/developers'
+        success: window.location = '/developers/developers'
     })
   }));
   
@@ -56,6 +77,9 @@ $("#logout").click(function () {window.location = "/logout"})
 
 const onClick = (e) => {
     let t = e.target;
+    if(String(t.id).includes("view") || String(t.id).includes("comment") || String(t.id).includes("deleteAdmin") || String(t.id).includes("editAdmin")){
+        return;
+    }
     if(!e.target.className.includes("btn")){
     while (t && !t.id)
         t = t.parentNode;
@@ -171,4 +195,54 @@ $("#updateBtn").click(function(e) {
 
     })
 });
+
+$('#login').on('click',function (e) {
+    const username = $('#username')[0].value
+    const password = $('#psw')[0].value
+    e.preventDefault();
+    $.ajax({
+        type: 'POST',
+        url: '/login',
+        dataType: 'text',
+        data: {
+            username: username,
+            password: password,
+            type: "developer"
+        },
+        success: function () {
+            window.location = '/developers'
+        },
+    })
+})
+
+const deleteAdmin = $(".deleteAdmin");
+deleteAdmin.each(function () {$(this).on('click',function () {
+        let id = String($(this).attr('id')).substring(12)
+        $.ajax({
+            type: 'GET',
+            url: "/developers/delete?id=" + id,
+            dataType: 'text',
+            success: function() {
+                alert("profile has been successfully deleted")
+                window.location = "/developers"
+            }
+        })
+    })
+})
+
+const editAdmin = $(".editAdmin");
+editAdmin.each(function () {$(this).on('click',function () {
+    let id = String($(this).attr('id')).substring(10)
+    $.ajax({
+        type: 'GET',
+        url: "/developers/update?id=" + id,
+        dataType: 'text',
+        success: function() {
+            window.location = "/developers/update?id=" + id;
+        }
+    })
+})
+})
+
+
 

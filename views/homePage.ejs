@@ -40,11 +40,18 @@
                     <li class="nav-item nav-link" id="chat" type="button">
                         GlobalChat
                     </li>
+                    <%if(type === "admin") {%>
+                        <li class="nav-item nav-link" id="newAdmin" type="button">
+                            Create New Admin
+                        </li>
+                    <%}%>
                 </ul>
                 <form class="d-flex">
-                    <input type="text" placeholder="Username" name="username">
-                    <input type="password" placeholder="Password" name="psw">
-                    <button type="submit" class="btn">Login</button>
+                    <%if(user !== null && user !== undefined) {%>
+                        <span id="<%=user._id%>">hello <%=user.username%></span>
+                        <button type="submit" class="btn" id="logout">Logout</button>
+                    <%}%>
+
                 </form>
             </div>
         </nav>

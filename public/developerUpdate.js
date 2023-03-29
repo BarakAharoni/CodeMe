@@ -57,6 +57,14 @@ $("#cancel").click(function () {
     window.location = url
 })
 
+function checkValidPassword(currentPas,newPas){
+    if(currentPas === "" && newPas === ""){return  true;}
+    if(currentPas !== "<%=dev.password%>"){return false;}
+    else if (currentPas === newPas){return false;}
+    else if (newPas === "" && currentPas !== ""){return false;}
+    return true;
+}
+
 $("#submit").click(function (e) {
     const name = document
         .getElementById("nameText")
@@ -84,6 +92,7 @@ $("#submit").click(function (e) {
     const city = document
         .getElementById("cityText")
         .innerHTML;
+    const type = getType();
     if (validateForm(name, username, password, city, github, langs)) {
         if ((picture == null || picture === "")) {
             const imgElement = document.getElementById('defaultImg');
@@ -111,7 +120,8 @@ $("#submit").click(function (e) {
                 github: github,
                 city: city,
                 picture: picture,
-                title: "update profile" + name
+                title: "update profile" + name,
+                type: type
             },
 
             success: function () {

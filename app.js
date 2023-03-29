@@ -8,7 +8,6 @@ const comments = require("./routes/comment");
 const newLocal = require('custom-env');
 newLocal.env(process.env.NODE_ENV, './config');
 
-
 var app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
@@ -35,7 +34,6 @@ app.use(session({
     saveUninitialized: false,
     resave: false
 }))
-app.use("/", require("./routes/login"));
 //app.get("/test", (req,res) => {res.render("../views/test.ejs")});
 app.use("/developers", require("./routes/developer"))
 app.use("/admins", require("./routes/admin"))
@@ -47,18 +45,18 @@ app.get('/chat', (req, res) => { res.sendFile(__dirname + '/views/chat.html'); }
 
 app.use('/jobOffers', jobOffers);
 app.use("/comments", comments);
-app.use('/', developers);
+app.use("/", require("./routes/login"));
 
-io.on('connection', (socket) => 
+io.on('connection', (socket) =>
 {
     socket.broadcast.emit('joined', '');
- 
-    socket.on('disconnect', () => 
+
+    socket.on('disconnect', () =>
     {
         socket.broadcast.emit('disconnected', '');
     });
 
-    socket.on('new message', (msg) => 
+    socket.on('new message', (msg) =>
     {
         io.emit('new message', msg);
     });
