@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="/icon.jpg">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    </head>
+    <body style="background-color: #eee;">
+      <div class="jumbotron pb-1" id="header" style="background-color: white;">
+        <div class="container text-center">
+            <h1>CodeMe;</h1>
+            <p>Connect Between People to Code</p>
+        </div>
+    </div>
+
+    <div>
+    </br>
+    </br>
+  <label>Search</lable>
+  <div class="input-group">
+        <input
+          type="search"
+          class="form-control"
+          id="rating-search-input"
+          placeholder="Rating"
+        >
+        <input
+          type="search"
+          class="form-control"
+          id="content-search-input"
+          placeholder="Content"
+        >
+        <input
+          type="search"
+          class="form-control"
+          id="date-search-input"
+          placeholder="Date"
+        >
+      <button type="button" class="btn btn-outline-dark" onclick="SetFilter()">Filter</button>
+  </div>
+  </div>
+
+    <h2 class="m-5">comments for <%=dev.name%></h2>
+        <%for (let i = 0; i < comments.length; i++) {%>
+          <div class="card m-5" style="font-size: 30px; border-color: black">
+            <div class="card-body clickableDivs" id="<%=comments[i].id%>">
+                <p class="card-text"><p id="p<%=comments[i]._id%>"><%=comments[i].content%></p><p id="card<%=comments[i]._id%>"></p>
+                  <form id="form<%=comments[i]._id%>">
+                    <input type="number" value="<%=comments[i].rating%>" name="rating" style="display: none">
+                  </form>
+                </p>
+                <p style="font-size: 20">
+                  <%for (let j = 0; j < comments[i].rating; j++) {%>
+                    <i class="bi bi-star" style="color: gold"></i>
+                  <%}%>
+                </p>
+                <p class="text-black-50">Publish at: <%=comments[i].date%></p>
+            </div>
+            <p class="id" style="display:none"><%=comments[i]._id%></p>
+          </div>
+        <%}%>
+
+        <script>
+          function SetFilter() {
+            var search_params = {
+              rating: $("#rating-search-input").val(),
+              content: $("#content-search-input").val(),
+              date: $("#date-search-input").val(),
+            };
+
+            var ids = $('.clickableDivs').map(function (_, x) {
+                  return x.id;
+              }).get();
+
+            "<% for (var j = 0; j < comments.length; j++) { %>"
+              var currDiv = document.getElementById(ids["<%=j%>"]); // using j to create the id of the div
+              var curRating = "<%=comments[j].rating%>";
+              var curContent = "<%=comments[j].content%>";
+              var curDate = "<%=comments[j].date%>";
+
+              if (
+                (!search_params.rating || curRating.includes(search_params.rating)) &&
+                (!search_params.content || curContent.includes(search_params.content)) &&
+                (!search_params.date || curDate.includes(search_params.date))
+              ) {
+                currDiv.style.display = "block";
+              } else {
+                currDiv.style.display = "none";
+              }
+            "<% } %>"
+          }
+          </script>
+        <script src="/comments.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    </body>
+</html>
